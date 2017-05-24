@@ -1,0 +1,779 @@
+var jcrStorage = {};
+var journalInformationTabData = {};
+
+function inboundLinking() {
+    Ext.create('JCR.view.home.grid.journal.JournalProfileGrid', {
+        renderTo: Ext.get("journalProfileGrid"),
+        width: '100%',
+        height: '490px'
+    });
+
+    Ext.create('Ext.view.View', {
+        renderTo: 'journalInfo',
+        width: '100%',
+        id: 'journalInfo',
+        autoScroll: true,
+        store: 'filterPanel.JournalInformation',
+        queryMode: 'remote',
+        itemTpl: '<div class="l-wrapper-content"><div class="l-column-content"><div class="content-columns" id="jounaltitleid"><div class="content-detail-columns" id="journaltitlediv">'
+            + ' <h2 style="white-space:normal !important;word-break: normal;" id="journalTitleData">{journalTitle}</h2><span class="detail-sub-title">ISSN: {issn}</span><div class="detail-address">'
+            + ' <p>{publisherName}</p><p>{publisherAddress}</p><div id="country"></div></div>'
+            + ' <ul class="detail-links"><li><a href="{tocUrl}" target="_blank">{%if(values.tocUrl != null && values.tocUrl != ""){%}Go to Journal Table of Contents{%}%}</a></li>'
+            + ' <li><a href="{ulrichUrl}" target="_blank">{%if(values.ulrichUrl != null && values.ulrichUrl != ""){%}Go to Ulrich\'\s{%}%}</a></li></ul></div></div></div><div class="l-column-sidebar"><div class="detail-item">'
+            + ' <span class="detail-item-title">Titles</span><p>ISO: {isoAbbrTitle}</p><p>JCR Abbrev: {abbrJournal}</p></div>'
+            + ' <div><a href="#" class="viewtitlechanges" id="viewtitlechange" onclick="viewTitleChanges()">{%if(values.titleChangeExistsFlag == "Y"){%}'
+            + ' <span>View TitleChanges</span>{%;}%}</a></div><div class="detail-item">' + ' <span class="detail-item-title">Categories</span><p><div id="catName"></div></p></div>'
+            + ' <div class="detail-item"><span class="detail-item-title">Languages</span><p>{language}</p></div><div class="detail-item"><p>{issues} Issues/Year;'
+            + ' {%if(values.openAccessMsg != null && values.openAccessMsg != ""){%}<div class="action-download open-access-icon"></div>{%}%}{openAccessMsg}{%if(values.suppressedYears != null && values.suppressedYears != ""){%}<br>Suppressed in {suppressedYears}{%}%}</p></div>'
+            + ' </div></div>',
+        listeners: {
+            render: function () {
+                Ext.getStore('filterPanel.JournalInformation').load({
+                    params: {
+                        abbrJournal: jcrStorage.abbrJournal,
+                        edition: jcrStorage.journalEdition,
+                        jcrYear: jcrStorage.journalJcrYear
+                    },
+                    callback: function (records, operation, success) {
+                        var journalCategory = "";
+                        var journalCountry = "";
+                        journalInformationTabData = Ext.getStore('filterPanel.JournalInformation').getProxy().reader.rawData.data[0];
+                        journalInformationTabCategories = Ext.getStore('filterPanel.JournalInformation').getProxy().reader.rawData.mapping[0];
+
+                        if (journalInformationTabData.categoryName != null) {
+                            if (journalInformationTabData.categoryName.indexOf(";") != -1) {
+                                var categoryCount = journalInformationTabData.categoryName.split(";");
+                                for (i = 0; i < categoryCount.length; i++) {
+                                    journalCategory = journalCategory + '<div><a href="#" class="category-class">' + categoryCount[i] + ';' + '</a></div>';
+                                }
+                                journalInformationTabData.categoryName = journalCategory;
+                            } else {
+                                journalInformationTabData.categoryName = '<a href="#" class="category-class">' + journalInformationTabData.categoryName + '</a>';
+                            }
+                        }
+
+                        if (journalInformationTabData.country != null) {
+                            if (journalInformationTabData.country.indexOf(",") != -1) {
+                                var countryCount = journalInformationTabData.country.split(",");
+                                for (i = 0; i < countryCount.length; i++) {
+                                    journalCountry = journalCountry + '<div><a href="#" class="country-class">' + countryCount[i] + ';' + '</a></div>';
+                                }
+                                journalInformationTabData.country = journalCountry;
+                            } else {
+                                journalInformationTabData.country = '<a href="#" class="country-class">' + journalInformationTabData.country + '</a>';
+                            }
+                        }
+                        Ext.getCmp('journalInfo').fireEvent('afterrender');
+                    }
+                });
+            },
+            afterrender: function () {
+                Ext.create('Ext.form.field.Display', {
+                    renderTo: Ext.get("country"),
+                    id: 'country',
+                    value: journalInformationTabData.country,
+                    listeners: {
+                        render: function () {
+                            Ext.select('.country-class').each(function (el, c, i) {
+                                el.addListener('click', function (eve, ele, o) {
+                                    Ext.Ajax.request({
+                                        url: 'JcrlogEvent.action?',
+                                        params: {
+                                            type: 'jcr_activity_submit'
+                                        }
+                                    });
+                                    jcrStorage.journalCountries = ele.innerHTML;
+                                    jcrStorage.year = jcrStorage.journalJcrYear;
+                                    jcrStorage.edition = 'Both';
+                                    if (Ext.util.Cookies.get('jcr.breadCrumb')) {
+                                        var navPgs = Ext.util.Cookies.get('jcr.breadCrumb').split('##');
+                                        for (bb = 0; bb < navPgs.length; bb++) {
+                                            NmeVal = [];
+                                            NmeVal = navPgs[bb].split('#');
+                                            if (NmeVal[0].indexOf('Journal Rankings') != -1) {
+                                                navPgs.splice(bb, 1);
+                                                break;
+                                            }
+                                        }
+                                        var bString = '';
+                                        for (bb = 0; bb < navPgs.length; bb++) {
+                                            if (bString == '') bString = navPgs[bb];
+                                            else bString = bString + '##' + navPgs[bb];
+                                        }
+                                        document.cookie = 'jcr.breadCrumb=' + bString;
+                                    }
+                                  //cookies
+                                    //document.cookie = 'jcr.journalHomeStickJournals=';
+                                    localStorage.setItem("journalHomeStickJournals","");
+                                    document.cookie = 'jcr.journalHomeStickCats=';
+                                    document.cookie = 'jcr.journalHomeStickEdition='+jcrStorage.edition;
+                                    document.cookie = 'jcr.journalHomeStickOAFlag=';
+                                    document.cookie = 'jcr.journalHomeStickCatScheme=WoS';
+                                    document.cookie = 'jcr.journalHomeStickJifQuartile=';
+                                    document.cookie = 'jcr.journalHomeStickImpactFrom=';
+                                    document.cookie = 'jcr.journalHomeStickImpactTo=';
+                                    document.cookie = 'jcr.journalHomeStickAverageJifFrom=';
+                                    document.cookie = 'jcr.journalHomeStickAverageJifTo=';
+                                    document.cookie = 'jcr.journalHomeStickPublishers=';
+                                    document.cookie = 'jcr.journalHomeStickJCRYear='+jcrStorage.year;
+                                    document.cookie = 'jcr.journalHomeStickCountries='+jcrStorage.journalCountries;
+                                    document.cookie = 'jcr.breadCrumb=' + Ext.util.Cookies.get('jcr.breadCrumb') + '##Journal Rankings#./JCRHomePageAction.action?pg=JRNLHOME&country=' + jcrStorage.journalCountries + '', '_parent';
+                                    window.open('./JCRJournalHomeAction.action?pg=JRNLHOME&country=' + jcrStorage.journalCountries + '', '_parent');
+                                });
+                            });
+                        }
+                    }
+                });
+
+                Ext.create('Ext.form.field.Display', {
+                    renderTo: Ext.get("catName"),
+                    id: 'category',
+                    value: journalInformationTabData.categoryName,
+                    listeners: {
+                        render: function () {
+                            Ext.select('.category-class').each(function (el, c, i) {
+                                el.on('click', function (eve, ele, o) {
+                                    Ext.Ajax.request({
+                                        url: 'JcrlogEvent.action?',
+                                        params: {
+                                            type: 'jcr_activity_submit'
+                                        }
+                                    });
+                                    var categoryName = ele.innerHTML;
+                                    var categoryNameForId;
+                                    if (categoryName.slice(0, 1) == " ") {
+                                        categoryNameForId = categoryName.trim().replace(/ /gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/,/gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/&amp;/gi, '_');
+                                    } else {
+                                        categoryNameForId = categoryName.trim().replace(/ /g, '_');
+                                        categoryNameForId = categoryNameForId.replace(/,/gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/&amp;/gi, '_');
+                                    }
+                                    jcrStorage.categoryId = journalInformationTabCategories[categoryNameForId.replace(';', '')];
+                                    jcrStorage.year = jcrStorage.journalJcrYear;
+                                    jcrStorage.journalCategories = jcrStorage.categoryId;
+
+                                    Ext.getCmp('categoryMouseOver').close();
+                                    if (Ext.util.Cookies.get('jcr.breadCrumb')) {
+                                        var navPgs = Ext.util.Cookies.get('jcr.breadCrumb').split('##');
+                                        for (bb = 0; bb < navPgs.length; bb++) {
+                                            NmeVal = [];
+                                            NmeVal = navPgs[bb].split('#');
+                                            if (NmeVal[0].indexOf('Journal Rankings') != -1) {
+                                                navPgs.splice(bb, 1);
+                                                break;
+                                            }
+                                        }
+                                        var bString = '';
+                                        for (bb = 0; bb < navPgs.length; bb++) {
+                                            if (bString == '') bString = navPgs[bb];
+                                            else bString = bString + '##' + navPgs[bb];
+                                        }
+                                        document.cookie = 'jcr.breadCrumb=' + bString;
+                                    }
+                                    //cookies
+                                    //document.cookie = 'jcr.journalHomeStickJournals=';
+                                    localStorage.setItem("journalHomeStickJournals","");
+                                    document.cookie = 'jcr.journalHomeStickCats='+jcrStorage.categoryId;
+                                    document.cookie = 'jcr.journalHomeStickEdition='+jcrStorage.journalEdition;
+                                    document.cookie = 'jcr.journalHomeStickOAFlag=';
+                                    document.cookie = 'jcr.journalHomeStickCatScheme=WoS';
+                                    document.cookie = 'jcr.journalHomeStickJifQuartile=';
+                                    document.cookie = 'jcr.journalHomeStickImpactFrom=';
+                                    document.cookie = 'jcr.journalHomeStickImpactTo=';
+                                    document.cookie = 'jcr.journalHomeStickAverageJifFrom=';
+                                    document.cookie = 'jcr.journalHomeStickAverageJifTo=';
+                                    document.cookie = 'jcr.journalHomeStickPublishers=';
+                                    document.cookie = 'jcr.journalHomeStickJCRYear='+jcrStorage.year;
+                                    document.cookie = 'jcr.journalHomeStickCountries=';
+                                    document.cookie = 'jcr.breadCrumb=' + Ext.util.Cookies.get('jcr.breadCrumb') + '##Journal Rankings(' + categoryName.substring(0, categoryName.indexOf('-') - 1).replace('&amp;', '&') + ')#./JCRHomePageAction.action?pg=JRNLHOME&year=' + jcrStorage.year + '&edition=' + jcrStorage.journalEdition + '&categories=' + jcrStorage.categoryId + '', '_parent';
+                                    window.open('./JCRJournalHomeAction.action?pg=JRNLHOME&year=' + jcrStorage.year + '&edition=' + jcrStorage.journalEdition + '&categories=' + jcrStorage.categoryId + '', '_parent');
+
+                                });
+                                el.on('mouseover', function (eve, ele, o) {
+                                    Ext.create('Ext.window.Window', {
+                                        id: 'categoryMouseOver',
+                                        baseCls: 'popupcalculations',
+                                        width: 430,
+                                        height: 300,
+                                        closable: false,
+                                        items: [{
+                                            xtype: 'dataview',
+                                            id: 'journalInformationView',
+                                            store: 'filterPanel.CategoryInformation',
+                                            queryMode: 'remote',
+                                            padding: '10 2 2 2',
+                                            itemTpl: '<br/><div>{scopeNotes}</div>'
+                                        }]
+                                    }).show();
+                                    var categoryName = ele.innerHTML;
+                                    var categoryNameForId;
+                                    if (categoryName.slice(0, 1) == " ") {
+                                        categoryNameForId = categoryName.trim().replace(/ /gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/,/gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/&amp;/gi, '_');
+                                    } else {
+                                        categoryNameForId = categoryName.trim().replace(/ /g, '_');
+                                        categoryNameForId = categoryNameForId.replace(/,/gi, '_');
+                                        categoryNameForId = categoryNameForId.replace(/&amp;/gi, '_');
+                                    }
+                                    jcrStorage.categoryId = journalInformationTabCategories[categoryNameForId.replace(';', '')];
+                                    var categoryInformation = Ext.getCmp('journalInformationView').getStore();
+                                    categoryInformation.load({
+                                        params: {
+                                            categoryId: jcrStorage.categoryId,
+                                            edition: jcrStorage.journalEdition
+                                        }
+                                    });
+
+                                });
+                                el.on('mouseleave', function (eve, ele, o) {
+                                    Ext.getCmp('categoryMouseOver').close();
+                                });
+
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+}
+
+
+function viewTitleChanges(titleChangeExistsFlag) {
+    Ext.Ajax.request({
+        url: 'JournalTitleChangesDataJson.action?',
+        async: false,
+        method: 'GET',
+        params: {
+            abbrJournal: jcrStorage.abbrJournal
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        success: function (response) {
+            var json = Ext.decode(response.responseText);
+            if (json.totalCount > 0) {
+                var titleChangesPopup = Ext.getCmp('journalTitleChangesPopUp');
+                var titleChangesPopupData = json.data;
+                var titleChnagesPopupStore = new Ext.data.Store({
+                    fields: ['newAbbrJournal', 'oldAbbrJournal', 'changeType', 'year', 'edition'],
+                    data: titleChangesPopupData
+                });
+                var cols = [];
+                cols.push({
+                    dataIndex: 'newAbbrJournal',
+                    flex: 1
+                }, {
+                    dataIndex: 'changeType',
+                    flex: 0.4
+                }, {
+                    dataIndex: 'oldAbbrJournal',
+                    flex: 1
+                }, {
+                    dataIndex: 'year',
+                    flex: 0.3
+                });
+                Ext.create('JCR.view.home.JournalTitleChangesPopup');
+                Ext.getCmp('titleChangesGrid').reconfigure(titleChnagesPopupStore, cols);
+
+                if (Ext.getCmp('journalTitleChangesPopUp')) Ext.getCmp('journalTitleChangesPopUp').show();
+                else Ext.create('JCR.view.home.JournalTitleChangesPopup').show();
+            } else {
+                Ext.MessageBox.alert('Error', 'No title changes for this particular journal' + '</br></br>');
+            }
+        }
+    });
+}
+
+var journalInformationTabData = {};
+var journalInformationTabCategories = {};
+var customMask;
+var visualizationFlag = true;
+
+var is_JournalOverview_Loaded = false,
+    is_Rank_Loaded = false,
+    is_CitedJournalData_Loaded = false,
+    is_CitingJournalData_Loaded = false,
+    is_Boxplot_Loaded = false,
+    is_EgoNetwork_Loaded = false,
+    is_ChordNetwork_Loaded = false;
+
+Ext.Loader.setConfig({
+    enabled: true,
+    disableCaching: false
+});
+Ext.Ajax.disableCaching = false;
+
+Ext.application({
+    name: 'JCR',
+    autoCreateViewport: false,
+    appFolder: "common/javascript/jcrapp",
+    controllers: ['journalProfile.JournalProfile'],
+    launch: function () {
+        var issn = getParameterByName('issn');
+        var tab = getParameterByName('tab');
+        var year = getParameterByName('year');
+        var edition = getParameterByName('edition');
+        jcrStorage.issn = getParameterByName('issn');
+        jcrStorage.abbrJournal = getParameterByName('journal');
+        jcrStorage.journalEdition = getParameterByName('edition');
+        jcrStorage.journalJcrYear = getParameterByName('year');
+        jcrStorage.journalTitle = getParameterByName('journalTitle');
+        jcrStorage.journalImpactFactor = getParameterByName('journalImpactFactor');
+
+        if (issn.length != 0 && tab.length != 0) {
+            if (year.length == 0) {
+                jcrStorage.journalJcrYear = currentyear;
+            }
+            if (edition.length != 0) {
+                Ext.Ajax.request({
+                    url: 'SearchJournalsByIssnJson.action',
+                    sync: true,
+                    params: {
+                        issn: jcrStorage.issn,
+                        edition: jcrStorage.journalEdition,
+                        jcrYear: jcrStorage.journalJcrYear
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 120000,
+                    method: 'GET',
+                    success: function (response) {
+                        var json = Ext.decode(response.responseText);
+                        var data = json.data;
+                        jcrStorage.abbrJournal = data[0].abbrJournal;
+                        jcrStorage.journalTitle = data[0].journalTitle;
+                        jcrStorage.journalImpactFactor = data[0].impactFactor;
+                        inboundLinking();
+                        displayRank();
+                        document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                        document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                        document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                    }
+                });
+            } else {
+                Ext.Ajax.request({
+                    url: 'SearchJournalsByIssnJson.action',
+                    sync: true,
+                    params: {
+                        issn: jcrStorage.issn,
+                        edition: "SCIE",
+                        jcrYear: jcrStorage.journalJcrYear
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 120000,
+                    method: 'GET',
+                    success: function (response) {
+                        var json = Ext.decode(response.responseText);
+                        var data = json.data;
+                        var count = json.totalCount;
+                        if (count != 0) {
+                            jcrStorage.abbrJournal = data[0].abbrJournal;
+                            jcrStorage.journalTitle = data[0].journalTitle;
+                            jcrStorage.journalImpactFactor = data[0].impactFactor;
+                            jcrStorage.journalEdition = "SCIE";
+                            inboundLinking();
+                            displayRank();
+                            document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                            document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                            document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                        } else {
+                        	Ext.Ajax.request({
+                        		url: 'SearchJournalsJson.action',
+                        		sync:true,
+                        		params:{
+                        			query: jcrStorage.issn,
+                        		},
+                        		headers:{
+                        			'Content-Type': 'application/json'
+                        		},
+                        		timeout: 120000,
+                        		method: 'GET',
+                        		success: function(response) {
+                        			var json = Ext.decode(response.responseText);
+                                    var data = json.data;
+                                    var index = json.totalCount - 1;
+                                    jcrStorage.abbrJournal = data[index].abbrJournal;
+                                    jcrStorage.journalTitle = data[index].journalTitle;
+                                    jcrStorage.journalEdition = data[index].edition;
+                                    //jcrStorage.journalImpactFactor = data[0].impactFactor;
+                                    inboundLinking();
+                                    displayRank();
+                                    document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                                    document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                                    document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                        		}
+                        	});
+
+                        }
+                    }
+                });
+            }
+        } else if (issn.length != 0 && tab.length == 0) {
+            if (year.length == 0) {
+                jcrStorage.journalJcrYear = currentyear;
+            }
+            if (edition.length != 0) {
+                Ext.Ajax.request({
+                    url: 'SearchJournalsByIssnJson.action',
+                    sync: true,
+                    params: {
+                        issn: jcrStorage.issn,
+                        edition: jcrStorage.journalEdition,
+                        jcrYear: jcrStorage.journalJcrYear
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 120000,
+                    method: 'GET',
+                    success: function (response) {
+                        var json = Ext.decode(response.responseText);
+                        var data = json.data;
+                        jcrStorage.abbrJournal = data[0].abbrJournal;
+                        jcrStorage.journalTitle = data[0].journalTitle;
+                        jcrStorage.journalImpactFactor = data[0].impactFactor;
+                        inboundLinking();
+                        displayJournalOverview();
+                        document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                        document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                        document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                    }
+                });
+            } else {
+                Ext.Ajax.request({
+                    url: 'SearchJournalsByIssnJson.action',
+                    sync: true,
+                    params: {
+                        issn: jcrStorage.issn,
+                        edition: "SCIE",
+                        jcrYear: jcrStorage.journalJcrYear
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 120000,
+                    method: 'GET',
+                    success: function (response) {
+                        var json = Ext.decode(response.responseText);
+                        var data = json.data;
+                        var count = json.totalCount;
+                        if (count != 0) {
+                            jcrStorage.abbrJournal = data[0].abbrJournal;
+                            jcrStorage.journalTitle = data[0].journalTitle;
+                            jcrStorage.journalImpactFactor = data[0].impactFactor;
+                            jcrStorage.journalEdition = "SCIE";
+                            inboundLinking();
+                            displayJournalOverview();
+                            document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                            document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                            document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                        } else {
+                            Ext.Ajax.request({
+                                url: 'SearchJournalsByIssnJson.action',
+                                sync: true,
+                                params: {
+                                    issn: jcrStorage.issn,
+                                    edition: "SSCI",
+                                    jcrYear: jcrStorage.journalJcrYear
+                                },
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                timeout: 120000,
+                                method: 'GET',
+                                success: function (response) {
+                                    var json = Ext.decode(response.responseText);
+                                    var data = json.data;
+                                    jcrStorage.abbrJournal = data[0].abbrJournal;
+                                    jcrStorage.journalTitle = data[0].journalTitle;
+                                    jcrStorage.journalImpactFactor = data[0].impactFactor;
+                                    jcrStorage.journalEdition = "SSCI";
+                                    inboundLinking();
+                                    displayJournalOverview();
+                                    document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+                                    document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+                                    document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+                                }
+                            });
+
+                        }
+                    }
+                });
+            }
+        } else {
+            inboundLinking();
+            displayJournalOverview();
+        }
+
+        document.cookie = "jcr.abbrJournal=" + encodeURIComponent(jcrStorage.abbrJournal);
+        document.cookie = "jcr.journalEdition=" + jcrStorage.journalEdition;
+        document.cookie = "jcr.journalJcrYear=" + jcrStorage.journalJcrYear;
+        var country = './JCRJournalHomeAction.action?&country';
+        Ext.create('Ext.form.field.Display', {
+            renderTo: 'breadScrumb',
+            id: 'breadScrumb',
+            value: breadScrumb()
+        });
+    }
+});
+
+function manageLinkColor(selectorName) {
+    var linkColor = '#005a84';
+    $('#link_sourceData').css('color', linkColor);
+    $('#link_rank').css('color', linkColor);
+    $('#link_citedJournalData').css('color', linkColor);
+    $('#link_citingJournalData').css('color', linkColor);
+    $('#link_journalBoxplot').css('color', linkColor);
+    $('#link_egoNetwork').css('color', linkColor);
+    $('#link_chordNetwork').css('color', linkColor);
+
+    if (null != selectorName || '' != selectorName) $(selectorName).css('color', 'black');
+}
+
+function manageDisplay(selectorName) {
+    $('#section_journalOverview').hide();
+    $('#section_rank').hide();
+    $('#section_aggCitedJournalData').hide();
+    $('#section_aggCitingJournalData').hide();
+    $('#section_journalBoxplot').hide();
+    $('#section_egoNetwork').hide();
+    $('#section_chordNetwork').hide();
+
+    var liLastItemId = $("ul.Journal-sidepanel li").last().attr('id');
+    if (liLastItemId == "#li_metric" || liLastItemId == "#li_aggcited" || liLastItemId == "#li_aggciting") {
+        $("ul.Journal-sidepanel li").last().remove();
+    }
+
+    $("#inner_metricTrend").html("");
+    $('#section_metricTrend').hide();
+
+    $('#journal_aggCitedHalfLife').html("");
+    $('#journal_aggcitedGraph').html("");
+    $('#section_aggCitedHalfLife').hide();
+
+    $('#journal_aggCitingHalfLife').html("");
+    $('#journal_aggcitingGraph').html("");
+    $('#section_aggCitingHalfLife').hide();
+
+    var sidePanelId = "",
+        sidePanelName = "";
+    if (selectorName == '#section_metricTrend' || selectorName == '#section_aggCitedHalfLife' || selectorName == '#section_aggCitingHalfLife') {
+        if (selectorName == '#section_metricTrend') {
+            sidePanelId = '#li_metric';
+            sidePanelName = "Metric Trend";
+        } else if (selectorName == '#section_aggCitedHalfLife') {
+            sidePanelId = '#li_aggcited';
+            sidePanelName = "Cited Half-Life";
+        } else if (selectorName == '#section_aggCitingHalfLife') {
+            sidePanelId = '#li_aggciting';
+            sidePanelName = "Citing Half-Life";
+        }
+        var liHtml = "<li id='" + sidePanelId + "'>" + sidePanelName + "</li>";
+        $(".Journal-sidepanel").append(liHtml);
+    }
+
+    $(selectorName).show();
+}
+
+function displayJournalOverview() {
+    manageLinkColor('#link_sourceData');
+    manageDisplay('#section_journalOverview');
+    if (!is_JournalOverview_Loaded) {
+        is_JournalOverview_Loaded = true;
+        Ext.create('JCR.view.journalProfile.grids.JournalInformationGrid', {
+            renderTo: Ext.get("journalSourceData"),
+            width: '715px',
+            height: '181px'
+        });
+    }
+}
+
+function displayRank() {
+    manageLinkColor('#link_rank');
+    manageDisplay('#section_rank');
+    if (!is_Rank_Loaded) {
+        is_Rank_Loaded = true;
+        Ext.create('JCR.view.journalProfile.tabs.JCRImpactFacorGridAndGraph', {
+            renderTo: 'jcr_impact_factor',
+            width: '715px',
+            height: '400px'
+        });
+        Ext.create('JCR.view.journalProfile.tabs.ESITotalCitationsGridAndGraph', {
+            renderTo: 'esi_total_citations',
+            width: '715px',
+            height: '400px'
+        });
+    }
+}
+
+function displayCitedJournalData() {
+    manageLinkColor('#link_citedJournalData');
+    manageDisplay('#section_aggCitedJournalData');
+    if (!is_CitedJournalData_Loaded) {
+        is_CitedJournalData_Loaded = true;
+        Ext.create('JCR.view.journalProfile.grids.AggregatedHLCited', {
+            renderTo: 'aggregatedCitedJournalData',
+            id: 'journalCitedHLGrid',
+            width: '715px',
+            height: '85px'
+        });
+        Ext.create('JCR.view.journalProfile.graphs.AggregateCited', {
+            renderTo: 'aggregateCited',
+            id: 'journalAggCitedGraph1',
+            width: '468px',
+            height: '400px'
+        });
+        Ext.create('JCR.view.journalProfile.grids.CitedCategoryData', {
+            renderTo: 'citedJournalData',
+            id: 'journalCitedGrid',
+            width: '715px',
+            height: '400px'
+        });
+    }
+}
+
+function displayCitingJournalData() {
+    manageLinkColor('#link_citingJournalData');
+    manageDisplay('#section_aggCitingJournalData');
+    if (!is_CitingJournalData_Loaded) {
+        is_CitingJournalData_Loaded = true;
+        Ext.create('JCR.view.journalProfile.grids.AggregatedHLCiting', {
+            renderTo: 'aggregatedCitingJournalData',
+            id: 'journalAggCitingHLGrid',
+            width: '715px',
+            height: '85px'
+        });
+        Ext.create('JCR.view.journalProfile.graphs.AggregateCiting', {
+            renderTo: 'aggregateCitingGph',
+            id: 'journalAggCitingGraph',
+            width: '465px',
+            height: '400px'
+        });
+        Ext.create('JCR.view.journalProfile.grids.CitingJournalData', {
+            renderTo: 'citingJournalData',
+            id: 'journalCitingHLgrid',
+            width: '715px',
+            height: '400px'
+        });
+    }
+}
+
+function displayBoxplot() {
+    manageLinkColor('#link_journalBoxplot');
+    manageDisplay('#section_journalBoxplot');
+    if (!is_Boxplot_Loaded) {
+        is_Boxplot_Loaded = true;
+        var boxplotContent = "";
+        if (jcrStorage.journalTitle != undefined && jcrStorage.journalTitle != null) {
+            boxplotContent += "<p align='center' style='font-weight:bold;padding:10px'>" + jcrStorage.journalTitle;
+            if (jcrStorage.journalImpactFactor != undefined && jcrStorage.journalImpactFactor != null && jcrStorage.journalImpactFactor != "")
+            {
+                boxplotContent += ", IF: " + jcrStorage.journalImpactFactor;
+            }
+            else 
+            {
+            	var index = Ext.getCmp('journalProfileGrid2').getStore().getAt(0).get('year') - jcrStorage.journalJcrYear;
+            	var jif = Ext.getCmp('journalProfileGrid2').getStore().getAt(index).get('journalImpactFactor');
+            	if(jif==undefined || jif==null)
+            		{
+            			boxplotContent += ", IF: Not Available";
+            		}
+            	else
+            		{
+	            		boxplotContent += ", IF: " + jif;
+	            	}
+            }
+            boxplotContent += "</p>";
+        }
+        boxplotContent += " <iframe id='journalboxplot' src='common/javascript/jcrapp/visualization/journalBoxplot.html'"
+            + " name='targetframe' allowtransparency='true' scrolling='yes' frameborder='0' width='468px' height='555px'></iframe>";
+        $("#boxplot").html(boxplotContent);
+    }
+}
+
+function displayEgoNetwork() {
+    manageLinkColor('#link_egoNetwork');
+    manageDisplay('#section_egoNetwork');
+    if (!is_EgoNetwork_Loaded) {
+        is_EgoNetwork_Loaded = true;
+        Ext.create('JCR.view.journalProfile.tabs.EgoNetwork', {
+            renderTo: 'ego',
+            width: '725px',
+            height: '400px'
+        });
+    }
+}
+
+function displayChordNetwork() {
+    manageLinkColor('#link_chordNetwork');
+    manageDisplay('#section_chordNetwork');
+    if (!is_ChordNetwork_Loaded) {
+        is_ChordNetwork_Loaded = true;
+        var chordContent = " <iframe id='chordNetworkFrame' src='common/javascript/jcrapp/visualization/chordNetwork.html'"
+            + " name='targetframe' allowtransparency='true' scrolling='no' frameborder='0' width='715px' height='580px'></iframe>";
+        $("#chord").html(chordContent);
+    }
+}
+
+function displayMetricTrend() {
+    manageLinkColor('');
+    manageDisplay('#section_metricTrend');
+    Ext.create('JCR.view.journalProfile.tabs.JournalMetricTrend', {
+        renderTo: 'inner_metricTrend',
+        width: '715px',
+        height: '400px'
+    });
+}
+
+function displayCitableMetricTrend() {
+    manageLinkColor('');
+    manageDisplay('#section_metricTrend');
+    Ext.create('JCR.view.journalProfile.tabs.JournalCitableMetricTrend', {
+        renderTo: 'inner_metricTrend',
+        width: '715px',
+        height: '400px'
+    });
+}
+
+function displayCitedHalfLife() {
+    manageLinkColor('');
+    manageDisplay('#section_aggCitedHalfLife');
+    Ext.create('JCR.view.journalProfile.grids.AggHLCited', {
+        renderTo: 'journal_aggCitedHalfLife',
+        id: 'journalCitedHLGrid2',
+        width: '715px',
+        height: '85px'
+    });
+    Ext.create('JCR.view.journalProfile.graphs.AggCited', {
+        renderTo: 'journal_aggcitedGraph',
+        id: 'journal_AggCitedGraph21',
+        width: '468px',
+        height: '400px'
+    });
+}
+
+function displayCitingHalfLife() {
+    manageLinkColor('');
+    manageDisplay('#section_aggCitingHalfLife');
+    Ext.create('JCR.view.journalProfile.grids.AggHLCiting', {
+        renderTo: 'journal_aggCitingHalfLife',
+        id: 'journalCitingHLGrid2',
+        width: '715px',
+        height: '85px'
+    });
+    Ext.create('JCR.view.journalProfile.graphs.AggCiting', {
+        renderTo: 'journal_aggcitingGraph',
+        id: 'journal_AggCitingGraph21',
+        width: '468px',
+        height: '400px'
+    });
+}

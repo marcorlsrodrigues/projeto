@@ -1,0 +1,15 @@
+Ext.define('JCR.store.filterPanel.CategoryInformation', {
+    extend: 'Ext.data.Store',
+    requires: 'JCR.model.filterPanel.CategoryInformation',
+    model: 'JCR.model.filterPanel.CategoryInformation',
+    proxy: {
+        type: 'ajax',
+        url: 'CategoryScopeNotesJson.action',
+        timeout: '120000',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+
+});

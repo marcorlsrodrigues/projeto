@@ -1,0 +1,15 @@
+Ext.define('JCR.model.grids.JournalProfile', {
+
+    extend: 'Ext.data.Model',
+    fields: [{name:'year'}, {name:'edition'}, {name:'totalCites',type:'int',useNull:true},{name:'selfCites'}, {name:'impactFactorSelfCites',type:'float',useNull:true},
+
+        {name:'journalImpactFactor',type:'float',useNull:true}, {name:'impactFactorWithoutJournalSelfCites',type:'float',useNull:true}, {name:'fiveYearImpactFactor',type:'float',useNull:true},
+
+        {name:'immediacyIndex',type:'float',useNull:true}, {name:'citableItems',type:'int',useNull:true},{name: 'citedHalfLife',type:'float',useNull:true},{name:'citingHalfLife',type:'float',useNull:true},
+
+        {name:'eigenFactorScore',type:'float',useNull:true},{name:'cites'}, {name:'articles'}, {name:'articleInfluenceScore'},{name:'originalResearch'}, 
+
+        {name:'totalArticles',type:'int',useNull:true}, {name:'totalReviews',type:'int',useNull:true},{name: 'articlesCurrent'}, {name:'citesCurrent'}, {name:'url'}, {name:'normEigenFactor'}, {name:'avgJifPercentile'} ]
+
+});
+

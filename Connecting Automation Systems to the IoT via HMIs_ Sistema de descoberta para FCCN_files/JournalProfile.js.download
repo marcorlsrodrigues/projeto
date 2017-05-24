@@ -1,0 +1,5 @@
+Ext.define('JCR.controller.journalProfile.JournalProfile', {
+    extend: 'Ext.app.Controller',
+    stores: [ 'filterPanel.CategoryInformation','filterPanel.JournalInformation','grids.JournalInformationGrid','graphs.journal.AggCited','graphs.journal.AggregateCited','graphs.journal.AggregateCiting','grids.JournalProfile',
+         	  'graphs.JCRImpactFactor','grids.ESITotalCitations','graphs.journal.AggCiting', 'graphs.TrendComparisonChartStore']
+});

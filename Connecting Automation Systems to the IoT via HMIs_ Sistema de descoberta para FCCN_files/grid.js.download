@@ -1,0 +1,58 @@
+main(function () {
+	
+	by('class:dynamiccell').each(function () {
+
+		var minsvg=new Grape('svg').viewbox(0,0,32,32).width(32).height(32).style('position','absolute').style('top','2px').style('right','2px');
+		var icn=new Grape();
+		icn.x(16).y(16);
+		icn.lineStyle(0).beginFill('rgb(242,243,246)',1).rect(-16,-16,32,32);
+		icn.lineStyle(2, 'rgb(150,150,150)', 1);
+		icn.line(0,-8,0,8);
+		icn.line(-8,0,8,0);
+		icn.addTo(minsvg);
+		icn._state_gridjs=0;
+		
+		var he=this.by('class:cellheader').item(0);
+		var slide1=this.by('class:cellslide').item(0);
+		
+
+		if (he && slide1 ) {
+			var slide
+			he.addChild(minsvg);
+			icn.clic(function () {
+				this.stop();
+				slide1.stop();
+				
+				var slidewidth=slide1.getBBox().width;
+				if (this._state_gridjs==0) {
+					this._state_gridjs=1;
+					this.animate(200).ease('out').rotate(-90).opacity(1).meanwhile(function (mom,pos) {
+							icn.clear();
+							icn.lineStyle(0).beginFill('rgb(242,243,246)',0.8).rect(-16,-16,32,32);
+							icn.lineStyle(2, 'rgb(150,150,150)', 1);
+							icn.line(0,-8,0,8,false);
+							icn.line(-8,0,0,-8*pos,false);
+							icn.line(0,-8*pos,8,0,false);	
+					});
+					slide1.animate(200).style('left','-'+slidewidth+'px').style('right',slidewidth+'px').opacity(0);
+				} else {
+					this._state_gridjs=0;
+					this.animate(200).ease('out').rotate(0).meanwhile(function (mom,pos) {
+							icn.clear();
+							icn.lineStyle(0).beginFill('rgb(242,243,246)',0.8).rect(-16,-16,32,32);
+							icn.lineStyle(2, 'rgb(150,150,150)', 1);
+							icn.line(0,-8,0,8,false);
+							icn.line(-8,0,0,-8+8*pos,false);
+							icn.line(0,-8+8*pos,8,0,false);
+							
+							
+					});
+					slide1.animate(200).ease('out').style('left','0px').style('right','0px').opacity(1);
+				}
+			});
+		}
+		
+	})
+
+	
+});

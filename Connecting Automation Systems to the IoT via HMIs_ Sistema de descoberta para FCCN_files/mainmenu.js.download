@@ -1,0 +1,11 @@
+main(function () {
+var nav=by('id:mainmenu');
+        by('id:menu_boton').clic(function () {
+          if (nav.style('display')=='block') {
+            nav.stop().animate(200).opacity(0).done(function () {this.style('display','none');});
+          } else {
+            nav.stop().opacity(0).style('display','block').animate(200).opacity(1);
+            //nav.style('display','block');
+          }
+        });
+});

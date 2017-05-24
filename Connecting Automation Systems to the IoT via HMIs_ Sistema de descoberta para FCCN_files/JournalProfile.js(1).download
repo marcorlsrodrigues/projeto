@@ -1,0 +1,17 @@
+Ext.define('JCR.store.grids.JournalProfile', {
+    extend: 'Ext.data.Store',
+    model: 'JCR.model.grids.JournalProfile',
+    sorters: [{
+        property: 'year',
+        direction: 'DESC'
+    }],
+    proxy: {
+        type: 'ajax',
+        url: 'JournalProfileGraphDataJson.action',
+        timeout: '120000',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});

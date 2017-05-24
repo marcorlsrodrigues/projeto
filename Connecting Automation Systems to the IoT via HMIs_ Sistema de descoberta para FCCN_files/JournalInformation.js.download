@@ -1,0 +1,15 @@
+Ext.define('JCR.store.filterPanel.JournalInformation', {
+    extend: 'Ext.data.Store',
+    requires: 'JCR.model.filterPanel.JournalInformation',
+    model: 'JCR.model.filterPanel.JournalInformation',
+    proxy: {
+        type: 'ajax',
+        url: 'JournalInformationDataJson.action?',
+        timeout: '120000',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+
+});

@@ -1,0 +1,13 @@
+Ext.define('JCR.store.graphs.journal.AggCited', {
+    extend: 'Ext.data.Store',
+    requires: 'JCR.model.graphs.AggregateCited',
+    model: 'JCR.model.graphs.AggregateCited',
+    proxy: {
+        type: 'ajax',
+        url: 'AggJournalCitedHalfLifeGraphJson.action?',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});

@@ -1,0 +1,13 @@
+Ext.define('JCR.store.grids.ESITotalCitations', {
+    extend: 'Ext.data.Store',
+    model: 'JCR.model.grids.ESITotalCitations',
+    proxy: {
+        type: 'ajax',
+
+        url: 'ESITotalCitationsJson.action',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});

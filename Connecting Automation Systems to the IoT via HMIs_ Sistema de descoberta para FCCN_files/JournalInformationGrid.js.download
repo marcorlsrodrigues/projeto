@@ -1,0 +1,13 @@
+Ext.define('JCR.store.grids.JournalInformationGrid', {
+    extend: 'Ext.data.Store',
+    storeId: 'journalinformationgrid',
+    model: 'JCR.model.grids.JournalInformationGrid',
+    proxy: {
+        type: 'ajax',
+        url: 'JournalAggregateSourceDataJson.action',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});

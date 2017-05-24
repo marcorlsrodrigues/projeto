@@ -1,0 +1,4 @@
+Ext.define('JCR.model.grids.JournalInformationGrid', {
+    extend: 'Ext.data.Model',
+    fields: ['name', 'articles', 'reviews', 'combined', 'otherItems']
+});

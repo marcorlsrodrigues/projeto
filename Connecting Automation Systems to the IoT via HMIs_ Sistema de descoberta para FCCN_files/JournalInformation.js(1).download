@@ -1,0 +1,4 @@
+Ext.define('JCR.model.filterPanel.JournalInformation', {
+    extend: 'Ext.data.Model',
+    fields: ['abbrJournal','categoryIDs','categoryName','country','edition','isoAbbrTitle','issn','issues','journalTitle','language','openAccessMsg','publisherAddress','publisherName','titleChangeExistsFlag','tocUrl','ulrichUrl', 'suppressedYears']
+});

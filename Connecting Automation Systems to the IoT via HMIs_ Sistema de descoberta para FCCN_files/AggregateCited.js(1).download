@@ -1,0 +1,7 @@
+Ext.define('JCR.model.graphs.AggregateCited', {
+    extend: 'Ext.data.Model',
+    fields: [{ name: 'citedYears' },
+             { name: 'numberOfCites', type: 'int' },
+             { name: 'selfCites', type: 'int' },
+             { name: 'halfLife', type: 'int' }]
+});

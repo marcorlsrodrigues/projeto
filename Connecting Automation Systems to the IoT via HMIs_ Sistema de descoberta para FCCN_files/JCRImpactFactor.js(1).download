@@ -1,0 +1,6 @@
+Ext.define('JCR.model.graphs.JCRImpactFactor', {
+    extend: 'Ext.data.Model',
+    fields: ['year', 'category1', 'category2',
+        'category3', 'category4', 'category5',
+        'category6', 'impactFactor']
+});

@@ -1,0 +1,14 @@
+Ext.define('JCR.store.graphs.JCRImpactFactor', {
+    extend: 'Ext.data.Store',
+    requires: 'JCR.model.graphs.JCRImpactFactor',
+    model: 'JCR.model.graphs.JCRImpactFactor',
+    autoLoad: false,
+    proxy: {
+        type: 'ajax',
+        url: 'JCRImpactFactorJson.action',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});
