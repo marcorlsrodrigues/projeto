@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-05-21" view-index="0" gantt-divider-location="470" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-04-01" view-index="0" gantt-divider-location="414" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:5" id="gantt-chart">
-        <field id="tpd3" name="Name" width="272" order="0"/>
-        <field id="tpd4" name="Begin date" width="82" order="1"/>
-        <field id="tpd5" name="End date" width="112" order="2"/>
+    <view zooming-state="default:9" id="gantt-chart">
+        <field id="tpd3" name="Name" width="238" order="0"/>
+        <field id="tpd4" name="Begin date" width="73" order="1"/>
+        <field id="tpd5" name="End date" width="99" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -38,7 +38,7 @@
         <task id="4" name="Desenvolvimento - LPII" meeting="false" start="2017-06-16" duration="14" complete="0" expand="true"/>
         <task id="5" name="Relatório + Apresentação - LPII" meeting="false" start="2017-07-06" duration="5" complete="0" expand="true"/>
         <task id="8" name="Desenvolvimento - Projeto" meeting="false" start="2017-10-02" duration="66" complete="0" expand="true"/>
-        <task id="10" name="Relatório + Apresentação - Projeto" meeting="false" start="2018-01-02" duration="285" complete="0" expand="true"/>
+        <task id="10" name="Relatório + Apresentação - Projeto" meeting="false" start="2018-01-02" duration="24" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
