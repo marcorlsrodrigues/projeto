@@ -1,0 +1,34 @@
+Introdução
+	Contexto e Motivação
+	Objetivos
+	Estrutura do Documento
+
+Web para Automação
+	Introdução
+	Fabrico Aditivo
+	Automação
+	Human-Machine Interfaces
+	Tecnologias Web
+	Tecnologias Utilizadas
+		Twincat
+		Tecnologias Web
+		Base de Dados
+		Outras
+
+Estudo do Estado da Arte
+	Caso 1
+	Caso 2
+	Caso N
+
+Análise do Problema (X)
+
+Desenvolvimento do Projeto (X)
+
+Conclusões (X)
+
+Referências
+
+Anexos
+	
+
+
