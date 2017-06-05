@@ -3,22 +3,25 @@ Introdução
 	Objetivos
 	Estrutura do Documento
 
-Web para Automação
+Estado da Arte 
 	Introdução
-	Fabrico Aditivo
 	Automação
-	Human-Machine Interfaces
-	Tecnologias Web
+		Human-Machine Interfaces
+	Software para Automação
+	Fabrico Aditivo
+	A Evolução da Web (como e que cresceu de algo estatico para tempo real)
+	Web para Automação -> referir interseção entre automação e web
 	Tecnologias Utilizadas
 		Twincat
 		Tecnologias Web
 		Base de Dados
 		Outras
 
-Estudo do Estado da Arte
-	Caso 1
-	Caso 2
-	Caso N
+	Casos de Estudo
+		Controlo e Automação na Indústria
+		Sistemas Web-Based para Controlo e Automação
+		Realidade Aumentada na Indústria
+		
 
 Análise do Problema (X)
 
