@@ -1,5 +1,6 @@
 Introdução
 	Contexto e Motivação
+	Problema
 	Objetivos
 	Estrutura do Documento
 
@@ -9,14 +10,7 @@ Estado da Arte
 		Human-Machine Interfaces
 	Software para Automação
 	Fabrico Aditivo
-	A Evolução da Web (como e que cresceu de algo estatico para tempo real)
-	Web para Automação -> referir interseção entre automação e web
-	Tecnologias Utilizadas
-		Twincat
-		Tecnologias Web
-		Base de Dados
-		Outras
-
+	Web para Automação -> mistura de todos capítulos que envolviam web e referir interseção entre automação e web
 	Casos de Estudo
 		Controlo e Automação na Indústria
 		Sistemas Web-Based para Controlo e Automação
