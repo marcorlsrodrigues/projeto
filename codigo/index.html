@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>HMI for Additive Manufacturing</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="container">
+	    <a class="power-button"><i class="fa fa-power-off"></i></a>
+	    <div class="axis-send-to">
+		    <label id="icon" for="x-axis-send-to">X</label>
+		    <input type="text" name="x-axis-send-to" id="x-axis-send-to"/>
+		    <label id="icon" for="y-axis-send-to">Y</label>
+		    <input type="text" name="y-axis-send-to" id="y-axis-send-to"/>
+		    <label id="icon" for="z-axis-send-to">Z</label>
+		    <input type="text" name="z-axis-send-to" id="z-axis-send-to"/>
+		    <span id="btn-axis-send-to">Send To</span>
+	    </div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
