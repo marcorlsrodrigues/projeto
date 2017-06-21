@@ -18,6 +18,16 @@
 		    <input type="text" name="z-axis-send-to" id="z-axis-send-to"/>
 		    <span id="btn-axis-send-to">Send To</span>
 	    </div>
+	    <div id="progress-bars">
+	    	<div class="Progress">
+			    <span class="Progress-label" id="Progress-id">X: <strong id="strong-x-pos"></strong></span>
+			    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-x-pos">
+			        <div class="Progress-bar" role="presentation">
+			            <span id="span-x-pos" class="Progress-value">&nbsp;</span>
+			        </div>
+			    </progress>
+			</div><!--Progress-->
+	    </div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>

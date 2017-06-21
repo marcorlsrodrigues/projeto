@@ -56,15 +56,39 @@ var hl_PowerBOn = {
     propname: 'value'      
 };
 
+var hl_set_x_pos = {
+    symname: 'MoveAxisToSet_X.SET_X_POS_MR',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_set_y_pos = {
+    symname: 'MoveAxisToSet_Y.SET_Y_POS_MR',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_set_z_pos = {
+    symname: 'MoveAxisToSet_Z.SET_Z_POS_MR',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_temperature = {
+    symname: 'MAIN.temperature',  
+    bytelength: ads.LREAL,
+    propname: 'value'    
+};
+
+var hl_humidity = {
+    symname: 'MAIN.humidity',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
 //para notificar!
 /*client = ads.connect(options, function() {
-    this.notify(myHandle);
-    myHandle.value = 'Node JS';
-    this.write(myHandle, function(err) {
-        this.read(myHandle, function(err, handle) {
-            console.log(handle.value);
-        });
-    });
+    this.notify(hl_temperature);
 });*/
 
 //para escrever!
@@ -80,23 +104,10 @@ client = ads.connect(options, function() {
             this.end();
         });
     });
-});
+});*/
 
 
-client.on('notification', function(handle){
-    console.log(handle.value);
-});
 
-process.on('exit', function () {
-    console.log("exit");
-});
-
-process.on('SIGINT', function() {
-    client.end(function() {
-        process.exit();
-    });
-});
-*/
 
 
 /*
@@ -163,27 +174,71 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection',function(socket){
     console.log('Client connected');
 
-    // When the server receives a “message” type signal from the client   
-    socket.on('message', function (message) {
-        console.log('A client is speaking to me! They’re saying: ' + message);
-    });
-
     socket.on('power', function (power) {
-        console.log('A client is speaking to me! They’re saying: ' + power);
-
         client = ads.connect(options, function() {
             hl_PowerBOn.value = power;
-            console.log(hl_PowerBOn);
             this.write(hl_PowerBOn, function(err) {
                 console.log('err: '+ err);
                 this.read(hl_PowerBOn, function(err, handle) {
-                    console.log(handle);
                     console.log(err);
                     this.end();
                 });
             });
         });
     }); 
+
+    socket.on('sendto',function(sendto){
+        client = ads.connect(options, function() {
+            //write x axis
+            hl_set_x_pos.value = sendto[0];
+            this.write(hl_set_x_pos, function(err) {
+                console.log('err: '+ err);
+                this.read(hl_set_x_pos, function(err, handle) {
+                    console.log(err);
+                    this.end();
+                });
+            });
+
+            //write y axis
+            hl_set_y_pos.value = sendto[1];
+            this.write(hl_set_y_pos, function(err) {
+                console.log('err: '+ err);
+                this.read(hl_set_y_pos, function(err, handle) {
+                    console.log(err);
+                    this.end();
+                });
+            });
+
+            //write z axis
+            hl_set_z_pos.value = sendto[2];
+            this.write(hl_set_z_pos, function(err) {
+                console.log('err: '+ err);
+                this.read(hl_set_z_pos, function(err, handle) {
+                    console.log(err);
+                    this.end();
+                });
+            });
+        });
+    });
+
+    client = ads.connect(options, function() {
+        this.notify(hl_temperature);
+    });
+    client.on('notification', function(handle){
+        console.log(handle.value);
+        socket.emit('temperature', handle.value);
+    });
+
+    process.on('exit', function () {
+        console.log("exit");
+    });
+
+    process.on('SIGINT', function() {
+        client.end(function() {
+            process.exit();
+        });
+    });
+
 });
 
 server.listen(8080);
