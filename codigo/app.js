@@ -74,6 +74,12 @@ var hl_set_z_pos = {
     propname: 'value'      
 };
 
+var hl_gcode_filename = {
+    symname: 'GVL_GCODE.g_strProgram_AUX',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
 var hl_temperature = {
     symname: 'MAIN.temperature',  
     bytelength: ads.LREAL,
@@ -222,11 +228,12 @@ io.sockets.on('connection',function(socket){
     });
 
     client = ads.connect(options, function() {
-        this.notify(hl_temperature);
+        this.notify(hl_set_x_pos);
+        this.notify(hl_set_y_pos);
+        this.notify(hl_set_z_pos);
     });
     client.on('notification', function(handle){
-        console.log(handle.value);
-        socket.emit('temperature', handle.value);
+        socket.emit(handle.symname, handle.value );
     });
 
     process.on('exit', function () {

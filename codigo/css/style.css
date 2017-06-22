@@ -74,7 +74,7 @@ input[type=text]{
   width: 250px;
 }
 
-#btn-axis-send-to{
+.btn-send-to{
   text-align:center;
   margin:10px auto;
   padding: 20px 0px;
@@ -108,11 +108,11 @@ input[type=text]{
   transition: all .05s linear;
 }
 
-#btn-axis-send-to:hover{
+.btn-send-to:hover{
   background-position:100px;
 }
 
-#btn-axis-send-to:active {
+.btn-send-to:active {
   box-shadow: 2px 2px 2px #777;
   border-bottom:1px solid #0045A6;
   transform: translateY(3px);

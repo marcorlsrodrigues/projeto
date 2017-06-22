@@ -8,15 +8,21 @@
 </head>
 <body>
 	<div id="container">
-	    <a class="power-button"><i class="fa fa-power-off"></i></a>
+	    <div id="div-power-button">
+	    	<a class="power-button"><i class="fa fa-power-off"></i></a>
+	    </div>
 	    <div class="axis-send-to">
-		    <label id="icon" for="x-axis-send-to">X</label>
-		    <input type="text" name="x-axis-send-to" id="x-axis-send-to"/>
-		    <label id="icon" for="y-axis-send-to">Y</label>
-		    <input type="text" name="y-axis-send-to" id="y-axis-send-to"/>
-		    <label id="icon" for="z-axis-send-to">Z</label>
-		    <input type="text" name="z-axis-send-to" id="z-axis-send-to"/>
-		    <span id="btn-axis-send-to">Send To</span>
+	    	<div id="axis-send">
+			    <label id="icon" for="x-axis-send-to">X</label>
+			    <input type="text" name="x-axis-send-to" id="x-axis-send-to"/>
+			    <label id="icon" for="y-axis-send-to">Y</label>
+			    <input type="text" name="y-axis-send-to" id="y-axis-send-to"/>
+			    <label id="icon" for="z-axis-send-to">Z</label>
+			    <input type="text" name="z-axis-send-to" id="z-axis-send-to"/>
+		    </div>
+		    <div class="btn-axis-send">
+		    	<span id="btn-axis-send-to" class="btn-send-to">Send To</span>
+		    </div>
 	    </div>
 	    <div id="progress-bars">
 	    	<div class="Progress">
@@ -27,7 +33,33 @@
 			        </div>
 			    </progress>
 			</div><!--Progress-->
+			<div class="Progress">
+			    <span class="Progress-label" id="Progress-id">Y: <strong id="strong-y-pos"></strong></span>
+			    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-y-pos">
+			        <div class="Progress-bar" role="presentation">
+			            <span id="span-y-pos" class="Progress-value">&nbsp;</span>
+			        </div>
+			    </progress>
+			</div><!--Progress-->
+			<div class="Progress">
+			    <span class="Progress-label" id="Progress-id">Z: <strong id="strong-z-pos"></strong></span>
+			    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-z-pos">
+			        <div class="Progress-bar" role="presentation">
+			            <span id="span-z-pos" class="Progress-value">&nbsp;</span>
+			        </div>
+			    </progress>
+			</div><!--Progress-->
 	    </div>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Gcode<input id="gcode-file" type="file">
+                </span>
+            </span>
+            <div class="btn-axis-send">
+		    	<span id="btn-gcode-file" class="btn-send-to">Print</span>
+		    </div>
+        </div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>

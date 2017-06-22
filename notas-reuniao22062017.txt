@@ -1,0 +1,27 @@
+duvidas:
+~
+- Objetivos antes do Problema?
+problema antes
+
+-- vou ter uma plataforma qe vai estudar uma implementação
+
+
+- na estrutura do documento, fazer subtopicos dentro do "Web Para Automação"?
+PS - nome vai mudar
+
+-- retirar logotipos
+-- imagens que não "acrescentem valor" ou nova informação 
+-- imagem client side da web mais pequena
+-- cloud computing e realidade aumentada em topicos separados
+-- artigo da inside machines, colocar o autor
+-- revista chama-se control engeneering
+-- tim berners lee (citar o artigo onde descreve o que ele propos como sendo a web)
+-- se tiver datas certas, coloca-las
+-- cortar a frase "De um protocolo.....até a complexa que é hoje a internet"
+
+-- para retirar (?) historia dos browsers, no topico CSS, 
+-- tirar "por volta" e colocar as datas
+
+-- referenciar as imagens na legenda com autor,ano ou adaptado de, 
+
+avisar 2/3 dias antes do draft
