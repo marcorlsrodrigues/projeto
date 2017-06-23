@@ -1,5 +1,5 @@
 $(function(){
-	var reader, text;
+	var reader, filename;
 	var socket = io.connect('http://localhost:8080');
 
 	//send to server
@@ -28,8 +28,9 @@ $(function(){
 	});
 
 	$('#gcode-file').on('change',function(event){
-		var file = this.files[0]
-          var reader = new FileReader();      
+		  var file = this.files[0];
+      filename = file.name;
+          /*var reader = new FileReader();      
           reader.onload = function(e) {
             text = reader.result;
           }
@@ -40,15 +41,12 @@ $(function(){
                         , file);
           }
 
-          reader.readAsText(event.target.files[0]);
+          reader.readAsText(event.target.files[0]);*/
 	});
 
 	$('#btn-gcode-file').on('click',function(){
 		// do stuff with `text`: `reader.result` from `addDoc`
-        console.log('text');
-        console.log(text);
-        // set `text` to `null` if not needed or referenced again
-        text = null; 
+        socket.emit('gcode', filename);
 	});
 
 

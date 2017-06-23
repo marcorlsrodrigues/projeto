@@ -74,9 +74,15 @@ var hl_set_z_pos = {
     propname: 'value'      
 };
 
-var hl_gcode_filename = {
+/*var hl_gcode_filename = {
     symname: 'GVL_GCODE.g_strProgram_AUX',  
     bytelength: ads.STRING,  
+    propname: 'value'      
+};*/
+
+var hl_gcode_content = {
+    symname: 'Wrt_Prog_Remote.File_String',  
+    bytelength: { length: 300000, name: 'STRING' }, 
     propname: 'value'      
 };
 
@@ -225,6 +231,11 @@ io.sockets.on('connection',function(socket){
                 });
             });
         });
+    });
+
+    socket.on('gcode',function(gcode){
+        console.log(gcode);
+        fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Users\\Public\\Documents\\'+gcode));
     });
 
     client = ads.connect(options, function() {
