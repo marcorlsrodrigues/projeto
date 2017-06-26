@@ -51,22 +51,43 @@ $(function(){
 
 
 	//notifications
-    socket.on('MoveAxisToSet_X.SET_X_POS_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis1pos_MR', function(pos) {
     	$('#span-x-pos').width(pos);
     	$('#progress-x-pos').val(pos);
     	$('#strong-x-pos').text(pos);
     });
 
-    socket.on('MoveAxisToSet_Y.SET_Y_POS_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis3pos_MR', function(pos) {
     	$('#span-y-pos').width(pos);
     	$('#progress-y-pos').val(pos);
     	$('#strong-y-pos').text(pos);
     });
 
-    socket.on('MoveAxisToSet_Z.SET_Z_POS_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis4pos_MR', function(pos) {
     	$('#span-z-pos').width(pos);
     	$('#progress-z-pos').val(pos);
     	$('#strong-z-pos').text(pos);
+    });
+
+
+    $('#btn-extrude').on('mousedown',function(){
+        socket.emit('extrude', '1');
+    });
+
+    $('#btn-extrude').on('mouseup',function(){
+        socket.emit('extrude', '0');
+    });
+
+    $('#btn-retract').on('mousedown',function(){
+        socket.emit('retract', '1');
+    });
+
+    $('#btn-retract').on('mouseup',function(){
+        socket.emit('retract', '0');
+    });
+
+    $('#btn-stop').on('click',function(){
+        socket.emit('stop', '0');
     });
 });
 

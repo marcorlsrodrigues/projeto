@@ -1,4 +1,14 @@
+.flex-container{
+  display: flex;
+  width:100%;
+}
+
+.flex-item{
+  width:15%;
+}
+
 a.power-button{
+  cursor: pointer;
   display: block;
   width: 100px;
   height: 100px;
@@ -69,14 +79,11 @@ input[type=text]{
 }
 
 .axis-send-to{
-  margin-left: 8px;
-  margin-top: 20px;
   width: 250px;
 }
 
 .btn-send-to{
   text-align:center;
-  margin:10px auto;
   padding: 20px 0px;
   display:block;
   height:20px;
@@ -161,3 +168,34 @@ input[type=text]{
   display: block;
   height: 0.3em;
 }
+
+.gcodefile{
+  padding-left: 20px;
+}
+
+.btn-axis-send{
+  padding-top: 10px;
+}
+
+#progress-bars{
+  width:300px;
+}
+
+.div-extrude{
+  margin-left: 30px;
+}
+
+.extrude{
+  margin-bottom: 15px;
+}
+
+.Progress{
+  padding-bottom: 20px;
+}
+
+#btn-stop{
+  background-color:red;
+  margin-top:20px;
+  border-bottom:4px solid #a60010;
+}
+

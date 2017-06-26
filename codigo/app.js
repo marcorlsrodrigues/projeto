@@ -62,8 +62,20 @@ var hl_set_x_pos = {
     propname: 'value'      
 };
 
+var hl_actual_x_pos = {
+    symname: 'GVL_AXIS.Axis1pos_MR',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
 var hl_set_y_pos = {
     symname: 'MoveAxisToSet_Y.SET_Y_POS_MR',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_actual_y_pos = {
+    symname: 'GVL_AXIS.Axis3pos_MR',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
@@ -74,17 +86,49 @@ var hl_set_z_pos = {
     propname: 'value'      
 };
 
-/*var hl_gcode_filename = {
-    symname: 'GVL_GCODE.g_strProgram_AUX',  
-    bytelength: ads.STRING,  
-    propname: 'value'      
-};*/
-
-var hl_gcode_content = {
-    symname: 'Wrt_Prog_Remote.File_String',  
-    bytelength: { length: 300000, name: 'STRING' }, 
+var hl_actual_z_pos = {
+    symname: 'GVL_AXIS.Axis4pos_MR',  
+    bytelength: ads.LREAL,  
     propname: 'value'      
 };
+
+var hl_gcode_filename = {
+    symname: 'GVL_GCODE.g_strProgram_AUX_MR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_gcode_cncon = {
+    symname: 'GVL_GCODE.CNC_ON_MR',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_stop = {
+    symname: 'GVL_GCODE.Pause_on',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_axis_halt = {
+    symname: 'AXIS_HALT.Stop_Mov',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_extrude = {
+    symname: 'EXTRU_CONT.Extr_B_CW_MR',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_retract = {
+    symname: 'EXTRU_CONT.Extr_B_CCW_MR',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+
 
 var hl_temperature = {
     symname: 'MAIN.temperature',  
@@ -97,11 +141,6 @@ var hl_humidity = {
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
-
-//para notificar!
-/*client = ads.connect(options, function() {
-    this.notify(hl_temperature);
-});*/
 
 //para escrever!
 /*
@@ -235,13 +274,82 @@ io.sockets.on('connection',function(socket){
 
     socket.on('gcode',function(gcode){
         console.log(gcode);
-        fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Users\\Public\\Documents\\'+gcode));
+        fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Nci\\'+gcode));
+
+        client = ads.connect(options, function() {
+            hl_gcode_filename.value=gcode;
+            this.write(hl_gcode_filename, function(err) {
+                this.read(hl_gcode_filename, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+
+            hl_gcode_cncon.value='1';
+            this.write(hl_gcode_cncon, function(err) {
+                this.read(hl_gcode_cncon, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+        });
     });
 
+    socket.on('extrude', function (extrude) {
+        client = ads.connect(options, function() {
+            hl_extrude.value = extrude;
+            this.write(hl_extrude, function(err) {
+                this.read(hl_extrude, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+        });
+    });
+
+    socket.on('retract', function (retract) {
+        client = ads.connect(options, function() {
+            hl_retract.value = retract;
+            this.write(hl_retract, function(err) {
+                this.read(hl_retract, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+        });
+    }); 
+
+
+    socket.on('stop', function (stop) {
+        client = ads.connect(options, function() {
+            hl_stop.value = stop;
+            this.write(hl_stop, function(err) {
+                this.read(hl_stop, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+
+            hl_axis_halt.value = stop;
+            this.write(hl_axis_halt, function(err) {
+                this.read(hl_axis_halt, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                    this.end();
+                });
+            });
+        });
+    }); 
+
     client = ads.connect(options, function() {
-        this.notify(hl_set_x_pos);
-        this.notify(hl_set_y_pos);
-        this.notify(hl_set_z_pos);
+        this.notify(hl_actual_x_pos);
+        this.notify(hl_actual_y_pos);
+        this.notify(hl_actual_z_pos);
     });
     client.on('notification', function(handle){
         socket.emit(handle.symname, handle.value );

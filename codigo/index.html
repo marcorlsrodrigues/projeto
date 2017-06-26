@@ -7,12 +7,12 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="container">
+	<div id="container" class="flex-container">
 	    <div id="div-power-button">
 	    	<a class="power-button"><i class="fa fa-power-off"></i></a>
 	    </div>
-	    <div class="axis-send-to">
-	    	<div id="axis-send">
+	    <div class="flex-item">
+		    <div class="axis-send-to">
 			    <label id="icon" for="x-axis-send-to">X</label>
 			    <input type="text" name="x-axis-send-to" id="x-axis-send-to"/>
 			    <label id="icon" for="y-axis-send-to">Y</label>
@@ -20,11 +20,12 @@
 			    <label id="icon" for="z-axis-send-to">Z</label>
 			    <input type="text" name="z-axis-send-to" id="z-axis-send-to"/>
 		    </div>
-		    <div class="btn-axis-send">
-		    	<span id="btn-axis-send-to" class="btn-send-to">Send To</span>
-		    </div>
 	    </div>
-	    <div id="progress-bars">
+	    <div class="flex-item">
+		    <span id="btn-axis-send-to" class="btn-send-to">Send To</span>
+		    <span id="btn-stop" class="btn-send-to">Stop</span>
+		</div>
+	    <div class="flex-item" id="progress-bars">
 	    	<div class="Progress">
 			    <span class="Progress-label" id="Progress-id">X: <strong id="strong-x-pos"></strong></span>
 			    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-x-pos">
@@ -50,7 +51,7 @@
 			    </progress>
 			</div><!--Progress-->
 	    </div>
-        <div class="input-group">
+        <div class="flex-item input-group gcodefile">
             <span class="input-group-btn">
                 <span class="btn btn-default btn-file">
                     Gcode<input id="gcode-file" type="file">
@@ -58,6 +59,14 @@
             </span>
             <div class="btn-axis-send">
 		    	<span id="btn-gcode-file" class="btn-send-to">Print</span>
+		    </div>
+        </div>
+        <div class="flex-item div-extrude">
+        	<div class="extrude">
+		    	<span id="btn-extrude" class="btn-send-to">Extrude</span>
+		    </div>
+		    <div class="extrude">
+		    	<span id="btn-retract" class="btn-send-to">Retract</span>
 		    </div>
         </div>
 	</div>
