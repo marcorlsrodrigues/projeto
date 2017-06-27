@@ -1,8 +1,4 @@
 duvidas:
-~
-- Objetivos antes do Problema?
-problema antes
-
 -- vou ter uma plataforma qe vai estudar uma implementação
 
 
@@ -15,9 +11,6 @@ PS - nome vai mudar
 -- artigo da inside machines, colocar o autor
 -- revista chama-se control engeneering
 -- tim berners lee (citar o artigo onde descreve o que ele propos como sendo a web)
-
--- para retirar (?) historia dos browsers, no topico CSS, 
--- tirar "por volta" e colocar as datas
 
 -- referenciar as imagens na legenda com autor,ano ou adaptado de, 
 
