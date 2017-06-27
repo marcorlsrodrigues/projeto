@@ -27,6 +27,10 @@ $(function(){
 		socket.emit('sendto', sendto);
 	});
 
+    $('#btn-axis-send-to-false').on('click', function() {
+    socket.emit('sendtofalse', '0');
+  });
+
 	$('#gcode-file').on('change',function(event){
 		  var file = this.files[0];
       filename = file.name;
@@ -51,22 +55,30 @@ $(function(){
 
 
 	//notifications
-    socket.on('GVL_AXIS.Axis1pos_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis1pos', function(pos) {
     	$('#span-x-pos').width(pos);
     	$('#progress-x-pos').val(pos);
     	$('#strong-x-pos').text(pos);
     });
 
-    socket.on('GVL_AXIS.Axis3pos_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis3pos', function(pos) {
     	$('#span-y-pos').width(pos);
     	$('#progress-y-pos').val(pos);
     	$('#strong-y-pos').text(pos);
     });
 
-    socket.on('GVL_AXIS.Axis4pos_MR', function(pos) {
+    socket.on('GVL_AXIS.Axis4pos', function(pos) {
     	$('#span-z-pos').width(pos);
     	$('#progress-z-pos').val(pos);
     	$('#strong-z-pos').text(pos);
+    });
+
+    socket.on('GVL.Poweron', function(power) {
+      if(power==1){
+        $('#power-button').addClass('on');
+      }else{
+        $('#power-button').removeClass('on');
+      }
     });
 
 

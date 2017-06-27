@@ -2,6 +2,7 @@ var ads = require('ads');
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var client;
 
 var options = {
 	//The IP or hostname of the target machine 
@@ -50,59 +51,79 @@ var myHandle = {
 };
 
 
+var hl_Poweron = {
+    symname: 'GVL.Poweron',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 var hl_PowerBOn = {
-    symname: 'Power_B_on.Power_B_MR',  
+    symname: 'Power_B_on.Power_B',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
 
 var hl_set_x_pos = {
-    symname: 'MoveAxisToSet_X.SET_X_POS_MR',  
+    symname: 'MoveAxisToSet_X.SET_X_POS',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_actual_x_pos = {
-    symname: 'GVL_AXIS.Axis1pos_MR',  
+    symname: 'GVL_AXIS.Axis1pos',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_set_y_pos = {
-    symname: 'MoveAxisToSet_Y.SET_Y_POS_MR',  
+    symname: 'MoveAxisToSet_Y.SET_Y_POS',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_actual_y_pos = {
-    symname: 'GVL_AXIS.Axis3pos_MR',  
+    symname: 'GVL_AXIS.Axis3pos',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_set_z_pos = {
-    symname: 'MoveAxisToSet_Z.SET_Z_POS_MR',  
+    symname: 'MoveAxisToSet_Z.SET_Z_POS',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_actual_z_pos = {
-    symname: 'GVL_AXIS.Axis4pos_MR',  
+    symname: 'GVL_AXIS.Axis4pos',  
     bytelength: ads.LREAL,  
     propname: 'value'      
 };
 
 var hl_gcode_filename = {
-    symname: 'GVL_GCODE.g_strProgram_AUX_MR',  
+    symname: 'GVL_GCODE.g_strProgram_AUX',  
     bytelength: ads.STRING,  
     propname: 'value'      
 };
 
 var hl_gcode_cncon = {
-    symname: 'GVL_GCODE.CNC_ON_MR',  
+    symname: 'GVL_GCODE.CNC_ON',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
+
+
+var hl_gvlaxis_setmovstart = {
+    symname: 'GVL_AXIS.SETMOV_START',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_gvlaxis_setmovstart_mr = {
+    symname: 'GVL_AXIS.SETMOV_START_MR',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 
 var hl_stop = {
     symname: 'GVL_GCODE.Pause_on',  
@@ -117,13 +138,13 @@ var hl_axis_halt = {
 };
 
 var hl_extrude = {
-    symname: 'EXTRU_CONT.Extr_B_CW_MR',  
+    symname: 'EXTRU_CONT.Extr_B_CW',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
 
 var hl_retract = {
-    symname: 'EXTRU_CONT.Extr_B_CCW_MR',  
+    symname: 'EXTRU_CONT.Extr_B_CCW',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
@@ -142,24 +163,16 @@ var hl_humidity = {
     propname: 'value'      
 };
 
-//para escrever!
-/*
-client = ads.connect(options, function() {
-    myHandle.value = 'Teste3';
-    console.log(myHandle);
-    this.write(myHandle, function(err) {
-    	console.log('err: '+ err);
-        this.read(myHandle, function(err, handle) {
-        	console.log(err);
-            console.log(handle.value);
-            this.end();
+function setMoveStartFalse(c){
+    hl_gvlaxis_setmovstart_false.value = '0';
+    c.write(hl_gvlaxis_setmovstart_false, function(err) {
+        console.log('err: '+ err);
+        c.read(hl_gvlaxis_setmovstart_false, function(err, handle) {
+            console.log(err);
+            c.end();
         });
     });
-});*/
-
-
-
-
+}
 
 /*
 VERSAO ANTERIOR
@@ -221,16 +234,26 @@ var server = http.createServer(function (req, res) {
 });
 
 var io = require('socket.io').listen(server);
-
+console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
-    console.log('Client connected');
+    console.log('Socket connected');
+    
 
     socket.on('power', function (power) {
         client = ads.connect(options, function() {
-            hl_PowerBOn.value = power;
-            this.write(hl_PowerBOn, function(err) {
+            //hl_PowerBOn.value = power;
+            hl_Poweron.value = power;
+            /*this.write(hl_PowerBOn, function(err) {
                 console.log('err: '+ err);
                 this.read(hl_PowerBOn, function(err, handle) {
+                    console.log(err);
+                    this.end();
+                });
+            });*/
+
+            this.write(hl_Poweron, function(err) {
+                console.log('err: '+ err);
+                this.read(hl_Poweron, function(err, handle) {
                     console.log(err);
                     this.end();
                 });
@@ -246,7 +269,7 @@ io.sockets.on('connection',function(socket){
                 console.log('err: '+ err);
                 this.read(hl_set_x_pos, function(err, handle) {
                     console.log(err);
-                    this.end();
+                    //this.end();
                 });
             });
 
@@ -256,7 +279,7 @@ io.sockets.on('connection',function(socket){
                 console.log('err: '+ err);
                 this.read(hl_set_y_pos, function(err, handle) {
                     console.log(err);
-                    this.end();
+                    //this.end();
                 });
             });
 
@@ -266,9 +289,51 @@ io.sockets.on('connection',function(socket){
                 console.log('err: '+ err);
                 this.read(hl_set_z_pos, function(err, handle) {
                     console.log(err);
-                    this.end();
+                    //this.end();
                 });
             });
+
+            //set mov start
+            hl_gvlaxis_setmovstart.value = '1';
+            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
+                console.log('handle: '+ handle);
+                console.log('err: '+ err);
+                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
+                    console.log(err);
+                    //this.end();
+                });
+            });
+
+            this.notify(hl_Poweron);
+            this.notify(hl_actual_x_pos);
+            this.notify(hl_actual_y_pos);
+            this.notify(hl_actual_z_pos);
+        });
+
+        client.on('notification', function(handle){
+            socket.emit(handle.symname, handle.value );
+        });
+    });
+
+    socket.on('sendtofalse',function(){
+            client = ads.connect(options, function() {
+            hl_gvlaxis_setmovstart.value = '0';
+            console.log(hl_gvlaxis_setmovstart);
+            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
+                console.log('sendotofalse: '+ handle);
+                console.log('err: '+ err);
+                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
+                    console.log(err);
+                    //this.end();
+                });
+            });
+            this.notify(hl_Poweron);
+            this.notify(hl_actual_x_pos);
+            this.notify(hl_actual_y_pos);
+            this.notify(hl_actual_z_pos);
+        });
+        client.on('notification', function(handle){
+            socket.emit(handle.symname, handle.value );
         });
     });
 
@@ -280,7 +345,6 @@ io.sockets.on('connection',function(socket){
             hl_gcode_filename.value=gcode;
             this.write(hl_gcode_filename, function(err) {
                 this.read(hl_gcode_filename, function(err, handle) {
-                    console.log(handle.value);
                     console.log('err: '+ err);
                     this.end();
                 });
@@ -346,13 +410,20 @@ io.sockets.on('connection',function(socket){
         });
     }); 
 
+    console.log('Trying to connect Ads');
     client = ads.connect(options, function() {
+        console.log('Ads connected');
+        this.notify(hl_Poweron);
         this.notify(hl_actual_x_pos);
         this.notify(hl_actual_y_pos);
         this.notify(hl_actual_z_pos);
     });
     client.on('notification', function(handle){
         socket.emit(handle.symname, handle.value );
+    });
+
+    client.on('error', function(error) {
+        console.log(error);
     });
 
     process.on('exit', function () {
@@ -366,5 +437,11 @@ io.sockets.on('connection',function(socket){
     });
 
 });
+
+io.sockets.on('error', function(err) {
+    console.log('Socket Error');
+    console.log(err);
+});
+
 
 server.listen(8080);
