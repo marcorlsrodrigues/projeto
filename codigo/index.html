@@ -5,6 +5,14 @@
 	<title>HMI for Additive Manufacturing</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/chart-modules.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.resize.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+
 </head>
 <body>
 	<div id="container" class="flex-container">
@@ -23,7 +31,6 @@
 	    </div>
 	    <div class="flex-item">
 		    <span id="btn-axis-send-to" class="btn-send-to">Send To</span>
-		    <span id="btn-axis-send-to-false" class="btn-send-to">Send To False</span>
 		    <span id="btn-stop" class="btn-send-to">Stop</span>
 		</div>
 	    <div class="flex-item" id="progress-bars">
@@ -59,6 +66,9 @@
                 </span>
             </span>
             <div class="btn-axis-send">
+		    	<span id="btn-setpos" class="btn-send-to">Set Position</span>
+		    </div>
+		    <div class="btn-axis-send">
 		    	<span id="btn-gcode-file" class="btn-send-to">Print</span>
 		    </div>
         </div>
@@ -70,9 +80,11 @@
 		    	<span id="btn-retract" class="btn-send-to">Retract</span>
 		    </div>
         </div>
+         <div class="demo-container">
+        	<div id="placeholder-chart" class="demo-placeholder"></div>
+    	</div>
 	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
+
     <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

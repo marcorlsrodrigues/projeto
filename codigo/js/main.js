@@ -1,6 +1,21 @@
+    var buffer = [];
+    var minBufferSize = 50;
+    var maxBufferSize = 299;
+    var clientInterval = null;
+    var rebuffer = true;
+    var serverUpdates = 1;
+    var clientUpdates = 100;
+    var data = [];
+var res = [];
+
 $(function(){
 	var reader, filename;
 	var socket = io.connect('http://localhost:8080');
+    var http = location.protocol;
+    var slashes = http.concat("//");
+    var host = slashes.concat(window.location.hostname);
+
+
 
 	//send to server
 	$('.power-button').click(function(){
@@ -53,24 +68,28 @@ $(function(){
         socket.emit('gcode', filename);
 	});
 
+    $('#btn-setpos').on('click',function(){
+        socket.emit('setpos', '1');
+  });
+
 
 	//notifications
     socket.on('GVL_AXIS.Axis1pos', function(pos) {
     	$('#span-x-pos').width(pos);
     	$('#progress-x-pos').val(pos);
-    	$('#strong-x-pos').text(pos);
+    	$('#strong-x-pos').text((pos).toFixed(2));
     });
 
     socket.on('GVL_AXIS.Axis3pos', function(pos) {
     	$('#span-y-pos').width(pos);
     	$('#progress-y-pos').val(pos);
-    	$('#strong-y-pos').text(pos);
+    	$('#strong-y-pos').text((pos).toFixed(2));
     });
 
     socket.on('GVL_AXIS.Axis4pos', function(pos) {
     	$('#span-z-pos').width(pos);
     	$('#progress-z-pos').val(pos);
-    	$('#strong-z-pos').text(pos);
+    	$('#strong-z-pos').text((pos).toFixed(2));
     });
 
     socket.on('GVL.Poweron', function(power) {
@@ -80,6 +99,37 @@ $(function(){
         $('#power-button').removeClass('on');
       }
     });
+
+    socket.on('chart-interval', function (point) {
+        /*if(data.length==0){
+            data.push(point);  
+        }else if(data.length <= maxBufferSize){
+            data.splice(0,1);
+            data.push(point);  
+        }*/
+
+        if(res.length==0){
+          res.push([0, point]);
+        }else if(res.length < maxBufferSize){
+            res.push([res.length-1, point]);  
+        }else if(res.length == maxBufferSize){
+          res.splice(0,1);
+          res.push([res.length-1, point]);
+        }
+
+        if(buffer.length == 0) {
+            rebuffer = true;
+        } else if(buffer.length > maxBufferSize){
+            rebuffer = false;
+        }
+        if(buffer.length <= maxBufferSize) {
+            buffer.push(res);
+        }
+    });
+    
+    clientInterval = setInterval(function () {
+        repaintGraph();
+    },clientUpdates);
 
 
     $('#btn-extrude').on('mousedown',function(){
@@ -128,3 +178,31 @@ $(function(){
       alert("Failed to load file");
     }
 }
+
+
+    function repaintGraph() {
+      console.log('buffer.length:'+buffer.length);
+      console.log('res.length:'+res.length);
+        //$("#buffer").text(Math.floor(buffer.length / maxBufferSize * 100));
+        if (!repaintGraph.init && buffer.length > 0) {
+            repaintGraph.init = true;
+
+            repaintGraph.plot = $.plot("#placeholder-chart", [ buffer.shift() ], {
+                series: {
+                    shadowSize: 0 // Drawing is faster without shadows
+                },
+                yaxis: {
+                    min: 500,
+                    max: 700
+                },
+                xaxis: {
+                    show: false
+                }
+            });
+        } else if (!rebuffer && buffer.length > 0) {
+            //If we don't have data, then we have to re-buffer
+            //so there's nothing new to draw.
+            repaintGraph.plot.setData([buffer.shift()]);
+            repaintGraph.plot.draw();
+        }
+    }

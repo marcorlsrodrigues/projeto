@@ -1,8 +1,11 @@
 var ads = require('ads');
 var http = require('http');
 var fs = require('fs');
+var randomizer = require('./randomizer');
 var url = require('url');
 var client;
+var data = [];
+var res = [];
 
 var options = {
 	//The IP or hostname of the target machine 
@@ -111,6 +114,12 @@ var hl_gcode_cncon = {
     propname: 'value'      
 };
 
+var hl_setpos = {
+    symname: 'ZeroG_ST.GPos_Set',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 
 var hl_gvlaxis_setmovstart = {
     symname: 'GVL_AXIS.SETMOV_START',  
@@ -163,6 +172,24 @@ var hl_humidity = {
     propname: 'value'      
 };
 
+function setposfalse(client){
+        hl_setpos.value = '0';
+        client.write(hl_setpos, function(err) {
+            client.read(hl_setpos, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+}
+
+function sendtofalse(){
+    hl_gvlaxis_setmovstart.value = '0';
+    client.write(hl_gvlaxis_setmovstart, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_gvlaxis_setmovstart, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
 /*
 VERSAO ANTERIOR
 var server = http.createServer(function(req,res){
@@ -206,7 +233,6 @@ var server = http.createServer(function (req, res) {
         res.write(data);
         res.end();
       });
-
     }
 
     if(req.url.indexOf('.css') != -1){ //req.url has the pathname, check if it conatins '.css'
@@ -222,193 +248,154 @@ var server = http.createServer(function (req, res) {
 
 });
 
+
 var io = require('socket.io').listen(server);
 console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
     console.log('Socket connected');
-    
-
-    socket.on('power', function (power) {
-        client = ads.connect(options, function() {
-            //hl_PowerBOn.value = power;
-            hl_Poweron.value = power;
-            /*this.write(hl_PowerBOn, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_PowerBOn, function(err, handle) {
-                    console.log(err);
-                    this.end();
-                });
-            });*/
-
-            this.write(hl_Poweron, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_Poweron, function(err, handle) {
-                    console.log(err);
-                    this.end();
-                });
-            });
-        });
-    }); 
-
-    socket.on('sendto',function(sendto){
-        client = ads.connect(options, function() {
-            //write x axis
-            hl_set_x_pos.value = sendto[0];
-            this.write(hl_set_x_pos, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_set_x_pos, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-
-            //write y axis
-            hl_set_y_pos.value = sendto[1];
-            this.write(hl_set_y_pos, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_set_y_pos, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-
-            //write z axis
-            hl_set_z_pos.value = sendto[2];
-            this.write(hl_set_z_pos, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_set_z_pos, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-
-            //set mov start
-            hl_gvlaxis_setmovstart.value = '1';
-            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
-                console.log('handle: '+ handle);
-                console.log('err: '+ err);
-                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-
-            this.notify(hl_Poweron);
-            this.notify(hl_actual_x_pos);
-            this.notify(hl_actual_y_pos);
-            this.notify(hl_actual_z_pos);
-        });
-
-        client.on('notification', function(handle){
-            socket.emit(handle.symname, handle.value );
-        });
-    });
-
-    socket.on('sendtofalse',function(){
-            client = ads.connect(options, function() {
-            hl_gvlaxis_setmovstart.value = '0';
-            console.log(hl_gvlaxis_setmovstart);
-            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
-                console.log('sendotofalse: '+ handle);
-                console.log('err: '+ err);
-                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-            this.notify(hl_Poweron);
-            this.notify(hl_actual_x_pos);
-            this.notify(hl_actual_y_pos);
-            this.notify(hl_actual_z_pos);
-        });
-        client.on('notification', function(handle){
-            socket.emit(handle.symname, handle.value );
-        });
-    });
-
-    socket.on('gcode',function(gcode){
-        console.log(gcode);
-        fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Nci\\'+gcode));
-
-        client = ads.connect(options, function() {
-            hl_gcode_filename.value=gcode;
-            this.write(hl_gcode_filename, function(err) {
-                this.read(hl_gcode_filename, function(err, handle) {
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-
-            hl_gcode_cncon.value='1';
-            this.write(hl_gcode_cncon, function(err) {
-                this.read(hl_gcode_cncon, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-        });
-    });
-
-    socket.on('extrude', function (extrude) {
-        client = ads.connect(options, function() {
-            hl_extrude.value = extrude;
-            this.write(hl_extrude, function(err) {
-                this.read(hl_extrude, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-        });
-    });
-
-    socket.on('retract', function (retract) {
-        client = ads.connect(options, function() {
-            hl_retract.value = retract;
-            this.write(hl_retract, function(err) {
-                this.read(hl_retract, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-        });
-    }); 
-
-
-    socket.on('stop', function (stop) {
-        client = ads.connect(options, function() {
-            hl_stop.value = stop;
-            this.write(hl_stop, function(err) {
-                this.read(hl_stop, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-
-            hl_axis_halt.value = stop;
-            this.write(hl_axis_halt, function(err) {
-                this.read(hl_axis_halt, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-        });
-    }); 
-
     console.log('Trying to connect Ads');
     client = ads.connect(options, function() {
         console.log('Ads connected');
+
         this.notify(hl_Poweron);
         this.notify(hl_actual_x_pos);
         this.notify(hl_actual_y_pos);
         this.notify(hl_actual_z_pos);
     });
+
+    socket.on('power', function (power) {
+        hl_Poweron.value = power;
+        client.write(hl_Poweron, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_Poweron, function(err, handle) {
+                console.log(err);
+            });
+        });
+    });
+
+    socket.on('sendto',function(sendto){
+            //write x axis
+            hl_set_x_pos.value = sendto[0];
+            client.write(hl_set_x_pos, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_set_x_pos, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            //write y axis
+            hl_set_y_pos.value = sendto[1];
+            client.write(hl_set_y_pos, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_set_y_pos, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            //write z axis
+            hl_set_z_pos.value = sendto[2];
+            client.write(hl_set_z_pos, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_set_z_pos, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            //set mov start
+            hl_gvlaxis_setmovstart.value = '1';
+            client.write(hl_gvlaxis_setmovstart, function(err,handle) {
+                console.log('err: '+ err);
+                client.read(hl_gvlaxis_setmovstart, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            setTimeout(sendtofalse, 2000);
+    });
+
+
+    socket.on('gcode',function(gcode){
+        fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Nci\\'+gcode));
+            hl_gcode_filename.value=gcode;
+            client.write(hl_gcode_filename, function(err) {
+                client.read(hl_gcode_filename, function(err, handle) {
+                    console.log('err: '+ err);
+                });
+            });
+
+            hl_gcode_cncon.value='1';
+            client.write(hl_gcode_cncon, function(err) {
+                client.read(hl_gcode_cncon, function(err, handle) {
+                    console.log(handle.value);
+                    console.log('err: '+ err);
+                });
+            });
+    });
+
+    socket.on('extrude', function (extrude) {
+        hl_extrude.value = extrude;
+        client.write(hl_extrude, function(err) {
+            client.read(hl_extrude, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+    });
+
+    socket.on('retract', function (retract) {
+        hl_retract.value = retract;
+        client.write(hl_retract, function(err) {
+            client.read(hl_retract, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+    }); 
+
+    socket.on('stop', function (stop) {
+        hl_stop.value = stop;
+        client.write(hl_stop, function(err) {
+            client.read(hl_stop, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+
+        hl_axis_halt.value = stop;
+        client.write(hl_axis_halt, function(err) {
+            client.read(hl_axis_halt, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+    });
+
+    socket.on('setpos', function (setpos) {
+        hl_setpos.value = setpos;
+        client.write(hl_setpos, function(err) {
+            client.read(hl_setpos, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+
+        setTimeout(setposfalse, 2000,client);
+    }); 
+
+    var interval = setInterval(function() {
+        /*res = [];
+        for (var i = 0; i < data.length; ++i) {
+            res.push([i, data[i]])
+        }*/
+
+        socket.emit('chart-interval', hl_actual_x_pos.value);
+    }, 100);
+
     client.on('notification', function(handle){
-        socket.emit(handle.symname, handle.value );
+            socket.emit(handle.symname, handle.value );
+            /*if(handle.symname == 'GVL_AXIS.Axis1pos'){
+                if(data.length<300){
+                    data.push(handle.value);  
+                }else{
+                    data.splice(0,1);
+                    data.push(handle.value);  
+                }
+            }*/
     });
 
     client.on('error', function(error) {
