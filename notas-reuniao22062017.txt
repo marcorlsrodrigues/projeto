@@ -1,11 +1,6 @@
 duvidas:
 -- vou ter uma plataforma qe vai estudar uma implementação
 
-
-- na estrutura do documento, fazer subtopicos dentro do "Web Para Automação"?
-PS - nome vai mudar
-
--- imagens que não "acrescentem valor" ou nova informação 
 -- tim berners lee (citar o artigo onde descreve o que ele propos como sendo a web)
 
 -- referenciar as imagens na legenda com autor,ano ou adaptado de, -- OK
