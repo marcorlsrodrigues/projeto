@@ -1,27 +1,32 @@
+    var buffer = [];
+    var minBufferSize = 50;
+    var maxBufferSize = 299;
+    var clientInterval = null;
+    var rebuffer = true;
+    var serverUpdates = 1;
+    var clientUpdates = 100;
+    var data = [];
+var res = [];
+
 $(function(){
 	var reader, filename;
 	var socket = io.connect('http://localhost:8080');
+    var http = location.protocol;
+    var slashes = http.concat("//");
+    var host = slashes.concat(window.location.hostname);
 
-  var machState='off';
-  var x_send_to=0,y_send_to=0,z_send_to=0,
-      current_x=0,current_y=0,current_z=0;
-  var gcode_total_lines=0, gcode_current_line=0,percentageCompleted=0;
 
-  machineState(machState);
 
 	//send to server
 	$('.power-button').click(function(){
 	  if ($(this).hasClass('on')){
 	    $(this).removeClass('on');
 	    socket.emit('power', '0');
-      machState='off';
 	  }
 	  else {
 	    $(this).addClass('on');
 	    socket.emit('power', '1');
-      machState='on';
 	  }
-    machineState(machState);
 	});
 
 	$('#btn-axis-send-to').on('click', function() {
@@ -35,17 +40,10 @@ $(function(){
 		sendto.push(z);
 
 		socket.emit('sendto', sendto);
-    machState='manual';
-    machineState(machState);
-
-    x_send_to=x;
-    y_send_to=y;
-    z_send_to=z;
 	});
 
-  $('#btn-axis-send-to-false').on('click', function() {
+    $('#btn-axis-send-to-false').on('click', function() {
     socket.emit('sendtofalse', '0');
-    machineState('on');
   });
 
 	$('#gcode-file').on('change',function(event){
@@ -68,7 +66,6 @@ $(function(){
 	$('#btn-gcode-file').on('click',function(){
 		// do stuff with `text`: `reader.result` from `addDoc`
         socket.emit('gcode', filename);
-        machineState('auto');
 	});
 
     $('#btn-setpos').on('click',function(){
@@ -81,94 +78,58 @@ $(function(){
     	$('#span-x-pos').width(pos);
     	$('#progress-x-pos').val(pos);
     	$('#strong-x-pos').text((pos).toFixed(2));
-
-      current_x=pos;
-
-      if(machState=='manual'){
-        if((Math.abs(current_x-x_send_to) < 1) && (Math.abs(current_y-y_send_to)<1) && (Math.abs(current_z-z_send_to)<1)){
-          machState='on';
-          machineState(machState);
-        }
-      }
     });
 
     socket.on('GVL_AXIS.Axis3pos', function(pos) {
     	$('#span-y-pos').width(pos);
     	$('#progress-y-pos').val(pos);
     	$('#strong-y-pos').text((pos).toFixed(2));
-
-      current_y=pos;
     });
 
     socket.on('GVL_AXIS.Axis4pos', function(pos) {
     	$('#span-z-pos').width(pos);
     	$('#progress-z-pos').val(pos);
     	$('#strong-z-pos').text((pos).toFixed(2));
-
-      current_z=pos;
     });
 
     socket.on('GVL.Poweron', function(power) {
       if(power==1){
         $('#power-button').addClass('on');
-        machineState('on');
       }else{
         $('#power-button').removeClass('on');
-        machineState('off');
       }
     });
 
-    socket.on('GVL_GCODE.GLINE0_STR', function(line) {
-      $('#gcode-line0').text(line);
+    socket.on('chart-interval', function (point) {
+        /*if(data.length==0){
+            data.push(point);  
+        }else if(data.length <= maxBufferSize){
+            data.splice(0,1);
+            data.push(point);  
+        }*/
+
+        if(res.length==0){
+          res.push([0, point]);
+        }else if(res.length < maxBufferSize){
+            res.push([res.length-1, point]);  
+        }else if(res.length == maxBufferSize){
+          res.splice(0,1);
+          res.push([res.length-1, point]);
+        }
+
+        if(buffer.length == 0) {
+            rebuffer = true;
+        } else if(buffer.length > maxBufferSize){
+            rebuffer = false;
+        }
+        if(buffer.length <= maxBufferSize) {
+            buffer.push(res);
+        }
     });
-
-    socket.on('GVL_GCODE.GLINE1_STR', function(line) {
-      $('#gcode-line1').text(line);
-    });
-
-    socket.on('GVL_GCODE.GLINE2_STR', function(line) {
-      $('#gcode-line2').text(line);
-    });
-
-    socket.on('GVL_GCODE.GLINE3_STR', function(line) {
-      $('#gcode-line3').text(line);
-    });
-
-    socket.on('GVL_GCODE.GLINE4_STR', function(line) {
-      $('#gcode-line4').text(line);
-    });
-
-    socket.on('GVL_GCODE.GLINE5_STR', function(line) {
-      $('#gcode-line5').text(line);
-    });
-
-    socket.on('EXTRU_CONT.Vel_hmi', function(velocity) {
-      $('#extrusion-velocity').text(velocity);
-    });
-
-    socket.on('Rea_prog.nRow', function(lines) {
-      gcode_total_lines=lines;
-    });
-
-    socket.on('GVL_GCODE.Block_N', function(block) {
-
-      gcode_current_line=block;
-
-      if(gcode_total_lines==0 || gcode_current_line==0){
-        percentageCompleted=0;
-      }else{
-        percentageCompleted = (gcode_current_line/gcode_total_lines) * 100;  
-      }
-      
-      $('#percentage-completed').width(percentageCompleted);
-      $('#progress-percentage-completed').val(percentageCompleted);
-      $('#percentage-completed').text((percentageCompleted).toFixed(2));
-
-      if(percentageCompleted==0){
-        machineState('on');
-      }
-    });
-
+    
+    clientInterval = setInterval(function () {
+        repaintGraph();
+    },clientUpdates);
 
 
     $('#btn-extrude').on('mousedown',function(){
@@ -188,13 +149,7 @@ $(function(){
     });
 
     $('#btn-stop').on('click',function(){
-        socket.emit('stop', '1');
-        machineState('on');
-    });
-
-    $('#btn-pause').on('click',function(){
-        socket.emit('pause', '1');
-        machineState('pause');
+        socket.emit('stop', '0');
     });
 });
 
@@ -224,25 +179,30 @@ $(function(){
     }
 }
 
-function machineState(state){
-  if(state=='on'){
-      $('#machine-state').text('ON');
-      $('#machine-state').css('color', "green");
-  }
-  if(state=='off'){
-      $('#machine-state').text('OFF');
-      $('#machine-state').css('color', "red");
-  }
-  if(state=='manual'){
-      $('#machine-state').text('MANUAL');
-      $('#machine-state').css('color', "blue"); 
-  }
-  if(state=='auto'){
-      $('#machine-state').text('AUTO');
-      $('#machine-state').css('color', "blue"); 
-  }
-  if(state=='pause'){
-      $('#machine-state').text('PAUSE');
-      $('#machine-state').css('color', "yellow"); 
-  }
-}
+
+    function repaintGraph() {
+      console.log('buffer.length:'+buffer.length);
+      console.log('res.length:'+res.length);
+        //$("#buffer").text(Math.floor(buffer.length / maxBufferSize * 100));
+        if (!repaintGraph.init && buffer.length > 0) {
+            repaintGraph.init = true;
+
+            repaintGraph.plot = $.plot("#placeholder-chart", [ buffer.shift() ], {
+                series: {
+                    shadowSize: 0 // Drawing is faster without shadows
+                },
+                yaxis: {
+                    min: 500,
+                    max: 700
+                },
+                xaxis: {
+                    show: false
+                }
+            });
+        } else if (!rebuffer && buffer.length > 0) {
+            //If we don't have data, then we have to re-buffer
+            //so there's nothing new to draw.
+            repaintGraph.plot.setData([buffer.shift()]);
+            repaintGraph.plot.draw();
+        }
+    }

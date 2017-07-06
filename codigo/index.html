@@ -15,6 +15,10 @@
 
 </head>
 <body>
+	<div id="div-machine-state" class="topbar">
+		<span id="machine-state-text" class="machine-state-text">STATE: </span>
+		<span id="machine-state" class="machine-state-text"></span>
+	</div>
 	<div id="container" class="flex-container">
 	    <div id="div-power-button">
 	    	<a id="power-button" class="power-button"><i class="fa fa-power-off"></i></a>
@@ -31,6 +35,7 @@
 	    </div>
 	    <div class="flex-item">
 		    <span id="btn-axis-send-to" class="btn-send-to">Send To</span>
+		    <span id="btn-pause" class="btn-send-to">Pause</span>
 		    <span id="btn-stop" class="btn-send-to">Stop</span>
 		</div>
 	    <div class="flex-item" id="progress-bars">
@@ -73,6 +78,11 @@
 		    </div>
         </div>
         <div class="flex-item div-extrude">
+        	<div id="div-extrusion-velocity">
+        		<span id="extrusion-velocity-prevtext" class="span-inform">Vel Ext: </span>
+        		<span id="extrusion-velocity" class="span-inform">0</span>
+        		<span id="extrusion-velocity-text" class="span-inform"> mm/s</span>
+        	</div>
         	<div class="extrude">
 		    	<span id="btn-extrude" class="btn-send-to">Extrude</span>
 		    </div>
@@ -80,9 +90,41 @@
 		    	<span id="btn-retract" class="btn-send-to">Retract</span>
 		    </div>
         </div>
-         <div class="demo-container">
-        	<div id="placeholder-chart" class="demo-placeholder"></div>
-    	</div>
+	</div>
+
+	<div class="flex-container">
+		<div class="flex-item div-extrude">
+			<ul class="ullist">
+			  <li class="lilist">
+			    <span id="gcode-line0" class="span-list"></span>
+			  </li>
+			  <li class="lilist">
+			    <span id="gcode-line1" class="span-list"></span>
+			  </li>
+			  <li class="lilist">
+			    <span id="gcode-line2" class="span-list"></span>
+			  </li>
+			  <li class="lilist">
+			    <span id="gcode-line3" class="span-list"></span>
+			  </li>
+			  <li class="lilist">
+			    <span id="gcode-line4" class="span-list"></span>
+			  </li>
+			  <li class="lilist">
+			    <span id="gcode-line5" class="span-list"></span>
+			  </li>
+			</ul>
+		</div>
+	 	<div class="flex-item div-progress-gcode">
+	    	<div class="Progress">
+			    <span class="Progress-label" id="span-percentage-completed"><strong id="percentage-completed"></strong><strong>% Completed</strong></span>
+			    <progress max="100" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-percentage-completed">
+			        <div class="Progress-bar" role="presentation">
+			            <span id="span-progress" class="Progress-value">&nbsp;</span>
+			        </div>
+			    </progress>
+			</div><!--Progress-->
+  		</div>
 	</div>
 
     <script type="text/javascript" src="js/main.js"></script>

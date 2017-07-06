@@ -1,8 +1,12 @@
 var ads = require('ads');
 var http = require('http');
 var fs = require('fs');
+var randomizer = require('./randomizer');
 var url = require('url');
 var client;
+var data = [];
+var res = [];
+var machineState = '';
 
 var options = {
 	//The IP or hostname of the target machine 
@@ -111,6 +115,12 @@ var hl_gcode_cncon = {
     propname: 'value'      
 };
 
+var hl_setpos = {
+    symname: 'ZeroG_ST.GPos_Set',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 
 var hl_gvlaxis_setmovstart = {
     symname: 'GVL_AXIS.SETMOV_START',  
@@ -124,15 +134,33 @@ var hl_gvlaxis_setmovstart_mr = {
     propname: 'value'      
 };
 
-
-var hl_stop = {
-    symname: 'GVL_GCODE.Pause_on',  
+var hl_axis_halt = {
+    symname: 'GVL.Stop_Mov',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
 
-var hl_axis_halt = {
-    symname: 'AXIS_HALT.Stop_Mov',  
+var hl_gcode_cnccycleon = {
+    symname: 'GVL_GCODE.CNC_Cycle_on',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_gcode_blockvalcncon = {
+    symname: 'GVL_GCODE.Block_Val_CNC_ON',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+
+var hl_pause = {
+    symname: 'GVL_TEC.tecl41_MR',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_cnc_p = {
+    symname: 'GVL_GCODE.CNC_P',  
     bytelength: ads.BOOL,  
     propname: 'value'      
 };
@@ -149,6 +177,54 @@ var hl_retract = {
     propname: 'value'      
 };
 
+var hl_extrusion_velocity = {
+    symname: 'EXTRU_CONT.Vel_hmi',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_gline0 = {
+    symname: 'GVL_GCODE.GLINE0_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+var hl_gline1 = {
+    symname: 'GVL_GCODE.GLINE1_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+var hl_gline2 = {
+    symname: 'GVL_GCODE.GLINE2_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+var hl_gline3 = {
+    symname: 'GVL_GCODE.GLINE3_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+var hl_gline4 = {
+    symname: 'GVL_GCODE.GLINE4_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+var hl_gline5 = {
+    symname: 'GVL_GCODE.GLINE5_STR',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_reaprog_nrow = {
+    symname: 'Rea_prog.nRow',  
+    bytelength: ads.UDINT,  
+    propname: 'value'      
+};
+
+var hl_gcode_blockn = {
+    symname: 'GVL_GCODE.Block_N',  
+    bytelength: ads.UDINT,  
+    propname: 'value'      
+};
 
 
 var hl_temperature = {
@@ -163,6 +239,52 @@ var hl_humidity = {
     propname: 'value'      
 };
 
+function setposfalse(client){
+        hl_setpos.value = '0';
+        client.write(hl_setpos, function(err) {
+            client.read(hl_setpos, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+}
+
+function sendtofalse(){
+    hl_gvlaxis_setmovstart.value = '0';
+    client.write(hl_gvlaxis_setmovstart, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_gvlaxis_setmovstart, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+function setpausefalse(){
+    hl_pause.value='0';
+    client.write(hl_pause, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_pause, function(err, handle) {
+            console.log(err);
+        });
+    });
+
+    hl_cnc_p.value='0';
+    client.write(hl_cnc_p, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_cnc_p, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+function sethaltfalse(){
+    hl_axis_halt.value='0';
+    client.write(hl_axis_halt, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_axis_halt, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
 /*
 VERSAO ANTERIOR
 var server = http.createServer(function(req,res){
@@ -206,7 +328,6 @@ var server = http.createServer(function (req, res) {
         res.write(data);
         res.end();
       });
-
     }
 
     if(req.url.indexOf('.css') != -1){ //req.url has the pathname, check if it conatins '.css'
@@ -222,193 +343,168 @@ var server = http.createServer(function (req, res) {
 
 });
 
+
 var io = require('socket.io').listen(server);
 console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
     console.log('Socket connected');
-    
+    console.log('Trying to connect Ads');
+    client = ads.connect(options, function() {
+        console.log('Ads connected');
+
+        this.notify(hl_Poweron);
+        this.notify(hl_actual_x_pos);
+        this.notify(hl_actual_y_pos);
+        this.notify(hl_actual_z_pos);
+        this.notify(hl_extrusion_velocity);
+        this.notify(hl_gline0);
+        this.notify(hl_gline1);
+        this.notify(hl_gline2);
+        this.notify(hl_gline3);
+        this.notify(hl_gline4);
+        this.notify(hl_gline5);
+        this.notify(hl_reaprog_nrow);
+        this.notify(hl_gcode_blockn);
+    });
 
     socket.on('power', function (power) {
-        client = ads.connect(options, function() {
-            //hl_PowerBOn.value = power;
-            hl_Poweron.value = power;
-            /*this.write(hl_PowerBOn, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_PowerBOn, function(err, handle) {
-                    console.log(err);
-                    this.end();
-                });
-            });*/
-
-            this.write(hl_Poweron, function(err) {
-                console.log('err: '+ err);
-                this.read(hl_Poweron, function(err, handle) {
-                    console.log(err);
-                    this.end();
-                });
+        hl_Poweron.value = power;
+        client.write(hl_Poweron, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_Poweron, function(err, handle) {
+                console.log(err);
             });
         });
-    }); 
+    });
 
     socket.on('sendto',function(sendto){
-        client = ads.connect(options, function() {
             //write x axis
             hl_set_x_pos.value = sendto[0];
-            this.write(hl_set_x_pos, function(err) {
+            client.write(hl_set_x_pos, function(err) {
                 console.log('err: '+ err);
-                this.read(hl_set_x_pos, function(err, handle) {
+                client.read(hl_set_x_pos, function(err, handle) {
                     console.log(err);
-                    //this.end();
                 });
             });
 
             //write y axis
             hl_set_y_pos.value = sendto[1];
-            this.write(hl_set_y_pos, function(err) {
+            client.write(hl_set_y_pos, function(err) {
                 console.log('err: '+ err);
-                this.read(hl_set_y_pos, function(err, handle) {
+                client.read(hl_set_y_pos, function(err, handle) {
                     console.log(err);
-                    //this.end();
                 });
             });
 
             //write z axis
             hl_set_z_pos.value = sendto[2];
-            this.write(hl_set_z_pos, function(err) {
+            client.write(hl_set_z_pos, function(err) {
                 console.log('err: '+ err);
-                this.read(hl_set_z_pos, function(err, handle) {
+                client.read(hl_set_z_pos, function(err, handle) {
                     console.log(err);
-                    //this.end();
                 });
             });
 
             //set mov start
             hl_gvlaxis_setmovstart.value = '1';
-            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
-                console.log('handle: '+ handle);
+            client.write(hl_gvlaxis_setmovstart, function(err,handle) {
                 console.log('err: '+ err);
-                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
+                client.read(hl_gvlaxis_setmovstart, function(err, handle) {
                     console.log(err);
-                    //this.end();
                 });
             });
 
-            this.notify(hl_Poweron);
-            this.notify(hl_actual_x_pos);
-            this.notify(hl_actual_y_pos);
-            this.notify(hl_actual_z_pos);
-        });
-
-        client.on('notification', function(handle){
-            socket.emit(handle.symname, handle.value );
-        });
+            setTimeout(sendtofalse, 2000);
     });
 
-    socket.on('sendtofalse',function(){
-            client = ads.connect(options, function() {
-            hl_gvlaxis_setmovstart.value = '0';
-            console.log(hl_gvlaxis_setmovstart);
-            this.write(hl_gvlaxis_setmovstart, function(err,handle) {
-                console.log('sendotofalse: '+ handle);
-                console.log('err: '+ err);
-                this.read(hl_gvlaxis_setmovstart, function(err, handle) {
-                    console.log(err);
-                    //this.end();
-                });
-            });
-            this.notify(hl_Poweron);
-            this.notify(hl_actual_x_pos);
-            this.notify(hl_actual_y_pos);
-            this.notify(hl_actual_z_pos);
-        });
-        client.on('notification', function(handle){
-            socket.emit(handle.symname, handle.value );
-        });
-    });
 
     socket.on('gcode',function(gcode){
-        console.log(gcode);
         fs.createReadStream('C:\\Users\\mrodrigues\\Desktop\\'+gcode).pipe(fs.createWriteStream('\\\\2256025-001\\Nci\\'+gcode));
-
-        client = ads.connect(options, function() {
             hl_gcode_filename.value=gcode;
-            this.write(hl_gcode_filename, function(err) {
-                this.read(hl_gcode_filename, function(err, handle) {
+            client.write(hl_gcode_filename, function(err) {
+                client.read(hl_gcode_filename, function(err, handle) {
                     console.log('err: '+ err);
-                    this.end();
                 });
             });
 
             hl_gcode_cncon.value='1';
-            this.write(hl_gcode_cncon, function(err) {
-                this.read(hl_gcode_cncon, function(err, handle) {
+            client.write(hl_gcode_cncon, function(err) {
+                client.read(hl_gcode_cncon, function(err, handle) {
                     console.log(handle.value);
                     console.log('err: '+ err);
-                    this.end();
                 });
             });
-        });
     });
 
     socket.on('extrude', function (extrude) {
-        client = ads.connect(options, function() {
-            hl_extrude.value = extrude;
-            this.write(hl_extrude, function(err) {
-                this.read(hl_extrude, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
+        hl_extrude.value = extrude;
+        client.write(hl_extrude, function(err) {
+            client.read(hl_extrude, function(err, handle) {
+                console.log('err: '+ err);
             });
         });
     });
 
     socket.on('retract', function (retract) {
-        client = ads.connect(options, function() {
-            hl_retract.value = retract;
-            this.write(hl_retract, function(err) {
-                this.read(hl_retract, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
+        hl_retract.value = retract;
+        client.write(hl_retract, function(err) {
+            client.read(hl_retract, function(err, handle) {
+                console.log('err: '+ err);
             });
         });
     }); 
-
 
     socket.on('stop', function (stop) {
-        client = ads.connect(options, function() {
-            hl_stop.value = stop;
-            this.write(hl_stop, function(err) {
-                this.read(hl_stop, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
-            });
-
-            hl_axis_halt.value = stop;
-            this.write(hl_axis_halt, function(err) {
-                this.read(hl_axis_halt, function(err, handle) {
-                    console.log(handle.value);
-                    console.log('err: '+ err);
-                    this.end();
-                });
+        hl_axis_halt.value = stop;
+        client.write(hl_axis_halt, function(err) {
+            client.read(hl_axis_halt, function(err, handle) {
+                console.log('err: '+ err);
             });
         });
+
+        hl_gcode_cnccycleon.value = '0';
+        client.write(hl_gcode_cnccycleon, function(err) {
+            client.read(hl_gcode_cnccycleon, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+
+        hl_gcode_blockvalcncon.value = '1';
+        client.write(hl_gcode_blockvalcncon, function(err) {
+            client.read(hl_gcode_blockvalcncon, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+        
+
+        setTimeout(sethaltfalse, 1000,client);
+    });
+
+    socket.on('pause', function (pause) {
+
+        hl_pause.value = pause;
+        client.write(hl_pause, function(err) {
+            client.read(hl_pause, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+        
+        setTimeout(setpausefalse, 2000,client);
+    });
+
+    socket.on('setpos', function (setpos) {
+        hl_setpos.value = setpos;
+        client.write(hl_setpos, function(err) {
+            client.read(hl_setpos, function(err, handle) {
+                console.log('err: '+ err);
+            });
+        });
+
+        setTimeout(setposfalse, 2000,client);
     }); 
 
-    console.log('Trying to connect Ads');
-    client = ads.connect(options, function() {
-        console.log('Ads connected');
-        this.notify(hl_Poweron);
-        this.notify(hl_actual_x_pos);
-        this.notify(hl_actual_y_pos);
-        this.notify(hl_actual_z_pos);
-    });
     client.on('notification', function(handle){
-        socket.emit(handle.symname, handle.value );
+            socket.emit(handle.symname, handle.value );
     });
 
     client.on('error', function(error) {
