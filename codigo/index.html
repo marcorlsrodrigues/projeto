@@ -34,9 +34,9 @@
 		    </div>
 	    </div>
 	    <div class="flex-item">
-		    <span id="btn-axis-send-to" class="btn-send-to">Send To</span>
-		    <span id="btn-pause" class="btn-send-to">Pause</span>
-		    <span id="btn-stop" class="btn-send-to">Stop</span>
+	    	<div class="extrude">
+		    	<span id="btn-axis-send-to" class="btn-send-to">Send To</span>
+		    </div>
 		</div>
 	    <div class="flex-item" id="progress-bars">
 	    	<div class="Progress">
@@ -65,24 +65,40 @@
 			</div><!--Progress-->
 	    </div>
         <div class="flex-item input-group gcodefile">
-            <span class="input-group-btn">
+            <span class="input-group-btn" style="display: none;">
                 <span class="btn btn-default btn-file">
-                    Gcode<input id="gcode-file" type="file">
+                    Gcode<input id="gcode-file2" type="file">
                 </span>
             </span>
-            <div class="btn-axis-send">
+              <div class="image-upload-wrap">
+			    <input id="gcode-file" class="file-upload-input" type='file' onchange="readURL(this);" />
+			    <div class="drag-text">
+			      <h4>Drag and drop a GCODE file</h4>
+			    </div>
+			  </div>
+			  <div class="file-upload-content">
+			    <div class="image-title-wrap">
+			      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded File</span></button>
+			    </div>
+			  </div>
+        </div>
+        <div class="flex-item div-btns">
+        	<div class="btn-axis-send">
 		    	<span id="btn-setpos" class="btn-send-to">Set Position</span>
 		    </div>
 		    <div class="btn-axis-send">
 		    	<span id="btn-gcode-file" class="btn-send-to">Print</span>
 		    </div>
         </div>
+        <div class="flex-item">
+        	<div class="btn-axis-send">
+		    	<span id="btn-pause" class="btn-send-to">Pause</span>
+		    </div>
+		    <div class="btn-axis-send">
+		    	<span id="btn-stop" class="btn-send-to">Stop</span>
+		    </div>
+        </div>
         <div class="flex-item div-extrude">
-        	<div id="div-extrusion-velocity">
-        		<span id="extrusion-velocity-prevtext" class="span-inform">Vel Ext: </span>
-        		<span id="extrusion-velocity" class="span-inform">0</span>
-        		<span id="extrusion-velocity-text" class="span-inform"> mm/s</span>
-        	</div>
         	<div class="extrude">
 		    	<span id="btn-extrude" class="btn-send-to">Extrude</span>
 		    </div>
@@ -93,7 +109,22 @@
 	</div>
 
 	<div class="flex-container">
-		<div class="flex-item div-extrude">
+			<div class="div-extrude div-gcodelines">
+				<div class="div-progress-gcode">
+		    	<div>
+				    <span class="Progress-label" id="span-percentage-completed"><strong>Gcode </strong><strong id="percentage-completed">0</strong><strong>% Completed</strong></span>
+				<div id="div-extrusion-velocity">
+        		<span id="extrusion-velocity-prevtext" class="span-inform">Vel Ext: </span>
+        		<span id="extrusion-velocity" class="span-inform">0</span>
+        		<span id="extrusion-velocity-text" class="span-inform"> mm/s</span>
+        	</div>
+				<progress max="100" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-percentage-completed">
+				        <div class="Progress-bar" role="presentation">
+				            <span id="span-progress" class="Progress-value">&nbsp;</span>
+				        </div>
+				    </progress>
+				</div><!--Progress-->
+	  		</div>
 			<ul class="ullist">
 			  <li class="lilist">
 			    <span id="gcode-line0" class="span-list"></span>
@@ -115,16 +146,6 @@
 			  </li>
 			</ul>
 		</div>
-	 	<div class="flex-item div-progress-gcode">
-	    	<div class="Progress">
-			    <span class="Progress-label" id="span-percentage-completed"><strong id="percentage-completed"></strong><strong>% Completed</strong></span>
-			    <progress max="100" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-percentage-completed">
-			        <div class="Progress-bar" role="presentation">
-			            <span id="span-progress" class="Progress-value">&nbsp;</span>
-			        </div>
-			    </progress>
-			</div><!--Progress-->
-  		</div>
 	</div>
 
     <script type="text/javascript" src="js/main.js"></script>

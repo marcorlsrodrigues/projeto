@@ -187,25 +187,16 @@ input[type=text]{
   width:300px;
 }
 
-.div-extrude{
-  margin-left: 30px;
-}
-
 .extrude{
-  margin-bottom: 15px;
+  padding-top:10px;
 }
 
 .Progress{
   padding-bottom: 20px;
 }
 
-#btn-pause{
-  margin-top: 20px;
-}
-
 #btn-stop{
   background-color:red;
-  margin-top:20px;
   border-bottom:4px solid #a60010;
 }
 
@@ -261,10 +252,8 @@ input[type=text]{
 }
 
 .span-inform{
-  font-family: 'Arimo', Quicksand_Book, Arial;
-  font-size:26px;
+  font-family: Helvetica, sans-serif;
   font-weight: bold;
-  color:orange;
 }
 
 .ullist{
@@ -280,8 +269,6 @@ input[type=text]{
   border-top-color: rgba(0, 0, 0, 0.05);
   border-bottom-color: rgba(0, 0, 0, 0.05);
   padding-left: 0;
-  margin-left: 20px;
-  margin-top:40px;
 }
 
 .lilist{
@@ -305,7 +292,102 @@ input[type=text]{
   padding-left: 20px;
 }
 
-.div-progress-gcode{
-  margin-left: 300px;
-  margin-top: 100px;
+
+#progress-percentage-completed{
+  width:480px;
+  clear: left;
+}
+
+#div-extrusion-velocity{
+  float:right;
+}
+
+#div-gcodecompleted-text{
+  float:left;
+}
+
+#span-percentage-completed{
+  float:left;
+}
+
+
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  border: 4px dashed #3a57af;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #b3bfe6;
+  border: 4px dashed #3a57af;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #3a57af;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h4 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #3a57af;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.div-btns{
+  padding-left:20px;
+}
+
+.div-gcodelines{
+  margin-left: 20px;
 }
