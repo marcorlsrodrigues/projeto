@@ -1,5 +1,5 @@
 var ads = require('ads');
-var http = require('http');
+//var http = require('http');
 var fs = require('fs');
 var randomizer = require('./randomizer');
 var url = require('url');
@@ -7,6 +7,10 @@ var client;
 var data = [];
 var res = [];
 var machineState = '';
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io').listen(http);
 
 var options = {
 	//The IP or hostname of the target machine 
@@ -27,17 +31,6 @@ var options = {
     //The ams target port 
     amsPortTarget: 851 
 }
-/*
-client = ads.connect(options, function() {
-    this.readDeviceInfo(function(err, result) {
-        console.log(result);
-        this.end();
-    });
-});
- 
-client.on('error', function(error) {
-    console.log(error);
-});*/
 
 
 var myHandle = {
@@ -285,6 +278,16 @@ function sethaltfalse(){
         });
     });
 }
+
+function setcnconfalse(){
+    hl_gcode_cncon.value='0';
+    client.write(hl_gcode_cncon, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_gcode_cncon, function(err, handle) {
+            console.log(err);
+        });
+    });   
+}
 /*
 VERSAO ANTERIOR
 var server = http.createServer(function(req,res){
@@ -308,8 +311,14 @@ var server = http.createServer(function(req,res){
         res.end(content);
     });
 });*/
+app.use(express.static('public'));
 
-var server = http.createServer(function (req, res) {
+app.get('/', function(req, res){
+res.sendFile(__dirname + '/public/index.html');
+});
+
+
+/*var server = http.createServer(function (req, res) {
     if(req.url.indexOf('.html') != -1){ //req.url has the pathname, check if it conatins '.html'
       fs.readFile('index.html', function (err, data) {
         if (err) console.log(err);
@@ -341,10 +350,8 @@ var server = http.createServer(function (req, res) {
 
     }
 
-});
+});*/
 
-
-var io = require('socket.io').listen(server);
 console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
     console.log('Socket connected');
@@ -434,6 +441,8 @@ io.sockets.on('connection',function(socket){
                     console.log('err: '+ err);
                 });
             });
+
+            setTimeout(setcnconfalse, 2000);
     });
 
     socket.on('extrude', function (extrude) {
@@ -529,4 +538,6 @@ io.sockets.on('error', function(err) {
 });
 
 
-server.listen(8080);
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
