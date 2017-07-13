@@ -35,10 +35,11 @@
         </taskproperties>
         <task id="0" name="Especificação do Projeto" meeting="false" start="2017-05-25" duration="5" complete="0" expand="true"/>
         <task id="2" name="Estudo do Estado da Arte" meeting="false" start="2017-06-01" duration="11" complete="0" expand="true"/>
-        <task id="4" name="Desenvolvimento - LPII" meeting="false" start="2017-06-16" duration="14" complete="0" expand="true"/>
-        <task id="5" name="Relatório + Apresentação - LPII" meeting="false" start="2017-07-06" duration="5" complete="0" expand="true"/>
-        <task id="8" name="Desenvolvimento - Projeto" meeting="false" start="2017-10-02" duration="66" complete="0" expand="true"/>
-        <task id="10" name="Relatório + Apresentação - Projeto" meeting="false" start="2018-01-02" duration="24" complete="0" expand="true"/>
+        <task id="4" name="Desenvolvimento - LPII" meeting="false" start="2017-06-16" duration="16" complete="0" expand="true"/>
+        <task id="5" name="Relatório - LPII" meeting="false" start="2017-07-10" duration="8" complete="0" expand="true"/>
+        <task id="8" name="Desenvolvimento - Projeto" meeting="false" start="2017-09-01" duration="86" complete="0" expand="true"/>
+        <task id="10" name="Relatório - Projeto" meeting="false" start="2018-01-02" duration="24" complete="0" expand="true"/>
+        <task id="14" name="task_14" meeting="false" start="2017-04-03" duration="1" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
