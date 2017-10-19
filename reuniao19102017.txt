@@ -1,0 +1,24 @@
+- projeto envolve inegi + algoritmi (centro de investigação UM). Esta última mais na parte de "controlo de movimentos". Trabalhos iniciaram a 18/10 e a partir de 23/10 deverá haver sessões mais frequentemente
+- equipamento final do projeto está em construção (2 motores já mexem), mas ainda faltam peças
+- há o risco de chegar a fase avançada da tese e a máquina não estar pronta. É baixo, mas existe.
+- atualmente estou a desenvolver sobre uma solução de automação em simulação, ou seja, não está ligada a nada físico. Esta solução é a "base" da solução final que será implementada no equipamento do projeto. Na final terei de fazer algumas adaptações ou configurações necessárias, apesar do grosso do desenvolvimento se manter.
+- esta solução é em CNC e não em NCI como no protótipo desenvolvido: diferenças->
+- já tenho o touchscreen que vai ser o final. 11.6 polegadas
+- já desenvolvi mockups e validadas pela equipa de automação (utilizadores)
+- nos próximos tempos vou estar a desenvolver
+
+notas.
+
+/ fazer inquerito aos users. com questoes abertas, por exemplo> quais sao as situa;oes que aquilo pode melhorar na opera;ao das tarefas, quais dificuldades que encontram na interface
+para fazer capitulo que valida este mockup> satisfaz___e facil de utilizar_  avaliar usavilidade interesse dos users?
+ha inqueritos mais ou menos satandard
+
+prototipo funcional na hmi final
+
+/ o operador tem 2 maos livresna maior parte do tempo
+
+descrever processo de validacao na tese
+
+por pdfs hmi na drive
+
+proxima runiao 02/11 09h30
