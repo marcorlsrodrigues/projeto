@@ -1,0 +1,23 @@
+1) Reação á interface de forma geral:
+  - Difícil de usar/fácil?
+  - Frustrante/satisfatória?
+  - Aborrecida de usar/estimulante?
+  - Rígida/flexível?
+
+2) Organização da interface e terminologia:
+  - Ler a informação que a mesma disponibiliza é: Difícil/Fácil
+  - Organização da informação/funcionalidades está: Confusa/Clara
+  - Termos usados no sistema: Inconsistente/consistente
+
+3) Aprendizagem do sistema:
+  - Aprender a operar o sistema: Difícil/Fácil
+  - Executar tarefas é simples: Nunca/Sempre
+
+4) Capacidades do sistema:
+  - Velocidade do sistema: Lenta/Rápida
+  - Confiabilidade do sistema: Não Confiavel/Confiavel
+
+5) Que capacidades do sistema ajudam a melhorar a operação das tarefas?
+
+6) Que dificuldades encontra na utilização da interface?
+
