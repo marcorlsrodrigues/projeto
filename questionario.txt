@@ -2,7 +2,6 @@
   - Difícil de usar/fácil?
   - Frustrante/satisfatória?
   - Aborrecida de usar/estimulante?
-  - Rígida/flexível?
 
 2) Organização da interface e terminologia:
   - Ler a informação que a mesma disponibiliza é: Difícil/Fácil
@@ -21,3 +20,4 @@
 
 6) Que dificuldades encontra na utilização da interface?
 
+7) Alguma sugestão de melhoria?

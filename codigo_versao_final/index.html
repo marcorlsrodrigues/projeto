@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HMI</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div id="div-machine-state" class="topbar">
+		<span id="machine-state-text" class="machine-state-text">ESTADO: </span>
+		<span id="machine-state" class="machine-state-text"></span>
+	</div>
+	<div id="block1">
+		<div id="div-axis">
+			<div id="div-axis-x" class="div-axis">X</div>
+			<div id="div-axis-y" class="div-axis">Y</div>
+			<div id="div-axis-z" class="div-axis">Z</div>
+			<div id="div-axis-b" class="div-axis">B</div>
+			<div id="div-axis-c" class="div-axis">C</div>
+		</div>
+		<div id="div-info-velocidade">
+			<div id="div-velocidade-avanco">
+				<span id="span-velocidade-avanco">Avanço:</span>
+				<span id="span-velocidade-avanco-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-velocidade-extrusao-polimero">
+				<span id="span-velocidade-extrusao-polimero">Extrusão de Polímero:</span>
+				<span id="span-velocidade-extrusao-polimero-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-velocidade-extrusao-fibra">
+				<span id="span-velocidade-extrusao-fibra">Extrusão de Fibra:</span>
+				<span id="span-velocidade-extrusao-fibra-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-velocidade-polimero-trabalho">
+				<span id="span-velocidade-polimero-trabalho">Polímero por Trabalho:</span>
+				<span id="span-velocidade-polimero-trabalho-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-velocidade-fibra-trabalho">
+				<span id="span-velocidade-fibra-trabalho">Fibra por Trabalho:</span>
+				<span id="span-velocidade-fibra-trabalho-valor"></span>
+			</div>
+		</div>
+		<div id="div-info-temperatura">
+			<div id="div-temperatura-camara">
+				<span id="span-temperatura-camara">Câmara:</span>
+				<span id="span-temperatura-camara-valor"></span>
+				<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
+				<span id="span-temperatura-tabuleiro-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-temperatura-extrusor">
+				<span id="span-temperatura-extrusor">Extrusor:</span>
+				<span id="span-temperatura-extrusor-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-temperatura-agua-chiller">
+				<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
+				<span id="span-temperatura-agua-chiller-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-temperatura-motor-b">
+				<span id="span-temperatura-motor-b">Motor B:</span>
+				<span id="span-temperatura-motor-b-valor"></span>
+				<span id="span-temperatura-quadro">Quadro:</span>
+				<span id="span-temperatura-quadro-valor"></span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-temperatura-saida-cablagem">
+				<span id="span-temperatura-saida-cablagem">Saída Cablagem:</span>
+				<span id="span-temperatura-saida-cablagem-valor"></span>
+				<span id="span-temperatura-ponto-movel">Ponto Móvel:</span>
+				<span id="span-temperatura-ponto-movel-valor"></span>
+			</div>
+		</div>
+	</div>
+	<div id="block2">
+		<div class="tab">
+		  <button class="tablinks" onclick="openCity(event, 'Automatic')">Automatic</button>
+		  <button class="tablinks" onclick="openCity(event, 'Manual')">Manual</button>
+		  <button class="tablinks" onclick="openCity(event, 'MDI')">MDI</button>
+		</div>
+		<div id="Automatic" class="tabcontent">
+		  	<div id="div-escolher-ficheiro">
+		  		<input name="meuFicheiro" type="file">
+		  	</div>
+		  	<div id="btn-automatic">
+		  		<button id="btn-iniciar">Iniciar</button>
+		  		<button id="btn-pausar">Pausar</button>
+		  		<button id="btn-parar">Parar</button>
+		  	</div>
+		  	<div id="div-linhas-gcode">
+		  		<div><input type="text" name="linha-gcode-1" value="X100 Y79 Z87" readonly></div>
+		  		<div><input type="text" name="linha-gcode-2" value="X140 Y79 Z07" readonly></div>
+		  		<div><input type="text" name="linha-gcode-3" value="X130 Y79 Z17" readonly></div>
+		  		<div><input type="text" name="linha-gcode-4" value="X100 Y19 Z87" readonly></div>
+		  		<div><input type="text" name="linha-gcode-5" value="X120 Y29 Z87" readonly></div>
+		  	</div>
+		</div>
+
+		<div id="Manual" class="tabcontent">
+		  <p>Manual.</p> 
+		</div>
+
+		<div id="MDI" class="tabcontent">
+		  <p>MDI.</p>
+		</div>
+	</div>
+	<div id="data"></div>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
