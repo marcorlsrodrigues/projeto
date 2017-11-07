@@ -1,5 +1,6 @@
 - feito prototipo funcional (navegação)
 - feito inquerito, utilizei standard (QUIS) customizado
+- Talvez esteja em falta análise por tarefa, isto é definir 2 ou 3 tarefas e analisar quantos cliques são necessários e quanto tempo o utilizador demora a executar a tarefa
 - obtidas respostas com recurso ao prototipo e ao ecrã tátil
 - inquerito vai para sub-capitulo do capitulo "Sistema Desenvolvido" na tese?
 
