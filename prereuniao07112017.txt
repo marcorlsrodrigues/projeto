@@ -1,0 +1,21 @@
+- feito prototipo funcional (navegação)
+- feito inquerito, utilizei standard (QUIS) customizado
+- obtidas respostas com recurso ao prototipo e ao ecrã tátil
+- inquerito vai para sub-capitulo do capitulo "Sistema Desenvolvido" na tese?
+
+Abordagem Desenvolvida
+ - Introdução
+ - Arquitetura e Tecnologias
+ - Sub-Objetivos
+ - Protótipo Funcional
+ - Avaliação dos Utilizadores
+ - Sistema Desenvolvido
+
+- Mantenho algum sub-capitulo a falar no prototipo desenvolvido no semestre anterior?
+- Ja dei inicio a algum desenvolvimento
+- Na máquina tem havido algum desenvolvimento com sessões de trabalho semanais (1 ou 2)
+
+
+Proxima reunião: 
+- 21/11/2017 as 17h
+- 23/2017 as 09h30

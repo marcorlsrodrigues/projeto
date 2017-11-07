@@ -1,0 +1,27 @@
+1) Reação á interface de forma geral:
+  - Difícil de usar/fácil? Facil
+  - Frustrante/satisfatória? Satisfatoria
+  - Aborrecida de usar/estimulante? Estimulante
+
+2) Organização da interface e terminologia:
+  - Ler a informação que a mesma disponibiliza é: Difícil/Fácil  - Facil
+  - Organização da informação/funcionalidades está: Confusa/Clara - Clara
+  - Termos usados no sistema: Inconsistente/consistente - Consistente
+
+3) Aprendizagem do sistema:
+  - Aprender a operar o sistema: Difícil/Fácil - Facil
+  - Executar tarefas é simples: Nunca/Sempre - Sempre
+
+4) Capacidades do sistema:
+  - Velocidade do sistema: Lenta/Rápida - Rapida
+  - Confiabilidade do sistema: Não Confiavel/Confiavel - Confiavel
+
+5) Que capacidades do sistema ajudam a melhorar a operação das tarefas?
+O modo de operação "Manual" permite facilitar o processo de manutenção do equipamento, por exemplo movendo os eixos para determinadas zonas de forma a ser possível aceder manualmente a outras.
+
+6) Que dificuldades encontra na utilização da interface?
+-
+
+7) Alguma sugestão de melhoria?
+- Evitar o scroll, mas se necessário ter 1 scroll (pouco) também é viável
+- Tentar arranjar tabs inferiores de forma a organizar melhor a informação

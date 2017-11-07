@@ -1,0 +1,29 @@
+1) Reação á interface de forma geral:
+  - Difícil de usar/fácil? Facil
+  - Frustrante/satisfatória? Satisfatoria
+  - Aborrecida de usar/estimulante? Estimulante
+
+2) Organização da interface e terminologia:
+  - Ler a informação que a mesma disponibiliza é: Difícil/Fácil  - Facil
+  - Organização da informação/funcionalidades está: Confusa/Clara - Clara
+  - Termos usados no sistema: Inconsistente/consistente - Consistente
+
+3) Aprendizagem do sistema:
+  - Aprender a operar o sistema: Difícil/Fácil - Facil
+  - Executar tarefas é simples: Nunca/Sempre - Sempre
+
+4) Capacidades do sistema:
+  - Velocidade do sistema: Lenta/Rápida - Rapida
+  - Confiabilidade do sistema: Não Confiavel/Confiavel - Confiavel
+
+5) Que capacidades do sistema ajudam a melhorar a operação das tarefas?
+A organização da informação e funcionalidades está customizada ao processo de impressão 3D, o facto de ter como primeiro bloco de informação aquela que é mais importante permite perceber mais facilmente em tempo real o que está a acontecer no processo.
+
+6) Que dificuldades encontra na utilização da interface?
+Alguma falta de espaço nas tabs inferiores.
+
+7) Alguma sugestão de melhoria?
+- Avaliar necessidade de ter botão de emergência na interface
+- Caixa de texto para input de um valor (posição para onde queremos enviar o eixo) e o eixo move-se enquanto o botão do mesmo é pressionado (comportamento idêntico ao "Send To")
+- Eixo C varia entre 0 e 360. O "0" será sempre ao início da máquina?
+- Eixos XYZ em mm e eixos B e C em graus
