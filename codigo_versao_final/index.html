@@ -85,6 +85,7 @@
 		  <button class="tablinks" onclick="openCity(event, 'MDI')">MDI</button>
 		</div>
 		<div id="Automatic" class="tabcontent">
+			<div id="tab-automatic-1">
 		  	<div id="div-escolher-ficheiro">
 		  		<input name="meuFicheiro" type="file">
 		  	</div>
@@ -93,6 +94,8 @@
 		  		<button id="btn-pausar">Pausar</button>
 		  		<button id="btn-parar">Parar</button>
 		  	</div>
+		  </div>
+		  <div id="tab-automatic-2">
 		  	<div id="div-linhas-gcode">
 		  		<div><input type="text" name="linha-gcode-1" value="X100 Y79 Z87" readonly></div>
 		  		<div><input type="text" name="linha-gcode-2" value="X140 Y79 Z07" readonly></div>
@@ -100,17 +103,67 @@
 		  		<div><input type="text" name="linha-gcode-4" value="X100 Y19 Z87" readonly></div>
 		  		<div><input type="text" name="linha-gcode-5" value="X120 Y29 Z87" readonly></div>
 		  	</div>
+		  </div>
 		</div>
 
 		<div id="Manual" class="tabcontent">
-		  <p>Manual.</p> 
+		  	<div id="div-botoes-eixos">
+			  	<div>
+				  	<button>X</button>
+				  	<button>Y</button>
+				  	<button>Z</button>
+			  	</div>
+			  	<div>
+				  	<button>B</button>
+				  	<button>C</button>
+				  	<button>EXT</button>
+			  	</div>
+		  	</div>
+		  	<div id="div-botoes-avanco">
+			  	<div>
+			  		<span>Recuo</span>
+				  	<button>-0.1</button>
+				  	<button>-1</button>
+				  	<button>-10</button>
+			  	</div>
+			  	<div>
+			  		<span>Avanço</span>
+				  	<button>+0.1</button>
+				  	<button>+1</button>
+				  	<button>+10</button>
+			  	</div>
+		  	</div>
+		  	<div id="div-botoes-homing">
+		  		<div><button>Homing</button></div>
+			  	<div><button>Homing Geral</button></div>
+			</div>
 		</div>
-
 		<div id="MDI" class="tabcontent">
-		  <p>MDI.</p>
+			<div>
+				<input type="text" name="mdi-linha-gcode" />
+			</div>
+			<div>
+				<button>Iniciar</button>
+				<button>Pausar</button>
+				<button>Parar</button>
+			</div>
 		</div>
 	</div>
-	<div id="data"></div>
+	<div id="block3">
+		<div class="tab">
+		  <button class="tablinks" onclick="openCity(event, 'Aquecimento')">Aquecimento</button>
+		  <button class="tablinks" onclick="openCity(event, 'Insuflação')">Insuflação de Ar</button>
+		  <button class="tablinks" onclick="openCity(event, 'Parâmetros')">Parâmetros</button>
+		  <button class="tablinks" onclick="openCity(event, 'Outros')">Outros</button>
+		  <button class="tablinks" onclick="openCity(event, 'Desligar')">Desligar</button>
+		</div>
+		<div id="Aquecimento" class="tabcontent"></div>
+		<div id="Insuflação" class="tabcontent"></div>
+		<div id="Parâmetros" class="tabcontent"></div>
+		<div id="Outros" class="tabcontent"></div>
+		<div id="Desligar" class="tabcontent"></div>
+	</div>
+	<div class="kb-container"></div>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
