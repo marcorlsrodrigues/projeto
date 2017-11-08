@@ -80,9 +80,9 @@
 	</div>
 	<div id="block2">
 		<div class="tab">
-		  <button class="tablinks" onclick="openCity(event, 'Automatic')">Automatic</button>
-		  <button class="tablinks" onclick="openCity(event, 'Manual')">Manual</button>
-		  <button class="tablinks" onclick="openCity(event, 'MDI')">MDI</button>
+		  <button class="tablinks" onclick="abreModoOperacao(event, 'Automatic')">Automatic</button>
+		  <button class="tablinks" onclick="abreModoOperacao(event, 'Manual')">Manual</button>
+		  <button class="tablinks" onclick="abreModoOperacao(event, 'MDI')">MDI</button>
 		</div>
 		<div id="Automatic" class="tabcontent">
 			<div id="tab-automatic-1">
@@ -134,13 +134,18 @@
 			  	</div>
 		  	</div>
 		  	<div id="div-botoes-homing">
-		  		<div><button>Homing</button></div>
-			  	<div><button>Homing Geral</button></div>
+		  		<div>
+		  			<button>Homing</button>
+		  		</div>
+			  	<div>
+			  		<button>Homing Geral</button>
+			  	</div>
 			</div>
 		</div>
 		<div id="MDI" class="tabcontent">
 			<div>
 				<input type="text" name="mdi-linha-gcode" />
+				<img id="img-teclado" src="img/keyboard.PNG" width="36" height="36""/>
 			</div>
 			<div>
 				<button>Iniciar</button>
@@ -151,19 +156,152 @@
 	</div>
 	<div id="block3">
 		<div class="tab">
-		  <button class="tablinks" onclick="openCity(event, 'Aquecimento')">Aquecimento</button>
-		  <button class="tablinks" onclick="openCity(event, 'Insuflação')">Insuflação de Ar</button>
-		  <button class="tablinks" onclick="openCity(event, 'Parâmetros')">Parâmetros</button>
-		  <button class="tablinks" onclick="openCity(event, 'Outros')">Outros</button>
-		  <button class="tablinks" onclick="openCity(event, 'Desligar')">Desligar</button>
+		  <button class="tablinks2" onclick="abreParametros(event, 'Aquecimento')">Aquecimento</button>
+		  <button class="tablinks2" onclick="abreParametros(event, 'Insuflação')">Insuflação de Ar</button>
+		  <button class="tablinks2" onclick="abreParametros(event, 'Parâmetros')">Parâmetros</button>
+		  <button class="tablinks2" onclick="abreParametros(event, 'Outros')">Outros</button>
+		  <button class="tablinks2" onclick="abreParametros(event, 'Desligar')">Desligar</button>
 		</div>
-		<div id="Aquecimento" class="tabcontent"></div>
-		<div id="Insuflação" class="tabcontent"></div>
-		<div id="Parâmetros" class="tabcontent"></div>
-		<div id="Outros" class="tabcontent"></div>
-		<div id="Desligar" class="tabcontent"></div>
+		<div id="Aquecimento" class="tabcontent2">
+			<div id="div-aquecimento-camara">
+				<span id="span-aquecimento-camara">Câmara:</span>
+				<span id="span-aquecimento-camara-valor">
+					<input type="radio" name="aquecimento-camara" value="on"> On
+					<input type="radio" name="aquecimento-camara" value="off"> Off
+				</span>
+			</div>
+			<div id="div-aquecimento-tabuleiro">
+				<span id="span-aquecimento-tabuleiro">Tabuleiro:</span>
+				<span id="span-aquecimento-tabuleiro-valor">
+					<input type="radio" name="aquecimento-tabuleiro" value="on"> On
+					<input type="radio" name="aquecimento-tabuleiro" value="off"> Off
+				</span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-aquecimento-extrusor">
+				<span id="span-aquecimento-extrusor">Extrusor:</span>
+				<span id="span-aquecimento-extrusor-valor">
+					<input type="radio" name="aquecimento-extrusor" value="on"> On
+					<input type="radio" name="aquecimento-extrusor" value="off"> Off
+				</span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-aquecimento-temperatura-camara">
+				<span id="span-aquecimento-temperatura-camara">Temperatura da Câmara:</span>
+				<button id="aquecimento-temperatura-camara--10">-10</button>
+				<button id="aquecimento-temperatura-camara--1">-1</button>
+				<button id="aquecimento-temperatura-camara-1">+1</button>
+				<button id="aquecimento-temperatura-camara-10">+10</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-aquecimento-temperatura-tabuleiro">
+				<span id="span-aquecimento-temperatura-tabuleiro">Temperatura do Tabuleiro:</span>
+				<button id="aquecimento-temperatura-tabuleiro--10">-10</button>
+				<button id="aquecimento-temperatura-tabuleiro--1">-1</button>
+				<button id="aquecimento-temperatura-tabuleiro-1">+1</button>
+				<button id="aquecimento-temperatura-tabuleiro-10">+10</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-aquecimento-temperatura-extrusor">
+				<span id="span-aquecimento-temperatura-extrusor">Temperatura do Extrusor:</span>
+				<button id="aquecimento-temperatura-extrusor--10">-10</button>
+				<button id="aquecimento-temperatura-extrusor--1">-1</button>
+				<button id="aquecimento-temperatura-extrusor-1">+1</button>
+				<button id="aquecimento-temperatura-extrusor-10">+10</button>
+			</div>
+		</div>
+		<div id="Insuflação" class="tabcontent2">
+			<div id="div-insuflacao-camara">
+				<span id="span-insuflacao-camara">Câmara:</span>
+				<span id="span-insuflacao-camara-valor">
+					<input type="radio" name="insuflacao-camara" value="on"> On
+					<input type="radio" name="insuflacao-camara" value="off"> Off
+				</span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-insuflacao-eixox">
+				<span id="span-insuflacao-eixox">Eixo X e Cablagem:</span>
+				<span id="span-insuflacao-eixox-valor">
+					<input type="radio" name="insuflacao-eixox" value="on"> On
+					<input type="radio" name="insuflacao-eixox" value="off"> Off
+				</span>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-insuflacao-quadro">
+				<span id="span-insuflacao-quadro">Quadro:</span>
+				<select id="select-insuflacao-quadro">
+					<option value="0">0%</option>
+					<option value="50">50%</option>
+					<option value="100">100%</option>
+				</select>
+			</div>
+		</div>
+		<div id="Parâmetros" class="tabcontent2">
+			<div id="div-parametros-velocidade-avanco">
+				<span id="span-parametros-velocidade-avanco">Velocidade de Avanço:</span>
+				<button id="parametros-velocidade-avanco--10">-10</button>
+				<button id="parametros-velocidade-avanco--1">-1</button>
+				<button id="parametros-velocidade-avanco-1">+1</button>
+				<button id="parametros-velocidade-avanco-10">+10</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-parametros-velocidade-extrusao-polimero">
+				<span id="span-parametros-velocidade-extrusao-polimero">Velocidade de Extrusão do Polímero:</span>
+				<button id="parametros-velocidade-extrusao-polimero--10">-10</button>
+				<button id="parametros-velocidade-extrusao-polimero--1">-1</button>
+				<button id="parametros-velocidade-extrusao-polimero-1">+1</button>
+				<button id="parametros-velocidade-extrusao-polimero-10">+10</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-parametros-velocidade-extrusao-fibra">
+				<span id="span-parametros-velocidade-extrusao-fibra">Velocidade de Extrusão de Fibra:</span>
+				<button id="parametros-velocidade-extrusao-fibra--10">-10</button>
+				<button id="parametros-velocidade-extrusao-fibra--1">-1</button>
+				<button id="parametros-velocidade-extrusao-fibra-1">+1</button>
+				<button id="parametros-velocidade-extrusao-fibra-10">+10</button>
+			</div>
+		</div>
+		<div id="Outros" class="tabcontent2">
+			<div id="div-outros-ajuste-mesa">
+				<button id="outros-ajuste-mesa">Ajuste de Mesa</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-outros-iluminacao-camara">
+				<span id="span-outros-iluminacao-camara">Iluminação da Câmara:</span>
+				<span id="span-outros-iluminacao-camara-valor">
+					<input type="radio" name="outros-iluminacao-camara" value="on"> On
+					<input type="radio" name="outros-iluminacao-camara" value="off"> Off
+				</span>
+			</div>
+		</div>
+		<div id="Desligar" class="tabcontent2">
+			<div id="div-desligar-motores">
+				<button id="desligar-motores">Desligar Motores</button>
+			</div>
+			<div id="div-desligar-aquecimento-camara">
+				<button id="desligar-aquecimento-camara">Desligar Aquecimento da Câmara</button>
+			</div>
+			<hr class="hr1"/>
+			<div id="div-desligar-sistema-aquecimento">
+				<button id="desligar-motores">Desligar Sistema de Aquecimento</button>
+			</div>
+			<div id="div-desligar-tudo">
+				<button id="desligar-tudo">Desligar Tudo</button>
+			</div>
+		</div>
 	</div>
 	<div class="kb-container"></div>
+	<div id="modal-teclado" class="modal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <div id="div-botoes-teclado">
+	    	<button id="btn-teclado-x">X</button>
+	    	<button id="btn-teclado-y">Y</button>
+	    	<button id="btn-teclado-z">Z</button>
+	    </div>
+	    <span id="span-mdi-gcode"></span>
+	  </div>
+	</div>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
