@@ -7,21 +7,35 @@ Introdução
 Estado da Arte 
 	Introdução
 	Automação
-		Human-Machine Interfaces
 	Software para Automação
 	Fabrico Aditivo
-	Web para Automação -> mistura de todos capítulos que envolviam web e referir interseção entre automação e web
-	Casos de Estudo
+	Web para Automação
+		HTTP
+		Browsers
+		Tecnologias Web
+		Realidade Aumentada
+		Cloud Computing
+		Indústria 4.0
+		Human-Machine Interfaces
+		Sistemas Scada
+	Abordagens Existentes
 		Controlo e Automação na Indústria
 		Sistemas Web-Based para Controlo e Automação
 		Realidade Aumentada na Indústria
-		
 
-Análise do Problema (X)
+Protótipo Funcional --> Referente ao protótipo do semestre anterior
 
-Desenvolvimento do Projeto (X)
+Abordagem Implementada
+	Introdução
+	Arquitetura e Tecnologias
+	Sub-Objetivos
+	Levantamento de Requisitos
+	Maquete Funcional
+	Avaliação da Interface/Validação da Interface
+	Sistema Desenvolvido
+	Resultados Obtidos ?
 
-Conclusões (X)
+Conclusões e Trabalho Futuro
 
 Referências
 

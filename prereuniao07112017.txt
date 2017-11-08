@@ -9,7 +9,7 @@ Abordagem Desenvolvida
  - Arquitetura e Tecnologias
  - Sub-Objetivos
  - Protótipo Funcional
- - Avaliação dos Utilizadores
+ - Avaliação da Usabilidade da Interface
  - Sistema Desenvolvido
 
 - Mantenho algum sub-capitulo a falar no prototipo desenvolvido no semestre anterior?
@@ -19,4 +19,16 @@ Abordagem Desenvolvida
 
 Proxima reunião: 
 - 21/11/2017 as 17h
-- 23/2017 as 09h30
+
+
+
+---- notas reunião
+- avaliar atrefas por cliques e tempo
+- inserir novo questionario SUS (ver skype)
+
+- 2 capitulos: app e interface
+- ou: capitulo de resultados
+- conclusao com conclusoes parciais de cada uma das partes
+- contexto: proposta de solução se der para testar na maquina real melhor
+
+- fazer draft da estrutura
