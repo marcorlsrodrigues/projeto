@@ -1,3 +1,4 @@
 duvidas:
 - ficheiros extra: requisitos, mockup, prototipo, etc. Ficam na tese? Como? Em anexo?
 - listar requisitos? (eu acho que não..)
+- as respostas dos users como coloco na tese?

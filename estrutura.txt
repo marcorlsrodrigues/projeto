@@ -30,7 +30,7 @@ Abordagem Implementada
 	Arquitetura e Tecnologias
 	Sub-Objetivos
 	Levantamento de Requisitos e Desenvolvimento de Maquetes
-	Avaliação da Interface/Validação da Interface
+	Avaliação da Interface
 	Sistema Desenvolvido
 	Resultados Obtidos ?
 
