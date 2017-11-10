@@ -80,9 +80,9 @@
 	</div>
 	<div id="block2">
 		<div class="tab">
-		  <button class="tablinks" onclick="abreModoOperacao(event, 'Automatic')">Automatic</button>
-		  <button class="tablinks" onclick="abreModoOperacao(event, 'Manual')">Manual</button>
-		  <button class="tablinks" onclick="abreModoOperacao(event, 'MDI')">MDI</button>
+		  <button id="btn-tab-automatic" class="tablinks" onclick="abreModoOperacao(event, 'Automatic')">Automatic</button>
+		  <button id="btn-tab-manual" class="tablinks" onclick="abreModoOperacao(event, 'Manual')">Manual</button>
+		  <button id="btn-tab-mdi" class="tablinks" onclick="abreModoOperacao(event, 'MDI')">MDI</button>
 		</div>
 		<div id="Automatic" class="tabcontent">
 			<div id="tab-automatic-1">
@@ -144,7 +144,7 @@
 		</div>
 		<div id="MDI" class="tabcontent">
 			<div>
-				<input type="text" name="mdi-linha-gcode" />
+				<input id="mdi-linha-gcode" type="text" name="mdi-linha-gcode" />
 				<img id="img-teclado" src="img/keyboard.PNG" width="36" height="36""/>
 			</div>
 			<div>
@@ -156,11 +156,11 @@
 	</div>
 	<div id="block3">
 		<div class="tab">
-		  <button class="tablinks2" onclick="abreParametros(event, 'Aquecimento')">Aquecimento</button>
-		  <button class="tablinks2" onclick="abreParametros(event, 'Insuflação')">Insuflação de Ar</button>
-		  <button class="tablinks2" onclick="abreParametros(event, 'Parâmetros')">Parâmetros</button>
-		  <button class="tablinks2" onclick="abreParametros(event, 'Outros')">Outros</button>
-		  <button class="tablinks2" onclick="abreParametros(event, 'Desligar')">Desligar</button>
+		  <button id="btn-tab-aquecimento" class="tablinks2" onclick="abreParametros(event, 'Aquecimento')">Aquecimento</button>
+		  <button id="btn-tab-insuflacao" class="tablinks2" onclick="abreParametros(event, 'Insuflação')">Insuflação de Ar</button>
+		  <button id="btn-tab-parametros" class="tablinks2" onclick="abreParametros(event, 'Parâmetros')">Parâmetros</button>
+		  <button id="btn-tab-outros" class="tablinks2" onclick="abreParametros(event, 'Outros')">Outros</button>
+		  <button id="btn-tab-desligar" class="tablinks2" onclick="abreParametros(event, 'Desligar')">Desligar</button>
 		</div>
 		<div id="Aquecimento" class="tabcontent2">
 			<div id="div-aquecimento-camara">
@@ -290,16 +290,21 @@
 			</div>
 		</div>
 	</div>
-	<div class="kb-container"></div>
 	<div id="modal-teclado" class="modal">
 	  <div class="modal-content">
 	    <span class="close">&times;</span>
+	    <div id="div-span-mdi-gcode">
+	    	<input type="text" id="input-mdi-gcode" name="input-mdi-gcode" placeholder="Inserir comando Gcode">
+	    </div>
 	    <div id="div-botoes-teclado">
 	    	<button id="btn-teclado-x">X</button>
 	    	<button id="btn-teclado-y">Y</button>
 	    	<button id="btn-teclado-z">Z</button>
+	    	<button id="btn-teclado-apaga-ultimo">Apaga Último</button>
+	    	<button id="btn-teclado-executa">OK</button>
+	    	<button id="btn-teclado-apaga">Apagar</button>
 	    </div>
-	    <span id="span-mdi-gcode"></span>
+	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
 	  </div>
 	</div>
 	<script type="text/javascript" src="js/main.js"></script>

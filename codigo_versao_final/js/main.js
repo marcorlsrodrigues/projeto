@@ -27,15 +27,40 @@ $(function(){
 	}
 
 	$('#btn-teclado-x').on('click',function(){
-		$('#span-mdi-gcode').append('X');
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'X');
 	});
 	$('#btn-teclado-y').on('click',function(){
-		$('#span-mdi-gcode').append('Y');
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'Y');
 	});
 	$('#btn-teclado-z').on('click',function(){
-		$('#span-mdi-gcode').append('Z');
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'Z');
 	});
 
+	$('#btn-teclado-apaga').on('click',function(){
+		$('#input-mdi-gcode').val('');
+	});
+
+	$('#btn-teclado-apaga-ultimo').on('click',function(){
+		let str = $('#input-mdi-gcode').val();
+		if(str.length > 0){
+			let newStr = str.substring(0, str.length - 1);
+			$('#input-mdi-gcode').val(newStr);
+		}
+	});
+
+	$('#btn-teclado-executa').on('click',function(){
+		let spanMdiGcode = $('#input-mdi-gcode').val();
+		$('#table-mdi-gcode').append('<tr><td>'+spanMdiGcode+'</td></tr>');
+		$('#mdi-linha-gcode').val(spanMdiGcode);
+	});
+
+	$('#btn-tab-automatic').addClass('active');
+	$('#btn-tab-aquecimento').addClass('active');
+	$('#Automatic').css('display','block');
+	$('#Aquecimento').css('display','block');
 });
 
 
