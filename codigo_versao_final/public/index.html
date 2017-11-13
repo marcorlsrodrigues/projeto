@@ -2,14 +2,20 @@
 <html>
 <head>
 	<title>HMI</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
 	<div id="div-machine-state" class="topbar">
-		<span id="machine-state-text" class="machine-state-text">ESTADO: </span>
-		<span id="machine-state" class="machine-state-text"></span>
+		<div id="div-power-button">
+	    	<a id="power-button" class="power-button"><i class="fa fa-power-off"></i></a>
+	    </div>
+	    <div id="div-estado-maquina">
+			<span id="machine-state-text" class="machine-state-text">ESTADO:</span>
+			<span id="machine-state" class="machine-state-text"></span>
+		</div>
 	</div>
 	<div id="block1">
 		<div id="div-axis">

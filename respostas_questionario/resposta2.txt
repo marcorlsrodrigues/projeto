@@ -26,3 +26,6 @@ O facto de poder fazer ajustes pontuais a parâmetros do processo em tempo real (
 - Possibilidade de dividir as tabs de baixo (operação e parâmetros) na vertical com 50% para cada lado (necessário avaliar)
 - Possibilidade de criar sub-menu que se "esconde" para fazer os ajustes das tabs inferiores (aquecimento, parâmetros, outros...)
 - Guardar histórico de linhas Gcode inseridas via MDI
+
+
+SUS Score: 90

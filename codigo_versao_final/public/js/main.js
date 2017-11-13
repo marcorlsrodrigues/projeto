@@ -1,5 +1,5 @@
 $(function(){
-	//var socket = io.connect('http://localhost:3000');
+	var socket = io.connect('http://localhost:3000');
 
 	var modal = document.getElementById('modal-teclado');
 
@@ -8,6 +8,8 @@ $(function(){
 
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
+
+	let machState='off';
 
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
@@ -61,6 +63,33 @@ $(function(){
 	$('#btn-tab-aquecimento').addClass('active');
 	$('#Automatic').css('display','block');
 	$('#Aquecimento').css('display','block');
+
+	machineState(machState);
+
+	$('.power-button').click(function(){
+	  if ($(this).hasClass('on')){
+		  $(this).removeClass('on');
+		  socket.emit('power', '0');
+		  machState='off';
+	  }
+	  else {
+	      $(this).addClass('on');
+	      socket.emit('power', '1');
+	      machState='on';
+	  }
+	  machineState(machState);
+	});
+
+
+	socket.on('GVL.Poweron', function(power) {
+      if(power==1){
+        $('#power-button').addClass('on');
+        machineState('on');
+      }else{
+        $('#power-button').removeClass('on');
+        machineState('off');
+      }
+    });
 });
 
 
@@ -93,3 +122,25 @@ function abreParametros(evt, cityName) {
 }
 
 
+function machineState(state){
+  if(state=='on'){
+      $('#machine-state').text('ON');
+      $('#machine-state').css('color', "green");
+  }
+  if(state=='off'){
+      $('#machine-state').text('OFF');
+      $('#machine-state').css('color', "red");
+  }
+  if(state=='manual'){
+      $('#machine-state').text('MANUAL');
+      $('#machine-state').css('color', "blue"); 
+  }
+  if(state=='auto'){
+      $('#machine-state').text('AUTO');
+      $('#machine-state').css('color', "blue"); 
+  }
+  if(state=='pause'){
+      $('#machine-state').text('PAUSE');
+      $('#machine-state').css('color', "yellow"); 
+  }
+}

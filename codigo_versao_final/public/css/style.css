@@ -10,8 +10,8 @@ body{
 }
 
 #div-machine-state{
-  height: 50px;
-  padding-top: 20px;
+  height: 55px;
+  padding-top: 3px;
 }
 
 .machine-state-text{
@@ -259,4 +259,50 @@ button.active-style {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+a.power-button{
+  cursor: pointer;
+  display: block;
+  width: 45px;
+  height: 45px;
+  font-size: 40px;
+  border: 2px solid #dedede;
+  background-color: #efefef;
+  box-shadow: 0px 0px 40px 1px #ddd inset,
+    0px 2px 4px rgba(0,0,0,0.4),
+    1px 1px 4px rgba(0,0,0,0.3),
+    -1px -1px 2px rgba(0,0,0,0.1),
+    -1px 1px 2px rgba(0,0,0,0.1);
+  text-align: center;
+  left: 0;
+  right: 0;
+  
+  margin-left: 10px;
+  
+  border-radius: 50%;
+   transition: color 0.8s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+.power-button:hover{
+  box-shadow:  0px 2px 6px rgba(0,0,0,0.4),
+    1px 1px 6px rgba(0,0,0,0.3),
+    -1px -1px 4px rgba(0,0,0,0.1),
+    -1px 1px 4px rgba(0,0,0,0.1);
+}
+
+.power-button.on {
+    color: #2ECC6F;
+}
+
+#div-power-button{
+    width: 5%;
+    height: 99%;
+    float: left;
+}
+
+#div-estado-maquina{
+  width:80%;
+  float: left;
+  padding-top: 10px;
 }

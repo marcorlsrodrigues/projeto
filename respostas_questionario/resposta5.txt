@@ -17,10 +17,15 @@
   - Confiabilidade do sistema: Não Confiavel/Confiavel - Confiavel
 
 5) Que capacidades do sistema ajudam a melhorar a operação das tarefas?
-O facto de ter como primeiro bloco de informação toda a informação mais relevante (eixos, velocidades e temperaturas) para um processo de impressão facilita uma compreensão dos parâmetros mais rápida e por sua vez uma atuação do operador também mais rápida, podendo inclusivé evitar desperdícios de peças mal impressas.
+O facto de ter como primeiro bloco de informação toda a informação mais relevante (eixos, velocidades e temperaturas) para um processo de impressão facilita uma compreensão dos parâmetros mais rápida e por sua vez uma atuação do operador também mais rápida.
 
 6) Que dificuldades encontra na utilização da interface?
 -
 
 7) Alguma sugestão de melhoria?
-Ajuste de tamanhos e tipos de letras.
+- Coluna Duração no Histórico.
+- Para todas as velocidades: ter botão 100% para voltar á velocidade inicial após esta ter sido alterada durante a impressão.
+- Jogo de cores (verde, vermelho, etc) nas informações que tenham atual vs desejada (temperaturas)
+- Expandir linhas de código G (para 20, 25..) para verificar se é versão correta do ficheiro a executar, por exemplo.
+
+SUS Score:90

@@ -23,16 +23,15 @@ Estado da Arte
 		Sistemas Web-Based para Controlo e Automação
 		Realidade Aumentada na Indústria
 
-Protótipo Funcional --> Referente ao protótipo do semestre anterior
-
 Abordagem Implementada
 	Introdução
 	Arquitetura e Tecnologias
 	Sub-Objetivos
+	Protótipo Funcional --> Referente ao protótipo do semestre anterior
 	Levantamento de Requisitos e Desenvolvimento de Maquetes
 	Avaliação da Interface
 	Sistema Desenvolvido
-	Resultados Obtidos ?
+	Resultados Obtidos --> Faz sentido? Ou Resultados saltam para capítulo das conclusões?
 
 Conclusões e Trabalho Futuro
 
