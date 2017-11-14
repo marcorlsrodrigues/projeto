@@ -90,6 +90,37 @@ $(function(){
         machineState('off');
       }
     });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition', function(actCmdPosition) {
+        $('#span-x-pos').width(actCmdPosition);
+    	$('#progress-x-pos').val(actCmdPosition);
+    	$('#strong-x-pos').text((actCmdPosition).toFixed(2));
+    });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[1].actCmdPosition', function(actCmdPosition) {
+        $('#span-z-pos').width(actCmdPosition);
+    	$('#progress-z-pos').val(actCmdPosition);
+    	$('#strong-z-pos').text((actCmdPosition).toFixed(2));
+    });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
+        $('#span-y-pos').width(actCmdPosition);
+    	$('#progress-y-pos').val(actCmdPosition);
+    	$('#strong-y-pos').text((actCmdPosition).toFixed(2));
+    });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
+        $('#span-b-pos').width(actCmdPosition);
+    	$('#progress-b-pos').val(actCmdPosition);
+    	$('#strong-b-pos').text((actCmdPosition).toFixed(2));
+    });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition', function(actCmdPosition) {
+    	console.log(actCmdPosition);
+        $('#span-c-pos').width(actCmdPosition);
+    	$('#progress-c-pos').val(actCmdPosition);
+    	$('#strong-c-pos').text((actCmdPosition).toFixed(2));
+    });
 });
 
 

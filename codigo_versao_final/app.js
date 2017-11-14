@@ -34,12 +34,6 @@ var options = {
     amsPortTarget: 851 
 }
 
-var hl_Poweron_OLD = {
-    symname: 'MAIN.varString',  
-    bytelength: ads.STRING,  
-    propname: 'value'      
-};
-
 var hl_Poweron = {
     symname: 'GVL.Poweron',  
     bytelength: ads.BOOL,  
@@ -47,8 +41,38 @@ var hl_Poweron = {
 };
 
 var hl_CncHmiData = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].State',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition',  
     bytelength: ads.STRING,  
+    propname: 'value'
+}
+
+var hl_xActPos = {
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition',  
+    bytelength: ads.LREAL,  
+    propname: 'value'
+}
+
+var hl_yActPos = {
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition',  
+    bytelength: ads.LREAL,  
+    propname: 'value'
+}
+
+var hl_zActPos = {
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[1].actCmdPosition',  
+    bytelength: ads.LREAL,  
+    propname: 'value'
+}
+
+var hl_bActPos = {
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition',  
+    bytelength: ads.LREAL,  
+    propname: 'value'
+}
+
+var hl_cActPos = {
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition',  
+    bytelength: ads.LREAL,  
     propname: 'value'
 }
 
@@ -88,7 +112,11 @@ io.sockets.on('connection',function(socket){
 		})(10); */
 
     	this.notify(hl_Poweron);
-    	this.notify(hl_CncHmiData);
+    	this.notify(hl_xActPos);
+    	this.notify(hl_yActPos);
+    	this.notify(hl_zActPos);
+    	this.notify(hl_bActPos);
+    	this.notify(hl_cActPos);
     });
 
     socket.on('power', function (power) {
