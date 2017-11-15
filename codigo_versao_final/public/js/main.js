@@ -116,10 +116,50 @@ $(function(){
     });
 
     socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition', function(actCmdPosition) {
-    	console.log(actCmdPosition);
         $('#span-c-pos').width(actCmdPosition);
     	$('#progress-c-pos').val(actCmdPosition);
     	$('#strong-c-pos').text((actCmdPosition).toFixed(2));
+    });
+
+    socket.on('GVL.Vel_Avanco', function(value) {
+    	$('#span-velocidade-avanco-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Vel_ExtrusaoPolimero', function(value) {
+    	$('#span-velocidade-extrusao-polimero-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Vel_ExtrusaoFibra', function(value) {
+    	$('#span-velocidade-extrusao-fibra-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Vel_PolimeroTrabalho', function(value) {
+    	$('#span-velocidade-polimero-trabalho-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Vel_FibraTrabalho', function(value) {
+    	$('#span-velocidade-fibra-trabalho-valor').text((value).toFixed(2));
+    });
+
+    socket.on('GVL.Temp_Camara', function(value) {
+    	$('#span-temperatura-camara-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_Tabuleiro', function(value) {
+    	$('#span-temperatura-tabuleiro-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_Extrusor', function(value) {
+    	$('#span-temperatura-extrusor-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_AguaChiller', function(value) {
+    	$('#span-temperatura-agua-chiller-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_MotorB', function(value) {
+    	$('#span-temperatura-motor-b-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_Quadro', function(value) {
+    	$('#span-temperatura-quadro-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_SaidaCablagem', function(value) {
+    	$('#span-temperatura-saida-cablagem-valor').text((value).toFixed(2));
+    });
+    socket.on('GVL.Temp_PontoMovel', function(value) {
+    	$('#span-temperatura-ponto-movel-valor').text((value).toFixed(2));
     });
 });
 

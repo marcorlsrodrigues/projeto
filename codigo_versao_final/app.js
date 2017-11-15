@@ -76,6 +76,84 @@ var hl_cActPos = {
     propname: 'value'
 }
 
+var hl_VelAvanco = {
+    symname: 'GVL.Vel_Avanco',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_VelExtrusaoPolimero = {
+    symname: 'GVL.Vel_ExtrusaoPolimero',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_VelExtrusaoFibra = {
+    symname: 'GVL.Vel_ExtrusaoFibra',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_VelPolimeroTrabalho = {
+    symname: 'GVL.Vel_PolimeroTrabalho',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_VelFibraTrabalho = {
+    symname: 'GVL.Vel_FibraTrabalho',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempCamara = {
+    symname: 'GVL.Temp_Camara',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempTabuleiro = {
+    symname: 'GVL.Temp_Tabuleiro',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempExtrusor = {
+    symname: 'GVL.Temp_Extrusor',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempAguaChiller = {
+    symname: 'GVL.Temp_AguaChiller',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempMotorB = {
+    symname: 'GVL.Temp_MotorB',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempQuadro = {
+    symname: 'GVL.Temp_Quadro',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempSaidaCablagem = {
+    symname: 'GVL.Temp_SaidaCablagem',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
+var hl_TempPontoMovel = {
+    symname: 'GVL.Temp_PontoMovel',  
+    bytelength: ads.LREAL,  
+    propname: 'value'      
+};
+
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
 		console.log('reading...');
@@ -117,6 +195,19 @@ io.sockets.on('connection',function(socket){
     	this.notify(hl_zActPos);
     	this.notify(hl_bActPos);
     	this.notify(hl_cActPos);
+    	this.notify(hl_VelAvanco);
+    	this.notify(hl_VelExtrusaoPolimero);
+		this.notify(hl_VelExtrusaoFibra);
+		this.notify(hl_VelPolimeroTrabalho);
+		this.notify(hl_VelFibraTrabalho);
+		this.notify(hl_TempCamara);
+		this.notify(hl_TempTabuleiro);
+		this.notify(hl_TempExtrusor);
+		this.notify(hl_TempAguaChiller);
+		this.notify(hl_TempMotorB);
+		this.notify(hl_TempQuadro);
+		this.notify(hl_TempSaidaCablagem);
+		this.notify(hl_TempPontoMovel);
     });
 
     socket.on('power', function (power) {
