@@ -166,7 +166,10 @@
 		<div id="Automatic" class="tabcontent">
 			<div id="tab-automatic-1">
 		  	<div id="div-escolher-ficheiro">
-		  		<span class="btn btn-default btn-file">Escolhe um ficheiro <input type="file" onchange="handleFiles(this.files)" multiple></span><ul id="target"></ul>
+		  		<div class="custom-file-input">
+				  <span id="nome-ficheiro"></span>
+				  <span>Escolher Ficheiro<input type="file"/></span>
+				</div>
 		  	</div>
 		  	<div id="btn-automatic">
 		  		<button id="btn-iniciar" class="btn-push green">Iniciar</button>

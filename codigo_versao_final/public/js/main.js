@@ -161,6 +161,15 @@ $(function(){
     socket.on('GVL.Temp_PontoMovel', function(value) {
     	$('#span-temperatura-ponto-movel-valor').text((value).toFixed(2));
     });
+
+    var input = document.getElementsByClassName('custom-file-input');
+    for (var i = 0, len = input.length; i < len; ++i) {
+        var theInput = input[i].getElementsByTagName('input')[0];
+        theInput.onchange = function() {
+            this.parentNode.parentNode.children[0].innerHTML = this.value;
+            this.title = this.value;
+        };
+    }
 });
 
 
@@ -214,30 +223,4 @@ function machineState(state){
       $('#machine-state').text('PAUSE');
       $('#machine-state').css('color', "yellow"); 
   }
-}
-
-function getReadFile(reader, i) {
-  return function() {
-    var li = document.querySelector('[data-idx="' + i + '"]');
-
-    li.innerHTML += 'File starts with "' + reader.result.substr(0, 25) + '"';
-  }
-}
-
-function handleFiles(files) {
-  var target = document.getElementById('target');
-  target.innerHTML = '';
-
-  for (var i = 0; i < files.length; ++i) {
-    var item = document.createElement('li');
-    item.setAttribute('data-idx', i);
-    var file = files[i];
-
-    var reader = new FileReader();
-    reader.addEventListener('load', getReadFile(reader, i));
-    reader.readAsText(file);
-
-    item.innerHTML = '<b>' + file.name + '</b>, ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '<br>';
-    target.appendChild(item);
-  };
 }

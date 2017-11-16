@@ -612,20 +612,72 @@ a.power-button{
   font-size: 16px;
 }
 
-.btn-file {
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
+
+.custom-file-input {
+  display:inline-block;
+  position:relative;
+  width:90%;
+  height:30px;
+  background-color:#e6e6e6;
+  color:white;
+  font:normal normal 13px/30px Helmet,FreeSans,Sans-Serif;
+  border-radius:3px;
+  overflow:hidden;
+  cursor:text;
 }
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0;
-    outline: none;
-    background: #fff;
-    cursor: inherit;
-    display: block;
+
+.custom-file-input input {
+  /* sembunyikan dengan `opacity:0` */
+  opacity:0;
+  filter:alpha(opacity=0);
+  /* pastikan elemen ini selalu berada di sebelah atas */
+  display:block;
+  position:absolute;
+  top:0;
+  right:0;
+  margin:0;
+  padding:0;
+  font-size:2000%;
+  z-index:4;
+  cursor:pointer;
+}
+
+.custom-file-input span {
+  display:block;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  padding:0 10px;
+  overflow:hidden;
+}
+
+.custom-file-input span + span {
+  left:auto;
+  background-color:#234;
+  border-radius:0 3px 3px 0;
+  padding:0 15px;
+  box-shadow:0 0 3px black,0 0 10px black;
+}
+
+
+/* Dora the Explorer */
+
+.custom-file-input input::-ms-value {display:none}
+
+.custom-file-input input::-ms-browse {
+  display:block;
+  margin:0;
+  padding:0;
+  cursor:inherit;
+}
+
+#div-escolher-ficheiro{
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+#nome-ficheiro{
+  color:black;
 }
