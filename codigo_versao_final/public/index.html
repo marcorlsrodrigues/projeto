@@ -107,34 +107,52 @@
 			</div>
 			<div id="div-info-temperatura-conteudo">
 				<div id="div-temperatura-camara">
-					<span id="span-temperatura-camara">Câmara:</span>
-					<span id="span-temperatura-camara-valor"></span>
-					<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
-					<span id="span-temperatura-tabuleiro-valor"></span>
+					<div id="div-span-temperatura-camara">
+						<span id="span-temperatura-camara">Câmara:</span>
+						<span id="span-temperatura-camara-valor"></span>
+					</div>
+					<div id="div-span-temperatura-tabuleiro-valor">
+						<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
+						<span id="span-temperatura-tabuleiro-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-extrusor">
-					<span id="span-temperatura-extrusor">Extrusor:</span>
-					<span id="span-temperatura-extrusor-valor"></span>
+					<div id="div-span-temperatura-extrusor">
+						<span id="span-temperatura-extrusor">Extrusor:</span>
+						<span id="span-temperatura-extrusor-valor"></span>
+					</div>
+					<div id="div-span-temperatura-extrusor2"></div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-agua-chiller">
-					<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
-					<span id="span-temperatura-agua-chiller-valor"></span>
+					<div id="div-span-temperatura-agua-chiller">
+						<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
+						<span id="span-temperatura-agua-chiller-valor"></span>
+					</div>
+					<div id="div-span-temperatura-agua-chiller2"></div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-motor-b">
-					<span id="span-temperatura-motor-b">Motor B:</span>
-					<span id="span-temperatura-motor-b-valor"></span>
-					<span id="span-temperatura-quadro">Quadro:</span>
-					<span id="span-temperatura-quadro-valor"></span>
+					<div id="div-span-temperatura-motor-b">
+						<span id="span-temperatura-motor-b">Motor B:</span>
+						<span id="span-temperatura-motor-b-valor"></span>
+					</div>
+					<div id="div-span-temperatura-quadro">
+						<span id="span-temperatura-quadro">Quadro:</span>
+						<span id="span-temperatura-quadro-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-saida-cablagem">
-					<span id="span-temperatura-saida-cablagem">Saída Cablagem:</span>
-					<span id="span-temperatura-saida-cablagem-valor"></span>
-					<span id="span-temperatura-ponto-movel">Ponto Móvel:</span>
-					<span id="span-temperatura-ponto-movel-valor"></span>
+					<div id="div-span-temperatura-saida-cablagem">
+						<span id="span-temperatura-saida-cablagem">Saída Cablagem:</span>
+						<span id="span-temperatura-saida-cablagem-valor"></span>
+					</div>
+					<div id="div-span-temperatura-ponto-movel">
+						<span id="span-temperatura-ponto-movel">Ponto Móvel:</span>
+						<span id="span-temperatura-ponto-movel-valor"></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -148,21 +166,21 @@
 		<div id="Automatic" class="tabcontent">
 			<div id="tab-automatic-1">
 		  	<div id="div-escolher-ficheiro">
-		  		<input name="meuFicheiro" type="file">
+		  		<span class="btn btn-default btn-file">Escolhe um ficheiro <input type="file" onchange="handleFiles(this.files)" multiple></span><ul id="target"></ul>
 		  	</div>
 		  	<div id="btn-automatic">
-		  		<button id="btn-iniciar" class="btn-push">Iniciar</button>
-		  		<button id="btn-pausar" class="btn-push">Pausar</button>
-		  		<button id="btn-parar" class="btn-push">Parar</button>
+		  		<button id="btn-iniciar" class="btn-push green">Iniciar</button>
+		  		<button id="btn-pausar" class="btn-push yellow">Pausar</button>
+		  		<button id="btn-parar" class="btn-push red">Parar</button>
 		  	</div>
 		  </div>
 		  <div id="tab-automatic-2">
 		  	<div id="div-linhas-gcode">
-		  		<div><input type="text" name="linha-gcode-1" value="X100 Y79 Z87" readonly></div>
-		  		<div><input type="text" name="linha-gcode-2" value="X140 Y79 Z07" readonly></div>
-		  		<div><input type="text" name="linha-gcode-3" value="X130 Y79 Z17" readonly></div>
-		  		<div><input type="text" name="linha-gcode-4" value="X100 Y19 Z87" readonly></div>
-		  		<div><input type="text" name="linha-gcode-5" value="X120 Y29 Z87" readonly></div>
+		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-1" value="X100 Y79 Z87" readonly></div>
+		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-2" value="X140 Y79 Z07" readonly></div>
+		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-3" value="X130 Y79 Z17" readonly></div>
+		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-4" value="X100 Y19 Z87" readonly></div>
+		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-5" value="X120 Y29 Z87" readonly></div>
 		  	</div>
 		  </div>
 		</div>

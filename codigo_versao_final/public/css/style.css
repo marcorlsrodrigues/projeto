@@ -36,14 +36,14 @@ body{
 }
 
 #div-info-velocidade{
-	width:39.5%;
+	width:34.5%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);	
 	float: left;
 }
 
 #div-info-temperatura{
-	width:40%;
+	width:45%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);	
 	float: left;
@@ -126,6 +126,7 @@ div.tab button.active {
 #tab-automatic-1{
 	float: left;
 	width:30%;
+  height: 85%;
 }
 
 #tab-automatic-2{
@@ -422,6 +423,22 @@ a.power-button{
   text-shadow: 1px 1px 1px #bc4809;
 }
 
+/*==========  Yellow  ==========*/
+.btn-push.yellow {
+  background: #ffcc00;
+  color: #fff;
+  border: 1px solid #ff9933;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #ff9933;
+  -moz-box-shadow: 0px 5px 0px #ff9933;
+  -ms-box-shadow: 0px 5px 0px #ff9933;
+  -o-box-shadow: 0px 5px 0px #ff9933;
+  box-shadow: 0px 5px 0px #ff9933;
+  text-shadow: 1px 1px 1px #ff9933;
+}
+
 /* BUTTONS FINISH*/
 
 /* PROGRESS BARS START*/
@@ -480,7 +497,7 @@ a.power-button{
 }
 
 #span-velocidade-avanco{
-  padding-left: 40%;
+  padding-left: 42%;
 }
 
 #span-velocidade-extrusao-polimero{
@@ -488,7 +505,7 @@ a.power-button{
 }
 
 #span-velocidade-extrusao-fibra{
-  padding-left:26%;
+  padding-left:27%;
 }
 
 #span-velocidade-polimero-trabalho{
@@ -496,15 +513,119 @@ a.power-button{
 }
 
 #span-velocidade-fibra-trabalho{
-  padding-left:25%;
+  padding-left:26%;
 }
 
 #div-info-velocidade-conteudo{
-  padding-top: 5px;
+  padding-top: 20px;
   font-size: 18px;
 }
 
 #div-info-temperatura-conteudo{
-  padding-top: 5px;
+  padding-top: 20px;
   font-size: 18px;
+}
+
+#div-span-temperatura-saida-cablagem{
+  width:50%;
+  float: left;
+  text-align: right;
+}
+
+#div-span-temperatura-ponto-movel{
+  float: left;
+  width: 41%;
+  text-align: right;
+}
+
+#div-span-temperatura-motor-b{
+  width:50%;
+  float: left;
+  text-align: right;
+}
+
+#div-span-temperatura-quadro{
+  float: left;
+  width: 41%;
+  text-align: right; 
+}
+
+#div-span-temperatura-agua-chiller{
+    float: left;
+    width: 50%;
+    text-align: right; 
+}
+
+#div-span-temperatura-agua-chiller2{
+    float: left;
+    width: 41%;
+    text-align: right; 
+}
+
+#div-span-temperatura-extrusor{
+    float: left;
+    width: 50%;
+    text-align: right;  
+}
+
+#div-span-temperatura-extrusor2{
+    float: left;
+    width: 41%;
+    text-align: right;  
+}
+
+#div-span-temperatura-camara{
+    float: left;
+    width: 50%;
+    text-align: right;  
+}
+
+#div-span-temperatura-tabuleiro-valor{
+    float: left;
+    width: 41%;
+    text-align: right; 
+}
+
+#div-temperatura-camara,#div-temperatura-extrusor,#div-temperatura-agua-chiller,#div-temperatura-motor-b,#div-temperatura-saida-cablagem{
+  height:20px;
+}
+
+#btn-automatic{
+  padding-top:100px;
+}
+
+#div-linhas-gcode{
+  padding-top: 15px;
+}
+
+.div-linha-gcode{
+  padding-bottom: 10px;
+}
+
+.input-linha-gcode{
+  width: 50%;
+  border-radius: 1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-color: darkgray;
+  font-size: 16px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    outline: none;
+    background: #fff;
+    cursor: inherit;
+    display: block;
 }
