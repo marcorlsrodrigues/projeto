@@ -10,6 +10,7 @@ $(function(){
 	var span = document.getElementsByClassName("close")[0];
 
 	let machState='off';
+	let ficheiroGcode=[];
 
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
@@ -78,6 +79,27 @@ $(function(){
 	      machState='on';
 	  }
 	  machineState(machState);
+	});
+
+	$('#ficheiro-gcode').on('change',function(event){
+		var file = this.files[0];
+          var reader = new FileReader();      
+          reader.onload = function(e) {
+            text = reader.result;
+            ficheiroGcode = text.split('\n');
+		    console.log(ficheiroGcode);
+		    /*for(var line = 0; line < lines.length; line++){
+		      console.log(lines[line]);
+		    }*/
+          }
+
+          reader.onerror = function(err) {
+            console.log(err, err.loaded
+                        , err.loaded === 0
+                        , file);
+          }
+
+          reader.readAsText(event.target.files[0]);
 	});
 
 
@@ -160,6 +182,26 @@ $(function(){
     });
     socket.on('GVL.Temp_PontoMovel', function(value) {
     	$('#span-temperatura-ponto-movel-valor').text((value).toFixed(2));
+    });
+
+    socket.on('GVL.block_number',function(value){
+    	console.log(value);
+    	let block = 0;
+    	if(value > 0){
+    		block = value - 1;
+    		$('#linha-gcode-1').val(ficheiroGcode[block]);
+    		$('#linha-gcode-2').val(ficheiroGcode[block+1]);
+    		$('#linha-gcode-3').val(ficheiroGcode[block+2]);
+    		$('#linha-gcode-4').val(ficheiroGcode[block+3]);
+    		$('#linha-gcode-5').val(ficheiroGcode[block+4]);
+    	}else{
+    		$('#linha-gcode-1').val('');
+    		$('#linha-gcode-2').val('');
+    		$('#linha-gcode-3').val('');
+    		$('#linha-gcode-4').val('');
+    		$('#linha-gcode-5').val('');
+    	}
+    	
     });
 
     var input = document.getElementsByClassName('custom-file-input');

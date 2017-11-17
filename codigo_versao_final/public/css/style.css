@@ -331,6 +331,7 @@ a.power-button{
   -o-transition: All 250ms ease;
   -ms-transition: All 250ms ease;
   transition: All 250ms ease;
+  cursor: pointer;
 }
 /*==========  Active State  ==========*/
 .btn-push:active {

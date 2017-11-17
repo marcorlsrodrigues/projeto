@@ -154,6 +154,12 @@ var hl_TempPontoMovel = {
     propname: 'value'      
 };
 
+var hl_BlockNumber = {
+    symname: 'GVL.block_number',  
+    bytelength: ads.DINT,  
+    propname: 'value'      
+};
+
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
 		console.log('reading...');
@@ -208,6 +214,7 @@ io.sockets.on('connection',function(socket){
 		this.notify(hl_TempQuadro);
 		this.notify(hl_TempSaidaCablagem);
 		this.notify(hl_TempPontoMovel);
+		this.notify(hl_BlockNumber);
     });
 
     socket.on('power', function (power) {
