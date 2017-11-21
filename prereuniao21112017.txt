@@ -1,4 +1,10 @@
+- recolhidas respostas dos users
+- compiladas as sugestões dos users num ficheiro excel e estou á espera de feedback para ver qual/quais das sugestões irão resultar em alterações na interface
+- continuidade no desenvolvimento: ja recebo atualização de valores em tempo real (ex: posição dos eixos) e estou a trabalhar no eexecução de ficheiros Gcode
+
 duvidas:
+- ver estrutura draft na tese
 - ficheiros extra: requisitos, mockup, prototipo, etc. Ficam na tese? Como? Em anexo?
-- listar requisitos? (eu acho que não..)
+- listar requisitos no capitulo de levantamento de reqs? (eu acho que não..)
 - as respostas dos users como coloco na tese?
+
