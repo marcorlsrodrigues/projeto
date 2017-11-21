@@ -87,10 +87,12 @@ $(function(){
           reader.onload = function(e) {
             text = reader.result;
             ficheiroGcode = text.split('\n');
-		    console.log(ficheiroGcode);
+		    //console.log(ficheiroGcode);
 		    /*for(var line = 0; line < lines.length; line++){
 		      console.log(lines[line]);
 		    }*/
+		    console.log(file.name);
+		    socket.emit('gcode_filename', file.name);
           }
 
           reader.onerror = function(err) {

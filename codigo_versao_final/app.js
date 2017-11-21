@@ -160,6 +160,30 @@ var hl_BlockNumber = {
     propname: 'value'      
 };
 
+var hl_File = {
+    symname: 'GVL.gvl_sprogramname',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_FileStart = {
+    symname: 'GVL.gvl_bstate_start',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_ModeAuto = {
+    symname: 'HLI_CncChannel.pChannel^.Mode.Auto',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_ModeAuto_currentMode = {
+    symname: 'HLI_CncChannel.currentMode',  
+    bytelength: ads.DWORD,  
+    propname: 'value'      
+};
+
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
 		console.log('reading...');
@@ -225,6 +249,24 @@ io.sockets.on('connection',function(socket){
                 console.log(err);
             });
         });
+    });
+
+    socket.on('gcode_filename', function (filename) {
+        hl_File.value = 'C:\\TwinCAT\\Gcode\\' + filename;
+        client.write(hl_File, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_File, function(err, handle) {
+                console.log(err);
+            });
+        });
+        hl_FileStart.value='1';
+        client.write(hl_FileStart, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_FileStart, function(err, handle) {
+                console.log(err);
+            });
+        });
+        
     });
 
     client.on('notification', function(handle){
