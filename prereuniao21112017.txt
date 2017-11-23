@@ -8,3 +8,23 @@ duvidas:
 - listar requisitos no capitulo de levantamento de reqs? (eu acho que não..)
 - as respostas dos users como coloco na tese?
 
+notas:
+
+- problema: reduzir atual e colocar no capitulo da abordagem?
+- dividir abordagem em 2: 1) ate requisito (conciito do trabalho, como fooi feita toda a analise) 2) avaliço interface, sis. desenv. e resultados
+- 1) proposta para resolver o problema 2) desenvolvimento e validação do problema
+- separar estado da arte: introduçao e conceitos fundamentais, trabalhos relacionados (mais para a frente)
+- conclusoes mais globais: ex. o que consegui fazer, grau de sucesso, cumpri objetivos? , vanatgens e desvantagens, compilar concluesoes  dos outros capitulos,problemas ou aspetos para melhorias como ponto de partida para trab futuro, "ok, estes sistemas podem ser alargados a outo tipo de maquinas"
+- sumario antes da intrdução
+
+
+- resultados SUS agregados: graficos de barras para cada pergunta ou media para cada pergunta e resultado final com a media
+
+- referir na tese condições fisicas dos utilizadores como luvas?
+
+- requisitos levam a desenv de funcionalidades
+
+- quais sao os eixos b e c? -> tabuleiro que roda sobre eixo do Y e sobre si mesmo (gira)
+- representaçao  grafica dos eixos?
+
+-prox reuniao: 5/12 15h15
