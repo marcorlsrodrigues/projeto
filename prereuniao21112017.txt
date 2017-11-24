@@ -18,7 +18,7 @@ notas:
 - sumario antes da intrdução
 
 
-- resultados SUS agregados: graficos de barras para cada pergunta ou media para cada pergunta e resultado final com a media
+- resultados SUS agregados: graficos de barras para cada pergunta ou media para cada pergunta e resultado final com a media. DONE
 
 - referir na tese condições fisicas dos utilizadores como luvas?
 

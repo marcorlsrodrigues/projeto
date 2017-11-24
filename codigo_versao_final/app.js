@@ -178,11 +178,37 @@ var hl_ModeAuto = {
     propname: 'value'      
 };
 
-var hl_ModeAuto_currentMode = {
-    symname: 'HLI_CncChannel.currentMode',  
-    bytelength: ads.DWORD,  
+var hl_AutomaticoPausar = {
+    symname: 'GVL.gvl_automaticstop',  
+    bytelength: ads.BOOL,  
     propname: 'value'      
 };
+
+var hl_AutomaticoReset = {
+    symname: 'GVL.gvl_automaticreset',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_AutomaticoSelected = {
+    symname: 'GVL.gvl_automaticselected',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_Homing = {
+    symname: 'GVL.gvl_homing',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_HomingGeral = {
+    symname: 'GVL.gvl_hominggeral',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+
 
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
@@ -198,6 +224,72 @@ function setValue2(){
         //result is the myHandle object with the new properties filled in 
         //All handles will be released automaticly here 
 }
+
+function automatic_pausar_false(){
+    hl_AutomaticoPausar.value = '0';
+    client.write(hl_AutomaticoPausar, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_AutomaticoPausar, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+function homing_false(){
+    hl_Homing.value = '0';
+    client.write(hl_Homing, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_Homing, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+function homing_geral_false(){
+    hl_HomingGeral.value = '0';
+    client.write(hl_HomingGeral, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_HomingGeral, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+
+function automatic_selected_true(){
+	hl_AutomaticoSelected.value = '1';
+    client.write(hl_AutomaticoSelected, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_AutomaticoSelected, function(err, handle) {
+            console.log(err);
+        });
+    });
+
+    setTimeout(automatic_selected_false, 2000); 
+}
+
+function automatic_selected_false(){
+	hl_AutomaticoSelected.value = '0';
+    client.write(hl_AutomaticoSelected, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_AutomaticoSelected, function(err, handle) {
+            console.log(err);
+        });
+    });
+}
+
+function automatic_reset_false(){
+	hl_AutomaticoReset.value = '0';
+    client.write(hl_AutomaticoReset, function(err,handle) {
+        console.log('err: '+ err);
+        client.read(hl_AutomaticoReset, function(err, handle) {
+            console.log(err);
+        });
+    });
+    setTimeout(automatic_selected_true, 1000); 
+}
+
+
 
 app.use(express.static('public'));
 
@@ -258,16 +350,67 @@ io.sockets.on('connection',function(socket){
             client.read(hl_File, function(err, handle) {
                 console.log(err);
             });
-        });
-        hl_FileStart.value='1';
+        });        
+    });
+
+    socket.on('automatico_iniciar', function (value) {
+    	hl_FileStart.value=value;
         client.write(hl_FileStart, function(err) {
             console.log('err: '+ err);
             client.read(hl_FileStart, function(err, handle) {
                 console.log(err);
             });
         });
-        
     });
+
+    socket.on('automatico_pausar', function (value) {
+    	hl_AutomaticoPausar.value=value;
+        client.write(hl_AutomaticoPausar, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_AutomaticoPausar, function(err, handle) {
+                console.log(err);
+            });
+        });
+
+        setTimeout(automatic_pausar_false, 2000);
+    });
+
+    socket.on('automatico_parar', function (value) {
+    	hl_AutomaticoReset.value=value;
+        client.write(hl_AutomaticoReset, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_AutomaticoReset, function(err, handle) {
+                console.log(err);
+            });
+        });
+
+		setTimeout(automatic_reset_false, 2000); 
+    });
+
+    socket.on('homing', function (value) {
+    	hl_Homing.value=value;
+        client.write(hl_Homing, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_Homing, function(err, handle) {
+                console.log(err);
+            });
+        });
+
+        setTimeout(homing_false, 2000);
+    });
+
+    socket.on('homing_geral', function (value) {
+    	hl_HomingGeral.value=value;
+        client.write(hl_HomingGeral, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_HomingGeral, function(err, handle) {
+                console.log(err);
+            });
+        });
+
+        setTimeout(homing_geral_false, 2000);
+    });
+
 
     client.on('notification', function(handle){
             socket.emit(handle.symname, handle.value );

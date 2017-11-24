@@ -190,37 +190,40 @@
 
 		<div id="Manual" class="tabcontent">
 		  	<div id="div-botoes-eixos">
-			  	<div>
-				  	<button class="btn-push">X</button>
-				  	<button class="btn-push">Y</button>
-				  	<button class="btn-push">Z</button>
+			  	<div class="div-botoes-eixos-bloco">
+				  	<button class="btn-push" id="btn-x-manual">X</button>
+				  	<button class="btn-push" id="btn-y-manual">Y</button>
+				  	<button class="btn-push" id="btn-z-manual">Z</button>
 			  	</div>
-			  	<div>
-				  	<button class="btn-push">B</button>
-				  	<button class="btn-push">C</button>
-				  	<button class="btn-push">EXT</button>
+			  	<div class="div-botoes-eixos-bloco">
+				  	<button class="btn-push" id="btn-b-manual">B</button>
+				  	<button class="btn-push" id="btn-c-manual">C</button>
+				  	<button class="btn-push" id="btn-ext-manual">EXT</button>
 			  	</div>
 		  	</div>
 		  	<div id="div-botoes-avanco">
-			  	<div>
+			  	<div class="div-botoes-eixos-bloco">
 			  		<span>Recuo</span>
-				  	<button>-0.1</button>
-				  	<button>-1</button>
-				  	<button>-10</button>
+				  	<button class="btn-push" id="btn-menoszeroum-manual">-0.1</button>
+				  	<button class="btn-push" id="btn-menosum-manual">-1</button>
+				  	<button class="btn-push" id="btn-menosdez-manual">-10</button>
 			  	</div>
-			  	<div>
+			  	<div class="div-botoes-eixos-bloco">
 			  		<span>Avanço</span>
-				  	<button>+0.1</button>
-				  	<button>+1</button>
-				  	<button>+10</button>
+				  	<button class="btn-push" id="btn-maiszeroum-manual">+0.1</button>
+				  	<button class="btn-push" id="btn-maisum-manual">+1</button>
+				  	<button class="btn-push" id="btn-maisdez-manual">+10</button>
 			  	</div>
 		  	</div>
+		  	<div id="div-botoes-mover-eixos" class="div-botoes-eixos-bloco">
+		  		<button class="btn-push" id="btn-mover-eixo-manual">Mover Eixo</button>
+		  	</div>
 		  	<div id="div-botoes-homing">
-		  		<div>
-		  			<button>Homing</button>
+		  		<div class="div-botoes-eixos-bloco">
+		  			<button class="btn-push2" id="btn-homing-manual">Homing</button>
 		  		</div>
-			  	<div>
-			  		<button>Homing Geral</button>
+			  	<div class="div-botoes-eixos-bloco">
+			  		<button class="btn-push2" id="btn-homing-geral-manual">Homing Geral</button>
 			  	</div>
 			</div>
 		</div>
@@ -229,10 +232,10 @@
 				<input id="mdi-linha-gcode" type="text" name="mdi-linha-gcode" />
 				<img id="img-teclado" src="img/keyboard.PNG" width="36" height="36""/>
 			</div>
-			<div>
-				<button>Iniciar</button>
-				<button>Pausar</button>
-				<button>Parar</button>
+			<div class="div-botoes-eixos-bloco">
+				<button class="btn-push2">Iniciar</button>
+				<button class="btn-push2">Pausar</button>
+				<button class="btn-push2">Parar</button>
 			</div>
 		</div>
 	</div>

@@ -140,13 +140,18 @@ div.tab button.active {
 }
 
 #div-botoes-avanco{
-	width:30%;
+	width:20%;
 	float: left;
 }
 
 #div-botoes-homing{
-	width:30%;
+	width:25%;
 	float: left;
+}
+
+#div-botoes-mover-eixos{
+  width:25%;
+  float: left;
 }
 
 
@@ -440,6 +445,60 @@ a.power-button{
   text-shadow: 1px 1px 1px #ff9933;
 }
 
+/*==========  Light Blue  ==========*/
+.btn-push.lightblue {
+  background: #80d4ff;
+  color: #fff;
+  border: 1px solid black;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px black;
+  -moz-box-shadow: 0px 5px 0px black;
+  -ms-box-shadow: 0px 5px 0px black;
+  -o-box-shadow: 0px 5px 0px black;
+  box-shadow: 0px 5px 0px black;
+  text-shadow: 1px 1px 1px black;
+}
+
+.btn-push2 {
+  font-size: 18px;
+  text-decoration: none;
+  background: #f7f7f7;
+  padding: 10px 20px;
+  border: 1px solid #c4c4c4;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #c4c4c4;
+  -moz-box-shadow: 0px 5px 0px #c4c4c4;
+  -ms-box-shadow: 0px 5px 0px #c4c4c4;
+  -o-box-shadow: 0px 5px 0px #c4c4c4;
+  box-shadow: 0px 5px 0px #c4c4c4;
+  color: #222;
+  text-shadow: 1px 1px 1px #fff;
+  -webkit-transition: All 250ms ease;
+  -moz-transition: All 250ms ease;
+  -o-transition: All 250ms ease;
+  -ms-transition: All 250ms ease;
+  transition: All 250ms ease;
+  cursor: pointer;
+}
+/*==========  Active State  ==========*/
+.btn-push2:active {
+  position: relative;
+  top: 5px;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-transition: All 250ms ease;
+  -moz-transition: All 250ms ease;
+  -o-transition: All 250ms ease;
+  -ms-transition: All 250ms ease;
+  transition: All 250ms ease;
+}
 /* BUTTONS FINISH*/
 
 /* PROGRESS BARS START*/
@@ -681,4 +740,9 @@ a.power-button{
 
 #nome-ficheiro{
   color:black;
+}
+
+.div-botoes-eixos-bloco{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

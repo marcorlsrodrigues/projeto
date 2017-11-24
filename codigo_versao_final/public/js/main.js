@@ -81,8 +81,21 @@ $(function(){
 	  machineState(machState);
 	});
 
+	$('#btn-iniciar').click(function(){
+	  socket.emit('automatico_iniciar', '1');
+	});
+
+	$('#btn-pausar').click(function(){
+	  socket.emit('automatico_pausar', '1');
+	});
+
+	$('#btn-parar').click(function(){
+	  socket.emit('automatico_parar', '1');
+	});
+
 	$('#ficheiro-gcode').on('change',function(event){
-		var file = this.files[0];
+		$('#nome-ficheiro').text('');
+	      var file = this.files[0];
           var reader = new FileReader();      
           reader.onload = function(e) {
             text = reader.result;
@@ -91,8 +104,8 @@ $(function(){
 		    /*for(var line = 0; line < lines.length; line++){
 		      console.log(lines[line]);
 		    }*/
-		    console.log(file.name);
 		    socket.emit('gcode_filename', file.name);
+		    $('#nome-ficheiro').text(file.name);
           }
 
           reader.onerror = function(err) {
@@ -102,6 +115,24 @@ $(function(){
           }
 
           reader.readAsText(event.target.files[0]);
+	});
+
+	$('.btn-push').on('click',function(event){
+		let id = event.target.id;
+		let className = event.target.className;
+		if(className === 'btn-push'){
+			$(this).addClass('lightblue');
+		}else{
+			$(this).removeClass('lightblue');
+		}
+	});
+
+	$('#btn-homing-manual').on('click',function(){
+		socket.emit('homing', '1');
+	});
+
+	$('#btn-homing-geral-manual').on('click',function(){
+		socket.emit('homing_geral', '1');
 	});
 
 
