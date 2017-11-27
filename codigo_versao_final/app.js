@@ -208,6 +208,30 @@ var hl_HomingGeral = {
     propname: 'value'      
 };
 
+var hl_PlcManualModeSelectedAxis = {
+    symname: 'Global_Variables.PlcManualModeSelectedAxis',  
+    bytelength: ads.UINT,  
+    propname: 'value'      
+};
+
+var hl_PlcManualModeRightKey = {
+    symname: 'Global_Variables.PlcManualModeRightKey',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_PlcManualModeLeftKey = {
+    symname: 'Global_Variables.PlcManualModeLeftKey',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_PlcManualModeSpeed = {
+    symname: 'Global_Variables.PlcManualModeSpeed',  
+    bytelength: ads.UDINT,  
+    propname: 'value'      
+};
+
 
 
 function setValue(){
@@ -409,6 +433,61 @@ io.sockets.on('connection',function(socket){
         });
 
         setTimeout(homing_geral_false, 2000);
+    });
+
+	socket.on('move_eixo_manual', function (value) {
+		if(value[0] === ''){
+	        hl_PlcManualModeRightKey.value='0';
+        	client.write(hl_PlcManualModeRightKey, function(err) {
+	            console.log('err: '+ err);
+	            client.read(hl_PlcManualModeRightKey, function(err, handle) {
+	                console.log(err);
+	            });
+        	});
+
+        	hl_PlcManualModeLeftKey.value='0';
+        	client.write(hl_PlcManualModeLeftKey, function(err) {
+	            console.log('err: '+ err);
+	            client.read(hl_PlcManualModeLeftKey, function(err, handle) {
+	                console.log(err);
+	            });
+        	});
+		}else{
+			hl_PlcManualModeSelectedAxis.value=value[0];
+	        client.write(hl_PlcManualModeSelectedAxis, function(err) {
+	            console.log('err: '+ err);
+	            client.read(hl_PlcManualModeSelectedAxis, function(err, handle) {
+	                console.log(err);
+	            });
+	        });
+
+	        hl_PlcManualModeSpeed.value=value[1];
+	        client.write(hl_PlcManualModeSpeed, function(err) {
+	            console.log('err: '+ err);
+	            client.read(hl_PlcManualModeSpeed, function(err, handle) {
+	                console.log(err);
+	            });
+	        });
+
+	        let sinal=value[2];
+	        if(sinal==='positivo'){
+	        	hl_PlcManualModeRightKey.value='1';
+	        	client.write(hl_PlcManualModeRightKey, function(err) {
+		            console.log('err: '+ err);
+		            client.read(hl_PlcManualModeRightKey, function(err, handle) {
+		                console.log(err);
+		            });
+	        	});
+	        }else{
+	        	hl_PlcManualModeLeftKey.value='1';
+	        	client.write(hl_PlcManualModeLeftKey, function(err) {
+		            console.log('err: '+ err);
+		            client.read(hl_PlcManualModeLeftKey, function(err, handle) {
+		                console.log(err);
+		            });
+	        	});
+	        }
+		}
     });
 
 

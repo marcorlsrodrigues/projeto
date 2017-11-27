@@ -11,6 +11,7 @@ $(function(){
 
 	let machState='off';
 	let ficheiroGcode=[];
+	let manualModeData = [];
 
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
@@ -118,9 +119,25 @@ $(function(){
 	});
 
 	$('.btn-push').on('click',function(event){
-		let id = event.target.id;
-		let className = event.target.className;
-		if(className === 'btn-push'){
+		if($(this).hasClass('btn-push')){
+			if($(this).hasClass('btn-eixos')){
+				$('#btn-x-manual').removeClass('lightblue');
+				$('#btn-y-manual').removeClass('lightblue');
+				$('#btn-z-manual').removeClass('lightblue');
+				$('#btn-b-manual').removeClass('lightblue');
+				$('#btn-c-manual').removeClass('lightblue');
+				$('#btn-ext-manual').removeClass('lightblue');
+			}
+
+			if($(this).hasClass('btn-vel')){
+				$('#btn-menoszeroum-manual').removeClass('lightblue');
+				$('#btn-menosum-manual').removeClass('lightblue');
+				$('#btn-menosdez-manual').removeClass('lightblue');
+				$('#btn-maiszeroum-manual').removeClass('lightblue');
+				$('#btn-maisum-manual').removeClass('lightblue');
+				$('#btn-maisdez-manual').removeClass('lightblue');
+			}
+
 			$(this).addClass('lightblue');
 		}else{
 			$(this).removeClass('lightblue');
@@ -133,6 +150,52 @@ $(function(){
 
 	$('#btn-homing-geral-manual').on('click',function(){
 		socket.emit('homing_geral', '1');
+	});
+
+	$('#btn-mover-eixo-manual').mousedown(function(){
+		let eixo = '', valor = 0, sinal = '';
+
+		if($('#btn-x-manual').hasClass('lightblue')){
+			eixo='1';
+		}else if($('#btn-y-manual').hasClass('lightblue')){
+			eixo='3';
+		}else if($('#btn-z-manual').hasClass('lightblue')){
+			eixo='2';
+		}else if($('#btn-b-manual').hasClass('lightblue')){
+			eixo='4';
+		}else if($('#btn-c-manual').hasClass('lightblue')){
+			eixo='7';
+		}else if($('#btn-ext-manual').hasClass('lightblue')){
+			eixo='9';
+		}
+
+		if($('#btn-menoszeroum-manual').hasClass('lightblue')){
+			valor=0.1;
+			sinal = 'negativo';
+		}else if($('#btn-menosum-manual').hasClass('lightblue')){
+			valor=1;
+			sinal = 'negativo';
+		}else if($('#btn-menosdez-manual').hasClass('lightblue')){
+			valor=10;
+			sinal = 'negativo';
+		}else if($('#btn-maiszeroum-manual').hasClass('lightblue')){
+			valor=0;
+			sinal = 'positivo';
+		}else if($('#btn-maisum-manual').hasClass('lightblue')){
+			valor=1;
+			sinal = 'positivo';
+		}else if($('#btn-maisdez-manual').hasClass('lightblue')){
+			valor=10;
+			sinal = 'positivo';
+		}
+
+		manualModeData = [eixo,valor,sinal];
+		socket.emit('move_eixo_manual', manualModeData);
+	});
+
+	$('#btn-mover-eixo-manual').mouseup(function(){
+		manualModeData = ['',0,''];		
+		socket.emit('move_eixo_manual', manualModeData);
 	});
 
 
