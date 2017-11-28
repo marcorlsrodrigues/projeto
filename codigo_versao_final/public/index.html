@@ -76,28 +76,38 @@
 			</div>
 			<div id="div-info-velocidade-conteudo">
 				<div id="div-velocidade-avanco">
-					<span id="span-velocidade-avanco">Avanço:</span>
-					<span id="span-velocidade-avanco-valor"></span>
+					<div class="div-span-velocidade">
+						<span id="span-velocidade-avanco">Avanço:</span>
+						<span id="span-velocidade-avanco-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-velocidade-extrusao-polimero">
-					<span id="span-velocidade-extrusao-polimero">Extrusão de Polímero:</span>
-					<span id="span-velocidade-extrusao-polimero-valor"></span>
+					<div class="div-span-velocidade">
+						<span id="span-velocidade-extrusao-polimero">Extrusão de Polímero:</span>
+						<span id="span-velocidade-extrusao-polimero-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-velocidade-extrusao-fibra">
-					<span id="span-velocidade-extrusao-fibra">Extrusão de Fibra:</span>
-					<span id="span-velocidade-extrusao-fibra-valor"></span>
+					<div class="div-span-velocidade">
+						<span id="span-velocidade-extrusao-fibra">Extrusão de Fibra:</span>
+						<span id="span-velocidade-extrusao-fibra-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-velocidade-polimero-trabalho">
-					<span id="span-velocidade-polimero-trabalho">Polímero por Trabalho:</span>
-					<span id="span-velocidade-polimero-trabalho-valor"></span>
+					<div class="div-span-velocidade">
+						<span id="span-velocidade-polimero-trabalho">Polímero por Trabalho:</span>
+						<span id="span-velocidade-polimero-trabalho-valor"></span>
+					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-velocidade-fibra-trabalho">
-					<span id="span-velocidade-fibra-trabalho">Fibra por Trabalho:</span>
-					<span id="span-velocidade-fibra-trabalho-valor"></span>
+					<div class="div-span-velocidade">
+						<span id="span-velocidade-fibra-trabalho">Fibra por Trabalho:</span>
+						<span id="span-velocidade-fibra-trabalho-valor"></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -172,9 +182,9 @@
 				</div>
 		  	</div>
 		  	<div id="btn-automatic">
-		  		<button id="btn-iniciar" class="btn-push green">Iniciar</button>
-		  		<button id="btn-pausar" class="btn-push yellow">Pausar</button>
-		  		<button id="btn-parar" class="btn-push red">Parar</button>
+		  		<button id="btn-iniciar" class="btn-push2 green">Iniciar</button>
+		  		<button id="btn-pausar" class="btn-push2 yellow">Pausar</button>
+		  		<button id="btn-parar" class="btn-push2 red">Parar</button>
 		  	</div>
 		  </div>
 		  <div id="tab-automatic-2">
@@ -229,13 +239,13 @@
 		</div>
 		<div id="MDI" class="tabcontent">
 			<div>
-				<input id="mdi-linha-gcode" type="text" name="mdi-linha-gcode" />
+				<input id="mdi-linha-gcode" type="text" name="mdi-linha-gcode" class="input-linha-gcode"/>
 				<img id="img-teclado" src="img/keyboard.PNG" width="36" height="36""/>
 			</div>
 			<div class="div-botoes-eixos-bloco">
-				<button class="btn-push2">Iniciar</button>
-				<button class="btn-push2">Pausar</button>
-				<button class="btn-push2">Parar</button>
+				<button class="btn-push2 green">Iniciar</button>
+				<button class="btn-push2 yellow">Pausar</button>
+				<button class="btn-push2 red">Parar</button>
 			</div>
 		</div>
 	</div>
@@ -248,51 +258,69 @@
 		  <button id="btn-tab-desligar" class="tablinks2" onclick="abreParametros(event, 'Desligar')">Desligar</button>
 		</div>
 		<div id="Aquecimento" class="tabcontent2">
-			<div id="div-aquecimento-camara">
-				<span id="span-aquecimento-camara">Câmara:</span>
-				<span id="span-aquecimento-camara-valor">
-					<input type="radio" name="aquecimento-camara" value="on"> On
-					<input type="radio" name="aquecimento-camara" value="off"> Off
-				</span>
+			<div class="div-aquecimento-parametros">
+				<div id="div-aquecimento-camara" class="div-aquecimento">
+					<div class="div-span-aquecimento">
+						<span id="span-aquecimento-camara">Câmara:</span>
+					</div>
+					<div class="switch-box">
+					  <input id="input-aquecimento-camara" type="checkbox">
+					  <label for="input-aquecimento-camara" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+					</div>
+				</div>
+				<div id="div-aquecimento-tabuleiro" class="div-aquecimento">
+					<div class="div-span-aquecimento">
+						<span id="span-aquecimento-tabuleiro">Tabuleiro:</span>
+					</div>
+					<div class="switch-box">
+					  <input id="input-aquecimento-tabuleiro" type="checkbox">
+					  <label for="input-aquecimento-tabuleiro" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+					</div>
+				</div>
+				<div id="div-aquecimento-extrusor" class="div-aquecimento">
+					<div class="div-span-aquecimento">
+						<span id="span-aquecimento-extrusor">Extrusor:</span>
+					</div>
+					<div class="switch-box">
+					  <input id="input-aquecimento-extrusor" type="checkbox">
+					  <label for="input-aquecimento-extrusor" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+					</div>
+				</div>
 			</div>
-			<div id="div-aquecimento-tabuleiro">
-				<span id="span-aquecimento-tabuleiro">Tabuleiro:</span>
-				<span id="span-aquecimento-tabuleiro-valor">
-					<input type="radio" name="aquecimento-tabuleiro" value="on"> On
-					<input type="radio" name="aquecimento-tabuleiro" value="off"> Off
-				</span>
-			</div>
-			<hr class="hr1"/>
-			<div id="div-aquecimento-extrusor">
-				<span id="span-aquecimento-extrusor">Extrusor:</span>
-				<span id="span-aquecimento-extrusor-valor">
-					<input type="radio" name="aquecimento-extrusor" value="on"> On
-					<input type="radio" name="aquecimento-extrusor" value="off"> Off
-				</span>
-			</div>
-			<hr class="hr1"/>
-			<div id="div-aquecimento-temperatura-camara">
-				<span id="span-aquecimento-temperatura-camara">Temperatura da Câmara:</span>
-				<button id="aquecimento-temperatura-camara--10">-10</button>
-				<button id="aquecimento-temperatura-camara--1">-1</button>
-				<button id="aquecimento-temperatura-camara-1">+1</button>
-				<button id="aquecimento-temperatura-camara-10">+10</button>
-			</div>
-			<hr class="hr1"/>
-			<div id="div-aquecimento-temperatura-tabuleiro">
-				<span id="span-aquecimento-temperatura-tabuleiro">Temperatura do Tabuleiro:</span>
-				<button id="aquecimento-temperatura-tabuleiro--10">-10</button>
-				<button id="aquecimento-temperatura-tabuleiro--1">-1</button>
-				<button id="aquecimento-temperatura-tabuleiro-1">+1</button>
-				<button id="aquecimento-temperatura-tabuleiro-10">+10</button>
-			</div>
-			<hr class="hr1"/>
-			<div id="div-aquecimento-temperatura-extrusor">
-				<span id="span-aquecimento-temperatura-extrusor">Temperatura do Extrusor:</span>
-				<button id="aquecimento-temperatura-extrusor--10">-10</button>
-				<button id="aquecimento-temperatura-extrusor--1">-1</button>
-				<button id="aquecimento-temperatura-extrusor-1">+1</button>
-				<button id="aquecimento-temperatura-extrusor-10">+10</button>
+			<div class="div-aquecimento-parametros">
+				<div id="div-aquecimento-temperatura-camara" class="div-aquecimento-parametro">
+					<span id="span-aquecimento-temperatura-camara">Temperatura da Câmara:</span>
+					<button class="btn-push2" id="aquecimento-temperatura-camara--10">-10</button>
+					<button class="btn-push2" id="aquecimento-temperatura-camara--1">-1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-camara-1">+1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-camara-10">+10</button>
+				</div>
+				<div id="div-aquecimento-temperatura-tabuleiro" class="div-aquecimento-parametro">
+					<span id="span-aquecimento-temperatura-tabuleiro">Temperatura do Tabuleiro:</span>
+					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro--10">-10</button>
+					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro--1">-1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro-1">+1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro-10">+10</button>
+				</div>
+				<div id="div-aquecimento-temperatura-extrusor" class="div-aquecimento-parametro">
+					<span id="span-aquecimento-temperatura-extrusor">Temperatura do Extrusor:</span>
+					<button class="btn-push2" id="aquecimento-temperatura-extrusor--10">-10</button>
+					<button class="btn-push2" id="aquecimento-temperatura-extrusor--1">-1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-extrusor-1">+1</button>
+					<button class="btn-push2" id="aquecimento-temperatura-extrusor-10">+10</button>
+				</div>
 			</div>
 		</div>
 		<div id="Insuflação" class="tabcontent2">
@@ -363,12 +391,8 @@
 			<div id="div-desligar-motores">
 				<button id="desligar-motores">Desligar Motores</button>
 			</div>
-			<div id="div-desligar-aquecimento-camara">
-				<button id="desligar-aquecimento-camara">Desligar Aquecimento da Câmara</button>
-			</div>
-			<hr class="hr1"/>
 			<div id="div-desligar-sistema-aquecimento">
-				<button id="desligar-motores">Desligar Sistema de Aquecimento</button>
+				<button id="desligar-sistema-aquecimento">Desligar Sistema de Aquecimento</button>
 			</div>
 			<div id="div-desligar-tudo">
 				<button id="desligar-tudo">Desligar Tudo</button>
@@ -382,12 +406,12 @@
 	    	<input type="text" id="input-mdi-gcode" name="input-mdi-gcode" placeholder="Inserir comando Gcode">
 	    </div>
 	    <div id="div-botoes-teclado">
-	    	<button id="btn-teclado-x">X</button>
-	    	<button id="btn-teclado-y">Y</button>
-	    	<button id="btn-teclado-z">Z</button>
-	    	<button id="btn-teclado-apaga-ultimo">Apaga Último</button>
-	    	<button id="btn-teclado-executa">OK</button>
-	    	<button id="btn-teclado-apaga">Apagar</button>
+	    	<button class="btn-push2" id="btn-teclado-x">X</button>
+	    	<button class="btn-push2" id="btn-teclado-y">Y</button>
+	    	<button class="btn-push2" id="btn-teclado-z">Z</button>
+	    	<button class="btn-push2" id="btn-teclado-apaga-ultimo">Apaga Último</button>
+	    	<button class="btn-push2" id="btn-teclado-executa">OK</button>
+	    	<button class="btn-push2" id="btn-teclado-apaga">Apagar</button>
 	    </div>
 	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
 	  </div>

@@ -232,6 +232,42 @@ var hl_PlcManualModeSpeed = {
     propname: 'value'      
 };
 
+var hl_DesligarMotores = {
+    symname: 'GVL.gvl_desligarmotores',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_DesligarAquecimentoCamara = {
+    symname: 'GVL.gvl_desligaraquecimentocamara',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_DesligarSistemaAquecimento = {
+    symname: 'GVL.gvl_desligarsistemaaquecimento',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_DesligarTudo = {
+    symname: 'GVL.gvl_desligartudo',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_AquecimentoTabuleiro = {
+    symname: 'GVL.gvl_aquecimentotabuleiro',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_AquecimentoExtrusor = {
+    symname: 'GVL.gvl_aquecimentoextrusor',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 
 
 function setValue(){
@@ -489,6 +525,176 @@ io.sockets.on('connection',function(socket){
 	        }
 		}
     });
+
+    socket.on('temperatura_camara', function (value) {
+    	let  atual_temp = hl_TempCamara.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_TempCamara.value = atual_temp;
+	    client.write(hl_TempCamara, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_TempCamara, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('temperatura_tabuleiro', function (value) {
+    	let  atual_temp = hl_TempTabuleiro.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_TempTabuleiro.value = atual_temp;
+	    client.write(hl_TempTabuleiro, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_TempTabuleiro, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('temperatura_extrusor', function (value) {
+    	let  atual_temp = hl_TempExtrusor.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_TempExtrusor.value = atual_temp;
+	    client.write(hl_TempExtrusor, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_TempExtrusor, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('velocidade_avanco', function (value) {
+    	let  atual_temp = hl_VelAvanco.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_VelAvanco.value = atual_temp;
+	    client.write(hl_VelAvanco, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_VelAvanco, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('velocidade_extrPolimero', function (value) {
+    	let  atual_temp = hl_VelExtrusaoPolimero.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_VelExtrusaoPolimero.value = atual_temp;
+	    client.write(hl_VelExtrusaoPolimero, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_VelExtrusaoPolimero, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('velocidade_extrFibra', function (value) {
+    	let  atual_temp = hl_VelExtrusaoFibra.value;
+
+    	if(value[1]==='negativo'){
+    		atual_temp = atual_temp - value[0];
+    	}else{
+			atual_temp = atual_temp + value[0];    		
+    	}
+    	
+    	hl_VelExtrusaoFibra.value = atual_temp;
+	    client.write(hl_VelExtrusaoFibra, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_VelExtrusaoFibra, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_motores', function (value) {
+    	hl_DesligarMotores.value = value;
+	    client.write(hl_DesligarMotores, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_DesligarMotores, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_aquecimento_camara', function (value) {
+    	hl_DesligarAquecimentoCamara.value = value;
+	    client.write(hl_DesligarAquecimentoCamara, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_DesligarAquecimentoCamara, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_sistema_aquecimento', function (value) {
+    	hl_DesligarSistemaAquecimento.value = value;
+	    client.write(hl_DesligarSistemaAquecimento, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_DesligarSistemaAquecimento, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_tudo', function (value) {
+    	hl_DesligarTudo.value = value;
+	    client.write(hl_DesligarTudo, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_DesligarTudo, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_aquecimento_tabuleiro', function (value) {
+    	hl_AquecimentoTabuleiro.value = value;
+	    client.write(hl_AquecimentoTabuleiro, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_AquecimentoTabuleiro, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('desligar_aquecimento_extrusor', function (value) {
+    	hl_AquecimentoExtrusor.value = value;
+	    client.write(hl_AquecimentoExtrusor, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_AquecimentoExtrusor, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+    
+    
 
 
     client.on('notification', function(handle){

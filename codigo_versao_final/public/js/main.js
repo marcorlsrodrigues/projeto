@@ -11,7 +11,8 @@ $(function(){
 
 	let machState='off';
 	let ficheiroGcode=[];
-	let manualModeData = [];
+	let manualModeData = [], temperaturaCamara = [], temperaturaTabuleiro = [], temperaturaExtrusor = [],
+		velocidadeAvanco=[], velocidadeExtrPolimero = [],velocidadeExtrFibra=[];
 
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
@@ -196,6 +197,172 @@ $(function(){
 	$('#btn-mover-eixo-manual').mouseup(function(){
 		manualModeData = ['',0,''];		
 		socket.emit('move_eixo_manual', manualModeData);
+	});
+
+	$('#aquecimento-temperatura-camara--10').on('click',function(){
+		temperaturaCamara = [10,'negativo'];
+		socket.emit('temperatura_camara', temperaturaCamara);
+	});
+
+	$('#aquecimento-temperatura-camara--1').on('click',function(){
+		temperaturaCamara = [1,'negativo'];
+		socket.emit('temperatura_camara', temperaturaCamara);
+	});
+
+	$('#aquecimento-temperatura-camara-10').on('click',function(){
+		temperaturaCamara = [10,'positivo'];
+		socket.emit('temperatura_camara', temperaturaCamara);
+	});
+
+	$('#aquecimento-temperatura-camara-1').on('click',function(){
+		temperaturaCamara = [1,'positivo'];
+		socket.emit('temperatura_camara', temperaturaCamara);
+	});
+
+	$('#aquecimento-temperatura-tabuleiro--10').on('click',function(){
+		temperaturaTabuleiro = [10,'negativo'];
+		socket.emit('temperatura_tabuleiro', temperaturaTabuleiro);
+	});
+
+	$('#aquecimento-temperatura-tabuleiro--1').on('click',function(){
+		temperaturaTabuleiro = [1,'negativo'];
+		socket.emit('temperatura_tabuleiro', temperaturaTabuleiro);
+	});
+
+	$('#aquecimento-temperatura-tabuleiro-10').on('click',function(){
+		temperaturaTabuleiro = [10,'positivo'];
+		socket.emit('temperatura_tabuleiro', temperaturaTabuleiro);
+	});
+
+	$('#aquecimento-temperatura-tabuleiro-1').on('click',function(){
+		temperaturaTabuleiro = [1,'positivo'];
+		socket.emit('temperatura_tabuleiro', temperaturaTabuleiro);
+	});
+
+	$('#aquecimento-temperatura-extrusor--10').on('click',function(){
+		temperaturaExtrusor = [10,'negativo'];
+		socket.emit('temperatura_extrusor', temperaturaExtrusor);
+	});
+
+	$('#aquecimento-temperatura-extrusor--1').on('click',function(){
+		temperaturaExtrusor = [1,'negativo'];
+		socket.emit('temperatura_extrusor', temperaturaExtrusor);
+	});
+
+	$('#aquecimento-temperatura-extrusor-10').on('click',function(){
+		temperaturaExtrusor = [10,'positivo'];
+		socket.emit('temperatura_extrusor', temperaturaExtrusor);
+	});
+
+	$('#aquecimento-temperatura-extrusor-1').on('click',function(){
+		temperaturaExtrusor = [1,'positivo'];
+		socket.emit('temperatura_extrusor', temperaturaExtrusor);
+	});
+
+	$('#parametros-velocidade-avanco--10').on('click',function(){
+		velocidadeAvanco = [10,'negativo'];
+		socket.emit('velocidade_avanco', velocidadeAvanco);
+	});
+
+	$('#parametros-velocidade-avanco--1').on('click',function(){
+		velocidadeAvanco = [1,'negativo'];
+		socket.emit('velocidade_avanco', velocidadeAvanco);
+	});
+
+	$('#parametros-velocidade-avanco-10').on('click',function(){
+		velocidadeAvanco = [10,'positivo'];
+		socket.emit('velocidade_avanco', velocidadeAvanco);
+	});
+
+	$('#parametros-velocidade-avanco-1').on('click',function(){
+		velocidadeAvanco = [1,'positivo'];
+		socket.emit('velocidade_avanco', velocidadeAvanco);
+	});
+
+	$('#parametros-velocidade-extrusao-polimero--10').on('click',function(){
+		velocidadeExtrPolimero = [10,'negativo'];
+		socket.emit('velocidade_extrPolimero', velocidadeExtrPolimero);
+	});
+
+	$('#parametros-velocidade-extrusao-polimero--1').on('click',function(){
+		velocidadeExtrPolimero = [1,'negativo'];
+		socket.emit('velocidade_extrPolimero', velocidadeExtrPolimero);
+	});
+
+	$('#parametros-velocidade-extrusao-polimero-10').on('click',function(){
+		velocidadeExtrPolimero = [10,'positivo'];
+		socket.emit('velocidade_extrPolimero', velocidadeExtrPolimero);
+	});
+
+	$('#parametros-velocidade-extrusao-polimero-1').on('click',function(){
+		velocidadeExtrPolimero = [1,'positivo'];
+		socket.emit('velocidade_extrPolimero', velocidadeExtrPolimero);
+	});
+
+	$('#parametros-velocidade-extrusao-fibra--10').on('click',function(){
+		velocidadeExtrFibra = [10,'negativo'];
+		socket.emit('velocidade_extrFibra', velocidadeExtrFibra);
+	});
+
+	$('#parametros-velocidade-extrusao-fibra--1').on('click',function(){
+		velocidadeExtrFibra = [1,'negativo'];
+		socket.emit('velocidade_extrFibra', velocidadeExtrFibra);
+	});
+
+	$('#parametros-velocidade-extrusao-fibra-10').on('click',function(){
+		velocidadeExtrFibra = [10,'positivo'];
+		socket.emit('velocidade_extrFibra', velocidadeExtrFibra);
+	});
+
+	$('#parametros-velocidade-extrusao-fibra-1').on('click',function(){
+		velocidadeExtrFibra = [1,'positivo'];
+		socket.emit('velocidade_extrFibra', velocidadeExtrFibra);
+	});
+
+	$('#desligar-motores').on('click',function(){
+		socket.emit('desligar_motores', '1');
+	});
+
+	$('#desligar-aquecimento-camara').on('click',function(){
+		socket.emit('desligar_aquecimento_camara', '1');
+	});
+
+	$('#desligar-sistema-aquecimento').on('click',function(){
+		socket.emit('desligar_sistema_aquecimento', '1');
+	});
+
+	$('#desligar-tudo').on('click',function(){
+		socket.emit('desligar_tudo', '1');
+	});
+
+	$('#input-aquecimento-camara').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('desligar_aquecimento_camara', value);
+	});
+
+	$('#input-aquecimento-tabuleiro').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('desligar_aquecimento_tabuleiro', value);
+	});
+
+	$('#input-aquecimento-extrusor').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('desligar_aquecimento_extrusor', value);
 	});
 
 

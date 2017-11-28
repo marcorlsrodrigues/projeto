@@ -499,6 +499,52 @@ a.power-button{
   -ms-transition: All 250ms ease;
   transition: All 250ms ease;
 }
+
+/*==========  Yellow  ==========*/
+.btn-push2.yellow {
+  background: #ffcc00;
+  color: #fff;
+  border: 1px solid #ff9933;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #ff9933;
+  -moz-box-shadow: 0px 5px 0px #ff9933;
+  -ms-box-shadow: 0px 5px 0px #ff9933;
+  -o-box-shadow: 0px 5px 0px #ff9933;
+  box-shadow: 0px 5px 0px #ff9933;
+  text-shadow: 1px 1px 1px #ff9933;
+}
+/*==========  Green  ==========*/
+.btn-push2.green {
+  background: #7cc576;
+  color: #fff;
+  border: 1px solid #46963f;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #46963f;
+  -moz-box-shadow: 0px 5px 0px #46963f;
+  -ms-box-shadow: 0px 5px 0px #46963f;
+  -o-box-shadow: 0px 5px 0px #46963f;
+  box-shadow: 0px 5px 0px #46963f;
+  text-shadow: 1px 1px 1px #46963f;
+}
+/*==========  Red  ==========*/
+.btn-push2.red {
+  background: #df4242;
+  color: #fff;
+  border: 1px solid #a01b1b;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #a01b1b;
+  -moz-box-shadow: 0px 5px 0px #a01b1b;
+  -ms-box-shadow: 0px 5px 0px #a01b1b;
+  -o-box-shadow: 0px 5px 0px #a01b1b;
+  box-shadow: 0px 5px 0px #a01b1b;
+  text-shadow: 1px 1px 1px #a01b1b;
+}
 /* BUTTONS FINISH*/
 
 /* PROGRESS BARS START*/
@@ -554,26 +600,6 @@ a.power-button{
 
 #div-axis-x{
   padding-top: 5px;
-}
-
-#span-velocidade-avanco{
-  padding-left: 42%;
-}
-
-#span-velocidade-extrusao-polimero{
-  padding-left: 21%;
-}
-
-#span-velocidade-extrusao-fibra{
-  padding-left:27%;
-}
-
-#span-velocidade-polimero-trabalho{
-  padding-left:20%;
-}
-
-#span-velocidade-fibra-trabalho{
-  padding-left:26%;
 }
 
 #div-info-velocidade-conteudo{
@@ -744,5 +770,91 @@ a.power-button{
 
 .div-botoes-eixos-bloco{
   padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.div-aquecimento-parametros{
+  width:50%;
+  float: left;
+  padding-top:10px;
+}
+
+.div-aquecimento-parametro{
+  padding-bottom: 15px;
+}
+
+
+.div-span-velocidade{
+    float: left;
+    width: 70%;
+    text-align: right;
+}
+
+#div-velocidade-avanco,#div-velocidade-extrusao-polimero,#div-velocidade-extrusao-fibra,#div-velocidade-polimero-trabalho,#div-velocidade-fibra-trabalho{
+  height:20px;
+}
+
+/* SWITCH BUTTONS */
+.switch-box {
+  overflow: hidden;
+  text-align: left;
+  width: 60px;
+  padding: 5px;
+  background: #e5e5e5;
+  border: solid 1px #dddedf;
+  border-radius: 50em;
+}
+.switch-box input {
+  position: absolute;
+  left: -9999em;
+}
+.switch-box .option {
+  cursor: pointer;
+  display: block;
+  background: none;
+  position: relative;
+  padding: 0;
+  min-height: 0;
+  width: 200px;
+  left: -35px;
+  transition: all ease-in-out 0.5s;
+}
+.switch-box .active-state,
+.switch-box .inactive-state {
+  text-transform: uppercase;
+  padding: 0 5px;
+  font-family: Arial;
+  vertical-align: middle;
+  font-size: 15px;
+  display: inline-block;
+}
+.switch-box .inactive-state {
+  padding-left: 0;
+}
+.switch-box .icon {
+  vertical-align: middle;
+  width: 23px;
+  height: 23px;
+  background: #ac1f1f;
+  border-radius: 50em;
+  display: inline-block;
+  transition: all ease-in-out 0.5s;
+}
+.switch-box input:checked ~ .option {
+  left: 0;
+}
+.switch-box input:checked ~ .option .icon {
+  background: #2f905d;
+}
+
+
+.div-span-aquecimento{
+  width: 30%;
+  padding-top: 10px;
+  float: left;
+  text-align: right;
+}    
+
+.div-aquecimento{
   padding-bottom: 10px;
 }
