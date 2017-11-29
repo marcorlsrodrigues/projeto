@@ -365,6 +365,44 @@ $(function(){
 		socket.emit('desligar_aquecimento_extrusor', value);
 	});
 
+	$('#input-insuflacao-camara').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('insuflacao_ar_camara', value);
+	});
+
+	$('#input-insuflacao-eixox').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('insuflacao_ar_eixox', value);
+	});
+
+	$('#input-outros-iluminacao-camara').on('click',function(){
+		let value;
+		if($(this)["0"].checked){
+			value='1';
+		}else{
+			value='0';
+		}
+		socket.emit('outros_iluminacao_camara', value);
+	});
+
+	$('#outros-ajuste-mesa').on('click',function(){
+		socket.emit('outros_ajuste_mesa', '1');
+	});
+
+	$('#select-insuflacao-quadro').on('change',function(){
+		socket.emit('insuflacao_quadro', $(this).val());
+	});
+
 
 	socket.on('GVL.Poweron', function(power) {
       if(power==1){

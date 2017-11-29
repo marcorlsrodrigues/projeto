@@ -9,8 +9,15 @@ var res = [];
 var machineState = '';
 var express = require('express');
 var app = express();
+var rdb = require('rethinkdb');
 var http = require('http').Server(app);
 var io = require('socket.io').listen(http);
+var ficheiroGcode = '';
+const config = require('./config.json');
+
+var db = Object.assign(config.rethinkdb, {  
+    db: 'hmi'
+});
 
 var options = {
 	//The IP or hostname of the target machine 
@@ -268,6 +275,35 @@ var hl_AquecimentoExtrusor = {
     propname: 'value'      
 };
 
+var hl_InsuflacaoArCamara = {
+    symname: 'GVL.gvl_insuflacaoarcamara',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_InsuflacaoArEixoX = {
+    symname: 'GVL.gvl_insuflacaoareixox',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_InsuflacaoArQuadro = {
+    symname: 'GVL.gvl_insuflacaoarquadro',  
+    bytelength: ads.INT,  
+    propname: 'value'      
+};
+
+var hl_OutrosIluminacaoCamara = {
+    symname: 'GVL.gvl_iluminacaocamara',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_OutrosAjusteMesa = {
+    symname: 'GVL.gvl_outrosajustedemesa',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
 
 
 function setValue(){
@@ -349,13 +385,17 @@ function automatic_reset_false(){
     setTimeout(automatic_selected_true, 1000); 
 }
 
-
-
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/index.html');
 });
+
+console.log('Trying to connect to database');
+// Connecting to RethinkDB server
+rdb.connect(db)  
+    .then(conn => {
+    	console.log('Database connected');
 
 console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
@@ -404,6 +444,7 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('gcode_filename', function (filename) {
+    	ficheiroGcode = filename;
         hl_File.value = 'C:\\TwinCAT\\Gcode\\' + filename;
         client.write(hl_File, function(err) {
             console.log('err: '+ err);
@@ -420,6 +461,19 @@ io.sockets.on('connection',function(socket){
             client.read(hl_FileStart, function(err, handle) {
                 console.log(err);
             });
+        });
+        const data = {
+                    filename:ficheiroGcode, date: new Date(), start:"true"
+        };
+        rdb.table('file_execution').insert(data).run(conn);
+
+        rdb.table('file_execution')
+                .run(conn)
+                .then(cursor => {
+                    cursor.each((err, returnedData) => {
+                        console.log(returnedData.id);
+                        console.log(returnedData.filename);
+                    });
         });
     });
 
@@ -693,9 +747,59 @@ io.sockets.on('connection',function(socket){
 	        });
 	    });
     });
-    
-    
 
+    socket.on('insuflacao_ar_camara', function (value) {
+    	hl_InsuflacaoArCamara.value = value;
+	    client.write(hl_InsuflacaoArCamara, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_InsuflacaoArCamara, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('insuflacao_ar_eixox', function (value) {
+    	hl_InsuflacaoArEixoX.value = value;
+	    client.write(hl_InsuflacaoArEixoX, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_InsuflacaoArEixoX, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('outros_iluminacao_camara', function (value) {
+    	hl_OutrosIluminacaoCamara.value = value;
+	    client.write(hl_OutrosIluminacaoCamara, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_OutrosIluminacaoCamara, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('outros_ajuste_mesa', function (value) {
+    	hl_OutrosAjusteMesa.value = value;
+	    client.write(hl_OutrosAjusteMesa, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_OutrosAjusteMesa, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    socket.on('insuflacao_quadro', function (value) {
+    	hl_InsuflacaoArQuadro.value = value;
+	    client.write(hl_InsuflacaoArQuadro, function(err,handle) {
+	        console.log('err: '+ err);
+	        client.read(hl_InsuflacaoArQuadro, function(err, handle) {
+	            console.log(err);
+	        });
+	    });
+    });
+
+    
+    
 
     client.on('notification', function(handle){
             socket.emit(handle.symname, handle.value );
@@ -716,6 +820,8 @@ io.sockets.on('connection',function(socket){
             process.exit();
         });
     });
+});
+
 });
 
 

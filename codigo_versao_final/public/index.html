@@ -325,77 +325,97 @@
 		</div>
 		<div id="Insuflação" class="tabcontent2">
 			<div id="div-insuflacao-camara">
-				<span id="span-insuflacao-camara">Câmara:</span>
-				<span id="span-insuflacao-camara-valor">
-					<input type="radio" name="insuflacao-camara" value="on"> On
-					<input type="radio" name="insuflacao-camara" value="off"> Off
-				</span>
+				<div class="div-span-aquecimento">
+					<span id="span-insuflacao-camara">Câmara:</span>
+				</div>
+				<div class="switch-box">
+					  <input id="input-insuflacao-camara" type="checkbox">
+					  <label for="input-insuflacao-camara" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+				</div>
 			</div>
 			<hr class="hr1"/>
 			<div id="div-insuflacao-eixox">
-				<span id="span-insuflacao-eixox">Eixo X e Cablagem:</span>
-				<span id="span-insuflacao-eixox-valor">
-					<input type="radio" name="insuflacao-eixox" value="on"> On
-					<input type="radio" name="insuflacao-eixox" value="off"> Off
-				</span>
+				<div class="div-span-aquecimento">
+					<span id="span-insuflacao-eixox">Eixo X e Cablagem:</span>
+				</div>
+				<div class="switch-box">
+					  <input id="input-insuflacao-eixox" type="checkbox">
+					  <label for="input-insuflacao-eixox" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+				</div>
 			</div>
 			<hr class="hr1"/>
 			<div id="div-insuflacao-quadro">
-				<span id="span-insuflacao-quadro">Quadro:</span>
-				<select id="select-insuflacao-quadro">
-					<option value="0">0%</option>
-					<option value="50">50%</option>
-					<option value="100">100%</option>
-				</select>
+				<div class="div-span-insuflacao-quadro">
+					<span id="span-insuflacao-quadro">Quadro:</span>
+					<select id="select-insuflacao-quadro">
+						<option value="0">0%</option>
+						<option value="50">50%</option>
+						<option value="100">100%</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div id="Parâmetros" class="tabcontent2">
 			<div id="div-parametros-velocidade-avanco">
 				<span id="span-parametros-velocidade-avanco">Velocidade de Avanço:</span>
-				<button id="parametros-velocidade-avanco--10">-10</button>
-				<button id="parametros-velocidade-avanco--1">-1</button>
-				<button id="parametros-velocidade-avanco-1">+1</button>
-				<button id="parametros-velocidade-avanco-10">+10</button>
+				<button class="btn-push2" id="parametros-velocidade-avanco--10">-10</button>
+				<button class="btn-push2" id="parametros-velocidade-avanco--1">-1</button>
+				<button class="btn-push2" id="parametros-velocidade-avanco-1">+1</button>
+				<button class="btn-push2" id="parametros-velocidade-avanco-10">+10</button>
 			</div>
 			<hr class="hr1"/>
 			<div id="div-parametros-velocidade-extrusao-polimero">
 				<span id="span-parametros-velocidade-extrusao-polimero">Velocidade de Extrusão do Polímero:</span>
-				<button id="parametros-velocidade-extrusao-polimero--10">-10</button>
-				<button id="parametros-velocidade-extrusao-polimero--1">-1</button>
-				<button id="parametros-velocidade-extrusao-polimero-1">+1</button>
-				<button id="parametros-velocidade-extrusao-polimero-10">+10</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--10">-10</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--1">-1</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-1">+1</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-10">+10</button>
 			</div>
 			<hr class="hr1"/>
 			<div id="div-parametros-velocidade-extrusao-fibra">
 				<span id="span-parametros-velocidade-extrusao-fibra">Velocidade de Extrusão de Fibra:</span>
-				<button id="parametros-velocidade-extrusao-fibra--10">-10</button>
-				<button id="parametros-velocidade-extrusao-fibra--1">-1</button>
-				<button id="parametros-velocidade-extrusao-fibra-1">+1</button>
-				<button id="parametros-velocidade-extrusao-fibra-10">+10</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--10">-10</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--1">-1</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-1">+1</button>
+				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-10">+10</button>
 			</div>
 		</div>
 		<div id="Outros" class="tabcontent2">
 			<div id="div-outros-ajuste-mesa">
-				<button id="outros-ajuste-mesa">Ajuste de Mesa</button>
+				<button id="outros-ajuste-mesa" class="btn-push2">Ajuste de Mesa</button>
 			</div>
 			<hr class="hr1"/>
 			<div id="div-outros-iluminacao-camara">
-				<span id="span-outros-iluminacao-camara">Iluminação da Câmara:</span>
-				<span id="span-outros-iluminacao-camara-valor">
-					<input type="radio" name="outros-iluminacao-camara" value="on"> On
-					<input type="radio" name="outros-iluminacao-camara" value="off"> Off
-				</span>
+				<div class="div-span-aquecimento">
+					<span id="span-outros-iluminacao-camara">Iluminação da Câmara:</span>
+				</div>
+				<div class="switch-box">
+					  <input id="input-outros-iluminacao-camara" type="checkbox">
+					  <label for="input-outros-iluminacao-camara" class="option">
+					    <span class="active-state">ON</span>
+					    <i class="icon"></i>
+					    <span class="inactive-state">OFF</span>
+					  </label>
+				</div>
 			</div>
 		</div>
 		<div id="Desligar" class="tabcontent2">
 			<div id="div-desligar-motores">
-				<button id="desligar-motores">Desligar Motores</button>
+				<button id="desligar-motores" class="btn-push2 red">Desligar Motores</button>
 			</div>
 			<div id="div-desligar-sistema-aquecimento">
-				<button id="desligar-sistema-aquecimento">Desligar Sistema de Aquecimento</button>
+				<button id="desligar-sistema-aquecimento" class="btn-push2 red">Desligar Sistema de Aquecimento</button>
 			</div>
 			<div id="div-desligar-tudo">
-				<button id="desligar-tudo">Desligar Tudo</button>
+				<button id="desligar-tudo" class="btn-push2 red">Desligar Tudo</button>
 			</div>
 		</div>
 	</div>

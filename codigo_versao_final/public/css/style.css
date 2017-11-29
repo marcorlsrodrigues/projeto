@@ -858,3 +858,24 @@ a.power-button{
 .div-aquecimento{
   padding-bottom: 10px;
 }
+
+#div-outros-ajuste-mesa{
+  padding-top:10px;
+  padding-left: 25%;
+}
+
+
+select, option{
+  font-size:28px;
+}
+
+.div-span-insuflacao-quadro{
+  width: 35%;
+  padding-top: 10px;
+  float: left;
+  text-align: right;
+}
+
+#Insuflação,#Parâmetros{
+  padding-top: 10px;
+}
