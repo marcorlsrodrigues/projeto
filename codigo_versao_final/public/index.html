@@ -21,7 +21,7 @@
 		<div id="div-axis">
 			<div id="div-axis-x" class="div-axis">
 				<div class="Progress">
-				    <span class="Progress-label" id="Progress-id">X: <strong id="strong-x-pos"></strong></span>
+				    <span class="Progress-label" id="Progress-id">X: <strong id="strong-x-pos"></strong><strong id="strong-x-pos-unit"> mm</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-x-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-x-pos" class="Progress-value">&nbsp;</span>
@@ -31,7 +31,7 @@
 			</div>
 			<div id="div-axis-y" class="div-axis">
 				<div class="Progress">
-				    <span class="Progress-label" id="Progress-id">Y: <strong id="strong-y-pos"></strong></span>
+				    <span class="Progress-label" id="Progress-id">Y: <strong id="strong-y-pos"></strong><strong id="strong-y-pos-unit"> mm</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-y-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-y-pos" class="Progress-value">&nbsp;</span>
@@ -41,7 +41,7 @@
 			</div>
 			<div id="div-axis-z" class="div-axis">
 				<div class="Progress">
-				    <span class="Progress-label" id="Progress-id">Z: <strong id="strong-z-pos"></strong></span>
+				    <span class="Progress-label" id="Progress-id">Z: <strong id="strong-z-pos"></strong><strong id="strong-z-pos-unit"> mm</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-z-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-z-pos" class="Progress-value">&nbsp;</span>
@@ -51,7 +51,7 @@
 			</div>
 			<div id="div-axis-b" class="div-axis">
 				<div class="Progress">
-				    <span class="Progress-label" id="Progress-id">B: <strong id="strong-b-pos"></strong></span>
+				    <span class="Progress-label" id="Progress-id">B: <strong id="strong-b-pos"></strong><strong id="strong-b-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-b-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-b-pos" class="Progress-value">&nbsp;</span>
@@ -61,7 +61,7 @@
 			</div>
 			<div id="div-axis-c" class="div-axis">
 				<div class="Progress">
-				    <span class="Progress-label" id="Progress-id">C: <strong id="strong-c-pos"></strong></span>
+				    <span class="Progress-label" id="Progress-id">C: <strong id="strong-c-pos"></strong><strong id="strong-c-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-c-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-c-pos" class="Progress-value">&nbsp;</span>
@@ -208,7 +208,7 @@
 			  	<div class="div-botoes-eixos-bloco">
 				  	<button class="btn-push btn-eixos" id="btn-b-manual">B</button>
 				  	<button class="btn-push btn-eixos" id="btn-c-manual">C</button>
-				  	<button class="btn-push btn-eixos" id="btn-ext-manual">EXT</button>
+				  	<button class="btn-push btn-eixos" id="btn-ext-manual">E</button>
 			  	</div>
 		  	</div>
 		  	<div id="div-botoes-avanco">
@@ -364,28 +364,41 @@
 			</div>
 		</div>
 		<div id="Parâmetros" class="tabcontent2">
-			<div id="div-parametros-velocidade-avanco">
-				<span id="span-parametros-velocidade-avanco">Velocidade de Avanço:</span>
-				<button class="btn-push2" id="parametros-velocidade-avanco--10">-10</button>
-				<button class="btn-push2" id="parametros-velocidade-avanco--1">-1</button>
-				<button class="btn-push2" id="parametros-velocidade-avanco-1">+1</button>
-				<button class="btn-push2" id="parametros-velocidade-avanco-10">+10</button>
+			<div id="div-parametros-velocidade-avanco" class="div-parametros-velocidades">
+				<div class="div-parametros-velocidades-bloco1">
+					<span id="span-parametros-velocidade-avanco">Velocidade de Avanço:</span>
+					<button class="btn-push2" id="parametros-velocidade-avanco--10">-10</button>
+					<button class="btn-push2" id="parametros-velocidade-avanco--1">-1</button>
+					<button class="btn-push2" id="parametros-velocidade-avanco-1">+1</button>
+					<button class="btn-push2" id="parametros-velocidade-avanco-10">+10</button>
+				</div>
+				<div class="div-parametros-velocidades-bloco2">
+					<button class="btn-push2" id="parametros-velocidade-avanco-100">100%</button>
+				</div>
 			</div>
-			<hr class="hr1"/>
-			<div id="div-parametros-velocidade-extrusao-polimero">
-				<span id="span-parametros-velocidade-extrusao-polimero">Velocidade de Extrusão do Polímero:</span>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--10">-10</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--1">-1</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-1">+1</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-10">+10</button>
+			<div id="div-parametros-velocidade-extrusao-polimero" class="div-parametros-velocidades">
+				<div class="div-parametros-velocidades-bloco1">
+					<span id="span-parametros-velocidade-extrusao-polimero">Velocidade de Extrusão do Polímero:</span>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--10">-10</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-polimero--1">-1</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-1">+1</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-10">+10</button>
+				</div>
+				<div class="div-parametros-velocidades-bloco2">
+					<button class="btn-push2" id="parametros-velocidade-extrusao-polimero-100">100%</button>
+				</div>
 			</div>
-			<hr class="hr1"/>
-			<div id="div-parametros-velocidade-extrusao-fibra">
-				<span id="span-parametros-velocidade-extrusao-fibra">Velocidade de Extrusão de Fibra:</span>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--10">-10</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--1">-1</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-1">+1</button>
-				<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-10">+10</button>
+			<div id="div-parametros-velocidade-extrusao-fibra" class="div-parametros-velocidades">
+				<div class="div-parametros-velocidades-bloco1">
+					<span id="span-parametros-velocidade-extrusao-fibra">Velocidade de Extrusão de Fibra:</span>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--10">-10</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-fibra--1">-1</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-1">+1</button>
+					<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-10">+10</button>
+				</div>
+				<div class="div-parametros-velocidades-bloco2">
+					<button class="btn-push2" id="parametros-velocidade-extrusao-fibra-100">100%</button>
+				</div>
 			</div>
 		</div>
 		<div id="Outros" class="tabcontent2">
@@ -423,15 +436,50 @@
 	  <div class="modal-content">
 	    <span class="close">&times;</span>
 	    <div id="div-span-mdi-gcode">
+	    	<button class="btn-push3 red" id="btn-teclado-apaga">Apagar Tudo</button>
 	    	<input type="text" id="input-mdi-gcode" name="input-mdi-gcode" placeholder="Inserir comando Gcode">
+	    	<button class="btn-push3 green" id="btn-teclado-executa">OK</button>
 	    </div>
 	    <div id="div-botoes-teclado">
-	    	<button class="btn-push2" id="btn-teclado-x">X</button>
-	    	<button class="btn-push2" id="btn-teclado-y">Y</button>
-	    	<button class="btn-push2" id="btn-teclado-z">Z</button>
-	    	<button class="btn-push2" id="btn-teclado-apaga-ultimo">Apaga Último</button>
-	    	<button class="btn-push2" id="btn-teclado-executa">OK</button>
-	    	<button class="btn-push2" id="btn-teclado-apaga">Apagar</button>
+	    	<div class="div-botoes-teclado-linha">
+		    		<button class="btn-push3 blue" id="btn-teclado-g">G</button>
+			    	<button class="btn-push3 blue" id="btn-teclado-m">M</button>
+			    	<button class="btn-push3 white" id="btn-teclado-empty"></button>
+			    	<button class="btn-push3" id="btn-teclado-f">F</button>
+			    	<button class="btn-push3" id="btn-teclado-x">X</button>	
+	    	</div>
+			<div class="div-botoes-teclado-linha">
+				<button class="btn-push3" id="btn-teclado-1">1</button>
+		    	<button class="btn-push3" id="btn-teclado-2">2</button>
+		    	<button class="btn-push3" id="btn-teclado-3">3</button>	
+		    	<button class="btn-push3" id="btn-teclado-p">P</button>
+		    	<button class="btn-push3" id="btn-teclado-y">Y</button>
+			</div>	    	
+	    	<div class="div-botoes-teclado-linha">
+	    		<button class="btn-push3" id="btn-teclado-4">4</button>
+		    	<button class="btn-push3" id="btn-teclado-5">5</button>
+		    	<button class="btn-push3" id="btn-teclado-6">6</button>	
+		    	<button class="btn-push3" id="btn-teclado-s">S</button>
+		    	<button class="btn-push3" id="btn-teclado-z">Z</button>
+	    	</div>
+	    	<div class="div-botoes-teclado-linha">
+	    		<button class="btn-push3" id="btn-teclado-7">7</button>
+		    	<button class="btn-push3" id="btn-teclado-8">8</button>
+		    	<button class="btn-push3" id="btn-teclado-9">9</button>	
+		    	<button class="btn-push3" id="btn-teclado-t">T</button>
+		    	<button class="btn-push3" id="btn-teclado-e">E</button>
+	    	</div>
+	    	<div class="div-botoes-teclado-linha">
+	    		<button class="btn-push3" id="btn-teclado-menos">-</button>	
+	    		<button class="btn-push3" id="btn-teclado-0">0</button>
+	    		<button class="btn-push3" id="btn-teclado-point">.</button>
+	    		<button class="btn-push3" id="btn-teclado-b">B</button>
+	    		<button class="btn-push3" id="btn-teclado-c">C</button>
+	    	</div>
+	    	<div class="div-botoes-teclado-linha">
+	    		<button class="btn-push3" id="btn-teclado-espaco">ESPAÇO</button>
+	    		<button class="btn-push3" id="btn-teclado-apaga-ultimo">Apaga Último</button>
+	    	</div>
 	    </div>
 	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
 	  </div>

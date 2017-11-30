@@ -246,11 +246,11 @@ button.active-style {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 3% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-    min-height:60%;
+    min-height:80%;
 }
 
 /* The Close Button */
@@ -545,6 +545,138 @@ a.power-button{
   box-shadow: 0px 5px 0px #a01b1b;
   text-shadow: 1px 1px 1px #a01b1b;
 }
+
+/*==========  Blue  ==========*/
+.btn-push2.blue {
+  background: #0066ff;
+  color: #fff;
+  border: 1px solid #cce0ff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #80b3ff;
+  -moz-box-shadow: 0px 5px 0px #80b3ff;
+  -ms-box-shadow: 0px 5px 0px #80b3ff;
+  -o-box-shadow: 0px 5px 0px #80b3ff;
+  box-shadow: 0px 5px 0px #80b3ff;
+  text-shadow: 1px 1px 1px #80b3ff;
+}
+
+.btn-push3 {
+  font-size: 30px;
+  text-decoration: none;
+  background: #f7f7f7;
+  padding: 20px 30px;
+  border: 1px solid #c4c4c4;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #c4c4c4;
+  -moz-box-shadow: 0px 5px 0px #c4c4c4;
+  -ms-box-shadow: 0px 5px 0px #c4c4c4;
+  -o-box-shadow: 0px 5px 0px #c4c4c4;
+  box-shadow: 0px 5px 0px #c4c4c4;
+  color: #222;
+  text-shadow: 1px 1px 1px #fff;
+  -webkit-transition: All 250ms ease;
+  -moz-transition: All 250ms ease;
+  -o-transition: All 250ms ease;
+  -ms-transition: All 250ms ease;
+  transition: All 250ms ease;
+  cursor: pointer;
+}
+/*==========  Active State  ==========*/
+.btn-push3:active {
+  position: relative;
+  top: 5px;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-transition: All 250ms ease;
+  -moz-transition: All 250ms ease;
+  -o-transition: All 250ms ease;
+  -ms-transition: All 250ms ease;
+  transition: All 250ms ease;
+}
+
+/*==========  Yellow  ==========*/
+.btn-push3.yellow {
+  background: #ffcc00;
+  color: #fff;
+  border: 1px solid #ff9933;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #ff9933;
+  -moz-box-shadow: 0px 5px 0px #ff9933;
+  -ms-box-shadow: 0px 5px 0px #ff9933;
+  -o-box-shadow: 0px 5px 0px #ff9933;
+  box-shadow: 0px 5px 0px #ff9933;
+  text-shadow: 1px 1px 1px #ff9933;
+}
+/*==========  Green  ==========*/
+.btn-push3.green {
+  background: #7cc576;
+  color: #fff;
+  border: 1px solid #46963f;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #46963f;
+  -moz-box-shadow: 0px 5px 0px #46963f;
+  -ms-box-shadow: 0px 5px 0px #46963f;
+  -o-box-shadow: 0px 5px 0px #46963f;
+  box-shadow: 0px 5px 0px #46963f;
+  text-shadow: 1px 1px 1px #46963f;
+}
+/*==========  Red  ==========*/
+.btn-push3.red {
+  background: #df4242;
+  color: #fff;
+  border: 1px solid #a01b1b;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #a01b1b;
+  -moz-box-shadow: 0px 5px 0px #a01b1b;
+  -ms-box-shadow: 0px 5px 0px #a01b1b;
+  -o-box-shadow: 0px 5px 0px #a01b1b;
+  box-shadow: 0px 5px 0px #a01b1b;
+  text-shadow: 1px 1px 1px #a01b1b;
+}
+
+/*==========  Blue  ==========*/
+.btn-push3.blue {
+  background: #0066ff;
+  color: #fff;
+  border: 1px solid #cce0ff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 0px #80b3ff;
+  -moz-box-shadow: 0px 5px 0px #80b3ff;
+  -ms-box-shadow: 0px 5px 0px #80b3ff;
+  -o-box-shadow: 0px 5px 0px #80b3ff;
+  box-shadow: 0px 5px 0px #80b3ff;
+  text-shadow: 1px 1px 1px #80b3ff;
+}
+/*==========  White  ==========*/
+.btn-push3.white {
+  background: white;
+  color: white;
+  border: 0;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 0px white;
+  -moz-box-shadow: 0px 0px 0px white;
+  -ms-box-shadow: 0px 0px 0px white;
+  -o-box-shadow: 0px 0px 0px white;
+  box-shadow: 0px 0px 0px white;
+  text-shadow:0px 0px 0px white;
+}
 /* BUTTONS FINISH*/
 
 /* PROGRESS BARS START*/
@@ -677,7 +809,7 @@ a.power-button{
 }
 
 #btn-automatic{
-  padding-top:100px;
+  padding-top:75px;
 }
 
 #div-linhas-gcode{
@@ -878,4 +1010,40 @@ select, option{
 
 #Insuflação,#Parâmetros{
   padding-top: 10px;
+}
+
+.div-parametros-velocidades-bloco1{
+  width:50%;
+  float: left;
+  text-align: right;
+}
+
+.div-parametros-velocidades-bloco2{
+  width:15%;
+  float: left;
+  text-align: right;
+}
+
+.div-parametros-velocidades{
+  padding-bottom: 60px;
+}
+
+#input-mdi-gcode{
+  width:60%;
+  height: 60px;
+  font-size: 30px;
+}
+
+#div-botoes-teclado{
+  padding-top: 10px;
+  text-align: center;
+}
+
+.div-botoes-teclado-linha{
+  padding: 10px 5px;
+}
+
+.div-botoes-teclado-linha button{
+  margin-left:10px;
+  margin-right: 10px;
 }

@@ -43,6 +43,86 @@ $(function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
 		$('#input-mdi-gcode').val(inputMdiGcode+'Z');
 	});
+	$('#btn-teclado-g').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'G');
+	});
+	$('#btn-teclado-m').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'M');
+	});
+	$('#btn-teclado-b').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'B');
+	});
+	$('#btn-teclado-c').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'C');
+	});
+	$('#btn-teclado-e').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'E');
+	});
+	$('#btn-teclado-f').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'F');
+	});
+	$('#btn-teclado-s').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'S');
+	});
+	$('#btn-teclado-t').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'T');
+	});
+	$('#btn-teclado-espaco').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+' ');
+	});
+	$('#btn-teclado-0').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'0');
+	});
+	$('#btn-teclado-1').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'1');
+	});
+	$('#btn-teclado-2').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'2');
+	});
+	$('#btn-teclado-3').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'3');
+	});
+	$('#btn-teclado-4').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'4');
+	});
+	$('#btn-teclado-5').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'5');
+	});
+	$('#btn-teclado-6').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'6');
+	});
+	$('#btn-teclado-7').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'7');
+	});
+	$('#btn-teclado-8').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'8');
+	});
+	$('#btn-teclado-9').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'9');
+	});
+	$('#btn-teclado-point').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'.');
+	});
 
 	$('#btn-teclado-apaga').on('click',function(){
 		$('#input-mdi-gcode').val('');
