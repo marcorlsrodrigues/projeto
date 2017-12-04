@@ -830,6 +830,16 @@ a.power-button{
   font-size: 16px;
 }
 
+.input-linha-gcode2{
+  width: 92%;
+  border-radius: 1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-color: darkgray;
+  font-size: 26px;
+}
+
 
 .custom-file-input {
   display:inline-block;
@@ -1032,6 +1042,7 @@ select, option{
   width:60%;
   height: 60px;
   font-size: 30px;
+  border-radius: 8px;
 }
 
 #div-botoes-teclado{
@@ -1046,4 +1057,26 @@ select, option{
 .div-botoes-teclado-linha button{
   margin-left:10px;
   margin-right: 10px;
+}
+
+#div-span-mdi-gcode{
+  text-align: center;
+}
+
+.teclado-btns{
+  width: 86px;
+  height: 78px;
+}
+
+#div-input-mdi-gcode{
+  padding-top:10px;
+}
+
+#div-mdi-bloco1{
+  width:49%;
+  float:left;
+}
+#div-mdi-bloco2{
+  width:50%;
+  float: left;
 }

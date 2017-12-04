@@ -1,0 +1,11 @@
+- partilhado video dos eixos B e C na pasta google drive
+- desenvolvimento: 
+	- já executo codigo G
+	- ja executo instruções manuais
+	- estou a inicializar uma base de dados otimizada para aplicações real time: rethinkdb
+		- deverá registar dados de X em X tempo (uma vez por segundo?) e depois dar indicações como valores mínimos, médios e máximos de temperaturas e velocidades
+
+	- próximos passos:
+		- continuar desenvolvimento da interface
+		- ver app para visualização 3D da peça
+		- gerar gráfico com temperaturas

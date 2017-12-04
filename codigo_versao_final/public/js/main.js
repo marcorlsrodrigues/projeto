@@ -123,6 +123,10 @@ $(function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
 		$('#input-mdi-gcode').val(inputMdiGcode+'.');
 	});
+	$('#btn-teclado-menos').on('click',function(){
+		let inputMdiGcode = $('#input-mdi-gcode').val();
+		$('#input-mdi-gcode').val(inputMdiGcode+'-');
+	});
 
 	$('#btn-teclado-apaga').on('click',function(){
 		$('#input-mdi-gcode').val('');

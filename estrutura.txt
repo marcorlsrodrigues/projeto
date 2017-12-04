@@ -27,7 +27,7 @@ Proposta de Solução
 	Introdução
 	Arquitetura e Tecnologias
 	Sub-Objetivos
-	Protótipo Funcional --> Referente ao protótipo do semestre anterior
+	Protótipo Funcional
 	Análise de Requisitos e Desenvolvimento de Maquetes
 
 Desenvolvimento e Validação
