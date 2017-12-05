@@ -146,6 +146,14 @@ $(function(){
 		$('#mdi-linha-gcode').val(spanMdiGcode);
 	});
 
+	$('#btn-mdi-iniciar').on('click',function(){
+		$('#mdi-linha-gcode5').val($('#mdi-linha-gcode4').val());
+		$('#mdi-linha-gcode4').val($('#mdi-linha-gcode3').val());
+		$('#mdi-linha-gcode3').val($('#mdi-linha-gcode2').val());
+		$('#mdi-linha-gcode2').val($('#mdi-linha-gcode1').val());
+		$('#mdi-linha-gcode1').val($('#mdi-linha-gcode').val());
+	});
+
 	$('#btn-tab-automatic').addClass('active');
 	$('#btn-tab-aquecimento').addClass('active');
 	$('#Automatic').css('display','block');

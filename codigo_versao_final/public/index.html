@@ -243,14 +243,18 @@
 					<input id="mdi-linha-gcode" type="text" name="mdi-linha-gcode" class="input-linha-gcode2"/>
 					<img id="img-teclado" src="img/keyboard.PNG" width="36" height="36""/>
 				</div>
-				<div class="div-botoes-eixos-bloco">
-					<button class="btn-push2 green">Iniciar</button>
-					<button class="btn-push2 yellow">Pausar</button>
-					<button class="btn-push2 red">Parar</button>
+				<div class="div-mdi-botoes-eixos-bloco">
+					<button id="btn-mdi-iniciar" class="btn-push2 green">Iniciar</button>
+					<button id="btn-mdi-pausar" class="btn-push2 yellow">Pausar</button>
+					<button id="btn-mdi-parar" class="btn-push2 red">Parar</button>
 				</div>
 			</div>
 			<div id="div-mdi-bloco2">
-				
+				<input id="mdi-linha-gcode1" type="text" class="input-linha-gcode2"/>
+				<input id="mdi-linha-gcode2" type="text" class="input-linha-gcode2"/>
+				<input id="mdi-linha-gcode3" type="text" class="input-linha-gcode2"/>
+				<input id="mdi-linha-gcode4" type="text" class="input-linha-gcode2"/>
+				<input id="mdi-linha-gcode5" type="text" class="input-linha-gcode2"/>
 			</div>
 		</div>
 	</div>
@@ -304,33 +308,33 @@
 					</div>
 				</div>
 			</div>
-			<div class="div-aquecimento-parametros">
+			<div class="div-aquecimento-parametros2">
 				<div id="div-aquecimento-temperatura-camara" class="div-aquecimento-parametro">
 					<span id="span-aquecimento-temperatura-camara">Temperatura da Câmara:</span>
-					<button class="btn-push2" id="aquecimento-temperatura-camara--10">-10</button>
-					<button class="btn-push2" id="aquecimento-temperatura-camara--1">-1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-camara-1">+1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-camara-10">+10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-camara--10">-10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-camara--1">-1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-camara-1">+1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-camara-10">+10</button>
 				</div>
 				<div id="div-aquecimento-temperatura-tabuleiro" class="div-aquecimento-parametro">
 					<span id="span-aquecimento-temperatura-tabuleiro">Temperatura do Tabuleiro:</span>
-					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro--10">-10</button>
-					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro--1">-1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro-1">+1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-tabuleiro-10">+10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-tabuleiro--10">-10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-tabuleiro--1">-1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-tabuleiro-1">+1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-tabuleiro-10">+10</button>
 				</div>
 				<div id="div-aquecimento-temperatura-extrusor" class="div-aquecimento-parametro">
 					<span id="span-aquecimento-temperatura-extrusor">Temperatura do Extrusor:</span>
-					<button class="btn-push2" id="aquecimento-temperatura-extrusor--10">-10</button>
-					<button class="btn-push2" id="aquecimento-temperatura-extrusor--1">-1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-extrusor-1">+1</button>
-					<button class="btn-push2" id="aquecimento-temperatura-extrusor-10">+10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-extrusor--10">-10</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-extrusor--1">-1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-extrusor-1">+1</button>
+					<button class="btn-push2 btn-vel" id="aquecimento-temperatura-extrusor-10">+10</button>
 				</div>
 			</div>
 		</div>
 		<div id="Insuflação" class="tabcontent2">
 			<div id="div-insuflacao-camara">
-				<div class="div-span-aquecimento">
+				<div class="div-span-insuflacaoar" id="div-insuflacao-camara2">
 					<span id="span-insuflacao-camara">Câmara:</span>
 				</div>
 				<div class="switch-box">
@@ -342,9 +346,8 @@
 					  </label>
 				</div>
 			</div>
-			<hr class="hr1"/>
 			<div id="div-insuflacao-eixox">
-				<div class="div-span-aquecimento">
+				<div class="div-span-insuflacaoar">
 					<span id="span-insuflacao-eixox">Eixo X e Cablagem:</span>
 				</div>
 				<div class="switch-box">
@@ -356,7 +359,6 @@
 					  </label>
 				</div>
 			</div>
-			<hr class="hr1"/>
 			<div id="div-insuflacao-quadro">
 				<div class="div-span-insuflacao-quadro">
 					<span id="span-insuflacao-quadro">Quadro:</span>
@@ -410,9 +412,8 @@
 			<div id="div-outros-ajuste-mesa">
 				<button id="outros-ajuste-mesa" class="btn-push2">Ajuste de Mesa</button>
 			</div>
-			<hr class="hr1"/>
 			<div id="div-outros-iluminacao-camara">
-				<div class="div-span-aquecimento">
+				<div class="div-span-insuflacaoar" id="div-span-outros-iluminacao-camara">
 					<span id="span-outros-iluminacao-camara">Iluminação da Câmara:</span>
 				</div>
 				<div class="switch-box">
