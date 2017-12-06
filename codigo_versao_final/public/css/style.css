@@ -1204,4 +1204,13 @@ select, option{
   font-weight: bold;
   text-decoration-line: underline;
 }
+
+.div-linha{
+  width:98%;
+}
+
+.div-celula{
+  width:25%;
+  float: left;
+}
     

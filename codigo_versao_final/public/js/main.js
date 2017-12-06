@@ -2,21 +2,28 @@ $(function(){
 	var socket = io.connect('http://localhost:3000');
 
 	var modal = document.getElementById('modal-teclado');
+	var modalHistorico = document.getElementById('modal-historico');
 
 	// Get the button that opens the modal
 	var btn = document.getElementById("img-teclado");
+	var btnHistorico = document.getElementById("btn-historico");
 
 	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+	var span = document.getElementById("modal-teclado-close");
+	var spanHistorico = document.getElementById("modal-historico-close");
 
 	let machState='off';
 	let ficheiroGcode=[];
 	let manualModeData = [], temperaturaCamara = [], temperaturaTabuleiro = [], temperaturaExtrusor = [],
-		velocidadeAvanco=[], velocidadeExtrPolimero = [],velocidadeExtrFibra=[];
+		velocidadeAvanco=[], velocidadeExtrPolimero = [],velocidadeExtrFibra=[], file_executions_table = [];
 
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
 	    modal.style.display = "block";
+	}
+	btnHistorico.onclick = function() {
+	    modalHistorico.style.display = "block";
+	    socket.emit('historico', '1');
 	}
 
 	// When the user clicks on <span> (x), close the modal
@@ -24,10 +31,18 @@ $(function(){
 	    modal.style.display = "none";
 	}
 
+	spanHistorico.onclick = function() {
+	    modalHistorico.style.display = "none";
+	    $('#div-historico').empty();
+	}
+
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	    if (event.target == modal) {
 	        modal.style.display = "none";
+	    }
+	    if (event.target == modalHistorico) {
+	        modalHistorico.style.display = "none";
 	    }
 	}
 
@@ -495,6 +510,10 @@ $(function(){
 		socket.emit('insuflacao_quadro', $(this).val());
 	});
 
+	$('#btn-historicodelete').on('click',function(){
+		socket.emit('historico_delete', '1');
+	});
+
 
 	socket.on('GVL.Poweron', function(power) {
       if(power==1){
@@ -595,6 +614,11 @@ $(function(){
     		$('#linha-gcode-5').val('');
     	}
     	
+    });
+
+    socket.on('historico_resp', function(obj) {
+    	console.log(obj);
+    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><button>Detalhes</button></div></div>');
     });
 
     var input = document.getElementsByClassName('custom-file-input');

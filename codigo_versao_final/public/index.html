@@ -16,6 +16,10 @@
 			<span id="machine-state-text" class="machine-state-text">ESTADO:</span>
 			<span id="machine-state" class="machine-state-text"></span>
 		</div>
+		<div>
+			<button id="btn-historico" class="btn-push2 blue">Histórico</button>
+			<button id="btn-historicodelete" class="btn-push2 red">Limpar</button>
+		</div>
 	</div>
 	<div id="block1">
 		<div id="div-axis">
@@ -440,7 +444,7 @@
 	</div>
 	<div id="modal-teclado" class="modal">
 	  <div class="modal-content">
-	    <span class="close">&times;</span>
+	    <span id="modal-teclado-close" class="close">&times;</span>
 	    <div id="div-span-mdi-gcode">
 	    	<button class="btn-push3 red" id="btn-teclado-apaga">Apagar</button>
 	    	<input type="text" id="input-mdi-gcode" name="input-mdi-gcode" placeholder="Inserir comando Gcode">
@@ -488,6 +492,14 @@
 	    	</div>
 	    </div>
 	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
+	  </div>
+	</div>
+
+	<div id="modal-historico" class="modal">
+	  <div class="modal-content">
+	    <span id="modal-historico-close" class="close">&times;</span>
+	    <div id="div-historico">
+	    </div>
 	  </div>
 	</div>
 	<script type="text/javascript" src="js/main.js"></script>

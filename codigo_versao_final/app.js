@@ -13,9 +13,10 @@ var rdb = require('rethinkdb');
 var http = require('http').Server(app);
 var io = require('socket.io').listen(http);
 var ficheiroGcode = '';
+var inserted_id='';
 const config = require('./config.json');
 
-var db = Object.assign(config.rethinkdb, {  
+const db = Object.assign(config.rethinkdb, {  
     db: 'hmi'
 });
 
@@ -404,13 +405,6 @@ io.sockets.on('connection',function(socket){
     client = ads.connect(options, function() {
         console.log('Ads connected');
 
-        /*(function myLoop (i) {          
-		   setTimeout(function () {   
-		      setValue();          //  your code here                
-		      if (--i) myLoop(i);      //  decrement i and call myLoop again if i > 0
-		   }, 3000)
-		})(10); */
-
     	this.notify(hl_Poweron);
     	this.notify(hl_xActPos);
     	this.notify(hl_yActPos);
@@ -462,19 +456,14 @@ io.sockets.on('connection',function(socket){
                 console.log(err);
             });
         });
-        const data = {
-                    filename:ficheiroGcode, date: new Date(), start:"true"
+        let data = {
+            filename:ficheiroGcode, start_date:new Date(), pause_date:null,stop_date:null
         };
-        rdb.table('file_execution').insert(data).run(conn);
-
-        rdb.table('file_execution')
-                .run(conn)
-                .then(cursor => {
-                    cursor.each((err, returnedData) => {
-                        console.log(returnedData.id);
-                        console.log(returnedData.filename);
-                    });
-        });
+        
+        let id = rdb.table('file_execution').insert(data).run(conn, function(err, result) {
+		    if (err) throw err;
+		    inserted_id = result.generated_keys['0'];
+		});
     });
 
     socket.on('automatico_pausar', function (value) {
@@ -485,6 +474,9 @@ io.sockets.on('connection',function(socket){
                 console.log(err);
             });
         });
+        
+        rdb.table("file_execution").get(inserted_id).update({pause_date: new Date()}).run(conn);
+        //rdb.table('file_execution').insert(data).run(conn);
 
         setTimeout(automatic_pausar_false, 2000);
     });
@@ -497,6 +489,8 @@ io.sockets.on('connection',function(socket){
                 console.log(err);
             });
         });
+
+        rdb.table("file_execution").get(inserted_id).update({stop_date: new Date()}).run(conn);
 
 		setTimeout(automatic_reset_false, 2000); 
     });
@@ -798,7 +792,35 @@ io.sockets.on('connection',function(socket){
 	    });
     });
 
-    
+    socket.on('historico', function (value) {
+    	let array_historico = [];
+		
+		rdb.table('file_execution').indexCreate('start_date').run(conn,function(err){
+			if(err){
+				console.log('err: '+err);
+			}
+		});
+
+    	rdb.table('file_execution')
+    		.orderBy({index: rdb.desc('start_date')})
+    		.run(conn)
+            .then(cursor => {
+                cursor.each((err, returnedData) => {
+                	var linha_array_historico = {};
+                	linha_array_historico.id = returnedData.id;
+                	linha_array_historico.filename = returnedData.filename;
+                	linha_array_historico.start_date = returnedData.start_date.toLocaleString('pt-PT');
+                	linha_array_historico.pause_date = returnedData.pause_date.toLocaleString('pt-PT');
+                	linha_array_historico.stop_date = returnedData.stop_date.toLocaleString('pt-PT');
+                	array_historico.push(linha_array_historico);
+                	socket.emit('historico_resp',linha_array_historico);
+                });
+    		});
+    });
+
+    socket.on('historico_delete', function (value) {
+    	rdb.table("file_execution").delete().run(conn);
+    });
     
 
     client.on('notification', function(handle){
