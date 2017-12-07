@@ -258,7 +258,7 @@ button.active-style {
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color:red;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -266,7 +266,7 @@ button.active-style {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color:red;
     text-decoration: none;
     cursor: pointer;
 }
@@ -1210,7 +1210,21 @@ select, option{
 }
 
 .div-celula{
-  width:25%;
-  float: left;
+    width: 18%;
+    float: left;
+    padding: 8px;
 }
+
+.div-celula-caption{
+    width: 18%;
+    float: left;
+    padding: 8px;
+    background-color: #009900;
+    color:white;
+    font-weight: bolder;
+    font-size: 22px;
+    border: 1px solid;
+}
+
+
     

@@ -1,16 +1,22 @@
+var global_socket;
+
 $(function(){
 	var socket = io.connect('http://localhost:3000');
+	global_socket = socket;
 
 	var modal = document.getElementById('modal-teclado');
 	var modalHistorico = document.getElementById('modal-historico');
+	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
 
 	// Get the button that opens the modal
 	var btn = document.getElementById("img-teclado");
 	var btnHistorico = document.getElementById("btn-historico");
+	//var btnHistoricoDetalhes = document.getElementById("btn-historico-detalhes");
 
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("modal-teclado-close");
 	var spanHistorico = document.getElementById("modal-historico-close");
+	var spanHistoricoDetalhes = document.getElementById("modal-historico-detalhes-close");
 
 	let machState='off';
 	let ficheiroGcode=[];
@@ -25,6 +31,18 @@ $(function(){
 	    modalHistorico.style.display = "block";
 	    socket.emit('historico', '1');
 	}
+	/*btnHistoricoDetalhes.onclick = function() {
+	    modalHistoricoDetalhes.style.display = "block";
+	    socket.emit('historico-detalhes', '1');
+	}*/
+
+	$('#div-historico-detalhes').on('click', '#btn-historico-detalhes', function(){
+    	console.log('a');
+    	modalHistoricoDetalhes.style.display = "block";
+    	socket.emit('historico-detalhes', '1');
+	});
+
+
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
@@ -34,6 +52,13 @@ $(function(){
 	spanHistorico.onclick = function() {
 	    modalHistorico.style.display = "none";
 	    $('#div-historico').empty();
+	    $('#div-historico').append('<div class="div-linha"><div class="div-celula-caption"><span>Ficheiro</span></div><div class="div-celula-caption"><span>Início</span></div><div class="div-celula-caption"><span>Fim</span></div><div class="div-celula-caption"><span>Duração(mins)</span></div><div class="div-celula-caption"><span>Detalhes</span></div></div>');
+	}
+
+	spanHistoricoDetalhes.onclick = function() {
+	    modalHistoricoDetalhes.style.display = "none";
+	    $('#div-historico-detalhes').empty();
+	    $('#div-historico-detalhes').append('<div class="div-linha"><div class="div-celula-caption"><span>Ficheiro</span></div></div>');
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -43,6 +68,9 @@ $(function(){
 	    }
 	    if (event.target == modalHistorico) {
 	        modalHistorico.style.display = "none";
+	    }
+	    if (event.target == modalHistoricoDetalhes) {
+	        modalHistoricoDetalhes.style.display = "none";
 	    }
 	}
 
@@ -618,7 +646,7 @@ $(function(){
 
     socket.on('historico_resp', function(obj) {
     	console.log(obj);
-    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><button>Detalhes</button></div></div>');
+    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><span>'+obj.duration.toFixed(2)+'</span></div><div class="div-celula"><button id="btn-historicoDetalhes" data-id='+obj.id+' onclick="btnHistoricoDetalhes_Click(\''+obj.id+'\')">Detalhes</button></div></div>');
     });
 
     var input = document.getElementsByClassName('custom-file-input');
@@ -682,4 +710,13 @@ function machineState(state){
       $('#machine-state').text('PAUSE');
       $('#machine-state').css('color', "yellow"); 
   }
+}
+
+
+
+function btnHistoricoDetalhes_Click(id){
+	console.log(id);
+	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
+	modalHistoricoDetalhes.style.display = "block";
+	global_socket.emit('historico_detalhes', id);
 }

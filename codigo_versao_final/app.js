@@ -14,6 +14,7 @@ var http = require('http').Server(app);
 var io = require('socket.io').listen(http);
 var ficheiroGcode = '';
 var inserted_id='';
+var register_parameters = false;
 const config = require('./config.json');
 
 const db = Object.assign(config.rethinkdb, {  
@@ -386,6 +387,24 @@ function automatic_reset_false(){
     setTimeout(automatic_selected_true, 1000); 
 }
 
+function automatic_register_parameters() {
+  if(register_parameters){
+  	console.log(hl_TempCamara.value);
+  	console.log(inserted_id);
+
+	let data = {
+        filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value
+    };
+    
+    rdb.table('file_execution').insert(data).run(conn, function(err, result) {
+	    if (err) throw err;
+	});
+
+  	setTimeout(automatic_register_parameters, 1000);
+  }
+}
+
+
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
@@ -464,6 +483,9 @@ io.sockets.on('connection',function(socket){
 		    if (err) throw err;
 		    inserted_id = result.generated_keys['0'];
 		});
+
+        register_parameters = true;
+        setTimeout(automatic_register_parameters, 1000);
     });
 
     socket.on('automatico_pausar', function (value) {
@@ -478,6 +500,7 @@ io.sockets.on('connection',function(socket){
         rdb.table("file_execution").get(inserted_id).update({pause_date: new Date()}).run(conn);
         //rdb.table('file_execution').insert(data).run(conn);
 
+        register_parameters = false;
         setTimeout(automatic_pausar_false, 2000);
     });
 
@@ -492,6 +515,7 @@ io.sockets.on('connection',function(socket){
 
         rdb.table("file_execution").get(inserted_id).update({stop_date: new Date()}).run(conn);
 
+        register_parameters = false;
 		setTimeout(automatic_reset_false, 2000); 
     });
 
@@ -806,17 +830,29 @@ io.sockets.on('connection',function(socket){
     		.run(conn)
             .then(cursor => {
                 cursor.each((err, returnedData) => {
+                	let duration = 0.00;
                 	var linha_array_historico = {};
                 	linha_array_historico.id = returnedData.id;
                 	linha_array_historico.filename = returnedData.filename;
-                	linha_array_historico.start_date = returnedData.start_date.toLocaleString('pt-PT');
-                	linha_array_historico.pause_date = returnedData.pause_date.toLocaleString('pt-PT');
-                	linha_array_historico.stop_date = returnedData.stop_date.toLocaleString('pt-PT');
+                	linha_array_historico.start_date = (returnedData.start_date == null) ? null : returnedData.start_date.toLocaleString('pt-PT');
+                	linha_array_historico.pause_date = (returnedData.pause_date == null) ? null : returnedData.pause_date.toLocaleString('pt-PT');
+                	linha_array_historico.stop_date = (returnedData.stop_date == null) ? null : returnedData.stop_date.toLocaleString('pt-PT');
+                	if(returnedData.start_date != null && returnedData.stop_date != null){
+                		duration = (returnedData.stop_date - returnedData.start_date)/1000/60;
+                		linha_array_historico.duration = duration;
+                	}else{
+                		linha_array_historico.duration = 0;
+                	}
                 	array_historico.push(linha_array_historico);
                 	socket.emit('historico_resp',linha_array_historico);
                 });
     		});
     });
+
+    socket.on('historico_detalhes', function (id) {
+    	console.log(id);
+    });
+    
 
     socket.on('historico_delete', function (value) {
     	rdb.table("file_execution").delete().run(conn);

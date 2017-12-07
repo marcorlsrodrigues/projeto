@@ -173,7 +173,7 @@
 	</div>
 	<div id="block2">
 		<div class="tab">
-		  <button id="btn-tab-automatic" class="tablinks" onclick="abreModoOperacao(event, 'Automatic')">Automatic</button>
+		  <button id="btn-tab-automatic" class="tablinks" onclick="abreModoOperacao(event, 'Automatic')">Automatico</button>
 		  <button id="btn-tab-manual" class="tablinks" onclick="abreModoOperacao(event, 'Manual')">Manual</button>
 		  <button id="btn-tab-mdi" class="tablinks" onclick="abreModoOperacao(event, 'MDI')">MDI</button>
 		</div>
@@ -499,6 +499,24 @@
 	  <div class="modal-content">
 	    <span id="modal-historico-close" class="close">&times;</span>
 	    <div id="div-historico">
+	    	<div class="div-linha">
+		    	<div class="div-celula-caption"><span>Ficheiro</span></div>
+		    	<div class="div-celula-caption"><span>Início</span></div>
+		    	<div class="div-celula-caption"><span>Fim</span></div>
+		    	<div class="div-celula-caption"><span>Duração(mins)</span></div>
+		    	<div class="div-celula-caption"><span>Detalhes</span></div>
+	    	</div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="modal-historico-detalhes" class="modal">
+	  <div class="modal-content">
+	    <span id="modal-historico-detalhes-close" class="close">&times;</span>
+	    <div id="div-historico-detalhes">
+	    	<div class="div-linha">
+		    	<div class="div-celula-caption"><span>Ficheiro</span></div>
+	    	</div>
 	    </div>
 	  </div>
 	</div>
