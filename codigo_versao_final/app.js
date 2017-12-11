@@ -15,6 +15,7 @@ var io = require('socket.io').listen(http);
 var ficheiroGcode = '';
 var inserted_id='';
 var register_parameters = false;
+var global_conn;
 const config = require('./config.json');
 
 const db = Object.assign(config.rethinkdb, {  
@@ -178,6 +179,12 @@ var hl_File = {
 var hl_FileStart = {
     symname: 'GVL.gvl_bstate_start',  
     bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_CurrentState = {
+    symname: 'HLI_CncChannel.currentState',  
+    bytelength: ads.DWORD,  
     propname: 'value'      
 };
 
@@ -396,7 +403,7 @@ function automatic_register_parameters() {
         filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value
     };
     
-    rdb.table('file_execution').insert(data).run(conn, function(err, result) {
+    rdb.table('file_execution').insert(data).run(global_conn, function(err, result) {
 	    if (err) throw err;
 	});
 
@@ -416,6 +423,8 @@ console.log('Trying to connect to database');
 rdb.connect(db)  
     .then(conn => {
     	console.log('Database connected');
+
+global_conn = conn;
 
 console.log('Trying to connect socket');
 io.sockets.on('connection',function(socket){
@@ -485,6 +494,7 @@ io.sockets.on('connection',function(socket){
 		});
 
         register_parameters = true;
+
         setTimeout(automatic_register_parameters, 1000);
     });
 
@@ -505,18 +515,24 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('automatico_parar', function (value) {
-    	hl_AutomaticoReset.value=value;
-        client.write(hl_AutomaticoReset, function(err) {
-            console.log('err: '+ err);
-            client.read(hl_AutomaticoReset, function(err, handle) {
-                console.log(err);
-            });
-        });
+
+    	if(value==='1'){
+			hl_AutomaticoReset.value=value;
+	        client.write(hl_AutomaticoReset, function(err) {
+	            console.log('err: '+ err);
+	            client.read(hl_AutomaticoReset, function(err, handle) {
+	                console.log(err);
+	            });
+	        });
+    	}
 
         rdb.table("file_execution").get(inserted_id).update({stop_date: new Date()}).run(conn);
 
         register_parameters = false;
-		setTimeout(automatic_reset_false, 2000); 
+
+        if(value==='1'){
+        	setTimeout(automatic_reset_false, 2000); 
+        }
     });
 
     socket.on('homing', function (value) {
@@ -850,7 +866,32 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('historico_detalhes', function (id) {
-    	console.log(id);
+    	let min_temp_camara =0.0, max_temp_camara =0.0,avg_temp_camara =0.0;
+    	
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_camara')
+    		.run(conn,function(err,result){
+    			min_temp_camara = result.temp_camara;
+    			socket.emit('historico_detalhes_min_temp_camara',min_temp_camara);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_camara')
+    		.run(conn,function(err,result){
+    			max_temp_camara = result.temp_camara;
+    			socket.emit('historico_detalhes_max_temp_camara',max_temp_camara);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_camara')
+    		.run(conn,function(err,result){
+    			avg_temp_camara = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_camara',avg_temp_camara);
+    		});
     });
     
 

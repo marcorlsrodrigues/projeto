@@ -17,6 +17,7 @@ $(function(){
 	var span = document.getElementById("modal-teclado-close");
 	var spanHistorico = document.getElementById("modal-historico-close");
 	var spanHistoricoDetalhes = document.getElementById("modal-historico-detalhes-close");
+	var autoBlockNumber = 0, automatico_inicia = false;
 
 	let machState='off';
 	let ficheiroGcode=[];
@@ -37,7 +38,6 @@ $(function(){
 	}*/
 
 	$('#div-historico-detalhes').on('click', '#btn-historico-detalhes', function(){
-    	console.log('a');
     	modalHistoricoDetalhes.style.display = "block";
     	socket.emit('historico-detalhes', '1');
 	});
@@ -58,7 +58,6 @@ $(function(){
 	spanHistoricoDetalhes.onclick = function() {
 	    modalHistoricoDetalhes.style.display = "none";
 	    $('#div-historico-detalhes').empty();
-	    $('#div-historico-detalhes').append('<div class="div-linha"><div class="div-celula-caption"><span>Ficheiro</span></div></div>');
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -218,7 +217,7 @@ $(function(){
 	  machineState(machState);
 	});
 
-	$('#btn-iniciar').click(function(){
+	$('#btn-iniciar').click(function(){	  
 	  socket.emit('automatico_iniciar', '1');
 	});
 
@@ -227,6 +226,7 @@ $(function(){
 	});
 
 	$('#btn-parar').click(function(){
+	  automatico_inicia=false;
 	  socket.emit('automatico_parar', '1');
 	});
 
@@ -539,7 +539,10 @@ $(function(){
 	});
 
 	$('#btn-historicodelete').on('click',function(){
-		socket.emit('historico_delete', '1');
+		let confirmDelete = confirm("De certeza que quer apagar todos os registos?");
+		if (confirmDelete == true) {
+		    socket.emit('historico_delete', '1');
+		}
 	});
 
 
@@ -625,9 +628,10 @@ $(function(){
     });
 
     socket.on('GVL.block_number',function(value){
-    	console.log(value);
     	let block = 0;
+    	autoBlockNumber = value;
     	if(value > 0){
+    		automatico_inicia=true;
     		block = value - 1;
     		$('#linha-gcode-1').val(ficheiroGcode[block]);
     		$('#linha-gcode-2').val(ficheiroGcode[block+1]);
@@ -641,12 +645,28 @@ $(function(){
     		$('#linha-gcode-4').val('');
     		$('#linha-gcode-5').val('');
     	}
+
+    	if(automatico_inicia==true && value==0){
+    		automatico_inicia=false;
+    		socket.emit('automatico_parar', '2');
+    	}
     	
     });
 
     socket.on('historico_resp', function(obj) {
-    	console.log(obj);
-    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><span>'+obj.duration.toFixed(2)+'</span></div><div class="div-celula"><button id="btn-historicoDetalhes" data-id='+obj.id+' onclick="btnHistoricoDetalhes_Click(\''+obj.id+'\')">Detalhes</button></div></div>');
+    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><span>'+obj.duration.toFixed(2)+'</span></div><div class="div-celula"><button id="btn-historicoDetalhes" data-id='+obj.id+' onclick="btnHistoricoDetalhes_Click(\''+obj.id+'\',\''+obj.filename+'\')">Detalhes</button></div></div>');
+    });
+
+    socket.on('historico_detalhes_min_temp_camara', function(data) {
+    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Mínima: '+data+'</span></div>');
+    });
+
+    socket.on('historico_detalhes_max_temp_camara', function(data) {
+    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Máxima: '+data+'</span></div>');
+    });
+
+    socket.on('historico_detalhes_avg_temp_camara', function(data) {
+    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Média: '+data+'</span></div>');
     });
 
     var input = document.getElementsByClassName('custom-file-input');
@@ -714,9 +734,9 @@ function machineState(state){
 
 
 
-function btnHistoricoDetalhes_Click(id){
-	console.log(id);
+function btnHistoricoDetalhes_Click(id,filename){
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
 	modalHistoricoDetalhes.style.display = "block";
+	$('#div-historico-detalhes').append('<div class="div-linha"><span>Ficheiro: '+filename+'</span></div>');
 	global_socket.emit('historico_detalhes', id);
 }
