@@ -1,4 +1,146 @@
 var global_socket;
+let globalfData;
+let histograma;
+
+
+
+function getColor(value){
+	let color="black";
+
+	if(value <= 30){
+	    	color = "blue";
+	    }
+	    else if(value >= 31 && value <= 80){
+	    	color="green";
+	    }
+	    else if(value >= 81){
+	    	color="red";
+	    }
+	    return color;
+}
+
+function dashboard(id, fData){
+	globalfData=fData;
+    function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
+    
+    // compute total for each state.
+    fData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+    
+    // function to handle histogram.
+    function histoGram(fD){
+        var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
+        //hGDim.w =40 - hGDim.l - hGDim.r, 
+        hGDim.w =22, 
+        hGDim.h = 100 - hGDim.t - hGDim.b;
+            
+        //create svg for histogram.
+        var hGsvg = d3.select(id).append("svg")
+            .attr("width", hGDim.w + hGDim.l + hGDim.r)
+            //.attr("height", hGDim.h + hGDim.t + hGDim.b).append("g");
+            .attr("height", "25px").append("g");
+
+        // create function for x-axis mapping.
+        var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
+                .domain(fD.map(function(d) { return d[0]; }));
+
+        // Add x-axis to the histogram svg.
+        /*hGsvg.append("g").attr("class", "x axis")
+            .attr("transform", "translate(0," + hGDim.h + ")")
+            .call(d3.svg.axis().scale(x).orient("bottom"));*/
+
+        // Create function for y-axis map.
+        var y = d3.scale.linear().range([hGDim.h, 0])
+                .domain([0, d3.max(fD, function(d) { return d[1]; })]);
+
+        // Create bars for histogram to contain rectangles and freq labels.
+        var bars = hGsvg.selectAll(".bar").data(fD).enter()
+                .append("g").attr("class", "bar");
+
+        let calcHeight = (25*fD["0"][1])/80;
+        let calcY = 20.0-calcHeight;
+        let color="white";
+
+        color=getColor(fD["0"][1]);
+        
+        //create the rectangles.
+        bars.append("rect")
+            //.attr("x", function(d) { return x(d[0]); })
+            //.attr("y", function(d) { return y(d[1]); })
+            .attr("y", calcY+"px")
+            .attr("width", x.rangeBand())
+            //.attr("height", function(d) { return hGDim.h - y(d[1]); })
+            .attr("height", calcHeight+"px")
+            .attr('fill',color)
+            .on("mouseover",mouseover);// mouseout is defined below.
+            
+        //Create the frequency labels above the rectangles.
+        /*bars.append("text").text(function(d){ return d3.format(",")(d[1])})
+            .attr("x", function(d) { return x(d[0])+x.rangeBand()/2; })
+            .attr("y", function(d) { return y(d[1])-5; })
+            .attr("text-anchor", "middle");*/
+        
+        function mouseover(d){  // utility function to be called on mouseover.
+            // filter for selected state.
+            return;
+            var st = fData.filter(function(s){ return s.State == d[0];})[0],
+                nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+               
+            //leg.update(nD);
+        }
+        
+        // create function to update the bars. This will be used by pie-chart.
+        hG.update = function(nD, color){
+            // update the domain of the y-axis map to reflect change in frequencies.
+            //y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
+            
+            // Attach the new data to the bars.
+            var bars = hGsvg.selectAll(".bar").data(nD);
+
+            color=getColor(nD["0"][1]);
+
+            let calcHeight = (25*nD["0"][1])/80;
+            let calcY = 20.0-calcHeight;
+            
+            // transition the height and color of rectangles.
+            bars.select("rect").transition().duration(500)
+                //.attr("y", function(d) {return y(d[1]); })
+                .attr("y", calcY+"px")
+                //.attr("height", function(d) { return hGDim.h - y(d[1]); })
+                .attr("height", calcHeight+"px")
+                .attr("fill", color);
+
+            // transition the frequency labels location and change value.
+            /*bars.select("text").transition().duration(500)
+                .text(function(d){ return d3.format(",")(d[1])})
+                .attr("y", function(d) {return y(d[1])-5; });            */
+        }        
+        return hG;
+    }
+
+    // calculate total frequency by segment for all state.
+    var tF = ['low','mid','high'].map(function(d){ 
+        return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
+    });    
+    
+    // calculate total frequency by state for all segment.
+    var sF = fData.map(function(d){return [d.State,d.total];});
+
+    var hG = histoGram(sF); // create the histogram.
+    histograma = hG;
+}
+
+
+var freqData=[
+{State:'AL',freq:{low:0, mid:0, high:0}}
+];
+
+dashboard('#dashboard',freqData);
+
+
+
+
+
+
 
 $(function(){
 	var socket = io.connect('http://localhost:3000');
@@ -604,6 +746,11 @@ $(function(){
 
     socket.on('GVL.Temp_Camara', function(value) {
     	$('#span-temperatura-camara-valor').text((value).toFixed(2));
+    	let color = getColor(value);
+    	histograma.update(globalfData.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-camara-valor').css('color',color);
     });
     socket.on('GVL.Temp_Tabuleiro', function(value) {
     	$('#span-temperatura-tabuleiro-valor').text((value).toFixed(2));

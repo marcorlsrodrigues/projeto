@@ -3,9 +3,11 @@
 <head>
 	<title>HMI</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/style.css">
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div id="div-machine-state" class="topbar">
@@ -117,17 +119,26 @@
 		</div>
 		<div id="div-info-temperatura">
 			<div id="div-info-temperatura-caption">
-				<span id="span-info-temperatura-caption">Temperaturas - Graus</span>
+				<span id="span-info-temperatura-caption">Temperaturas - ºC</span>
 			</div>
 			<div id="div-info-temperatura-conteudo">
 				<div id="div-temperatura-camara">
 					<div id="div-span-temperatura-camara">
-						<span id="span-temperatura-camara">Câmara:</span>
-						<span id="span-temperatura-camara-valor"></span>
+						<div style="width:70%;float: left;">
+							<span id="span-temperatura-camara">Câmara:</span>
+							<span id="span-temperatura-camara-valor"></span>
+						</div>
+						<div id='dashboard' style="width:9%;float: left;">
+							
+						</div>
+						<div style="width:8%;float: left;">
+							<span class="span-temperatura-desejada" id="span-temperatura-camara-desejada">80.0</span>
+						</div>
 					</div>
 					<div id="div-span-temperatura-tabuleiro-valor">
 						<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
 						<span id="span-temperatura-tabuleiro-valor"></span>
+						<span class="span-temperatura-desejada" id="span-temperatura-tabuleiro-desejada">80.0</span>
 					</div>
 				</div>
 				<hr class="hr1"/>
@@ -135,6 +146,7 @@
 					<div id="div-span-temperatura-extrusor">
 						<span id="span-temperatura-extrusor">Extrusor:</span>
 						<span id="span-temperatura-extrusor-valor"></span>
+						<span class="span-temperatura-desejada" id="span-temperatura-extrusor-desejada">80.0</span>
 					</div>
 					<div id="div-span-temperatura-extrusor2"></div>
 				</div>
@@ -517,6 +529,6 @@
 	    </div>
 	  </div>
 	</div>
-	<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
