@@ -1,16 +1,21 @@
 var global_socket;
 let globalfData;
-let histograma;
-
-
+let globalData_TempTabuleiro;
+let globalData_TempExtrusor;
+let globalData_TempAguaChiller;
+let globalData_TempMotorB;
+let globalData_TempQuadro;
+let globalData_TempSaidaCablagem;
+let globalData_TempPontoMovel;
+let histograma, histograma2, histograma3, histograma4,histograma5, histograma6, histograma7, histograma8;
 
 function getColor(value){
 	let color="black";
 
-	if(value <= 30){
+	if(value < 31){
 	    	color = "blue";
 	    }
-	    else if(value >= 31 && value <= 80){
+	    else if(value >= 31 && value < 81){
 	    	color="green";
 	    }
 	    else if(value >= 81){
@@ -20,10 +25,7 @@ function getColor(value){
 }
 
 function dashboard(id, fData){
-	globalfData=fData;
-    function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
-    
-    // compute total for each state.
+	// compute total for each state.
     fData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
     
     // function to handle histogram.
@@ -92,17 +94,17 @@ function dashboard(id, fData){
         hG.update = function(nD, color){
             // update the domain of the y-axis map to reflect change in frequencies.
             //y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
-            
+            console.log(nD["0"][1]);
             // Attach the new data to the bars.
             var bars = hGsvg.selectAll(".bar").data(nD);
 
-            color=getColor(nD["0"][1]);
+            //color=getColor(nD["0"][1]);
 
             let calcHeight = (25*nD["0"][1])/80;
             let calcY = 20.0-calcHeight;
             
             // transition the height and color of rectangles.
-            bars.select("rect").transition().duration(500)
+            bars.select("rect").transition().duration(50)
                 //.attr("y", function(d) {return y(d[1]); })
                 .attr("y", calcY+"px")
                 //.attr("height", function(d) { return hGDim.h - y(d[1]); })
@@ -126,21 +128,53 @@ function dashboard(id, fData){
     var sF = fData.map(function(d){return [d.State,d.total];});
 
     var hG = histoGram(sF); // create the histogram.
-    histograma = hG;
+    
+    if(id==='#dashboard'){
+    	histograma = hG;	
+    }
+    if(id==='#dashboard-temperatura-tabuleiro'){
+    	histograma2 = hG;	
+    }
+    if(id==='#dashboard-temperatura-extrusor'){
+    	histograma3 = hG;	
+    }
+    if(id==='#dashboard-temperatura-agua-chiller'){
+    	histograma4 = hG;	
+    }
+    if(id==='#dashboard-temperatura-motor-b'){
+    	histograma5 = hG;	
+    }
+    if(id==='#dashboard-temperatura-quadro'){
+    	histograma6 = hG;	
+    }
+    if(id==='#dashboard-temperatura-saida-cablagem'){
+    	histograma7 = hG;	
+    }
+    if(id==='#dashboard-temperatura-ponto-movel'){
+    	histograma8 = hG;	
+    }
 }
-
 
 var freqData=[
 {State:'AL',freq:{low:0, mid:0, high:0}}
 ];
 
+globalfData = freqData;
+globalData_TempTabuleiro = freqData;
+globalData_TempExtrusor = freqData;
+globalData_TempAguaChiller = freqData;
+globalData_TempMotorB = freqData;
+globalData_TempQuadro = freqData;
+globalData_TempSaidaCablagem = freqData;
+globalData_TempPontoMovel = freqData;
 dashboard('#dashboard',freqData);
-
-
-
-
-
-
+dashboard('#dashboard-temperatura-tabuleiro',freqData);
+dashboard('#dashboard-temperatura-extrusor',freqData);
+dashboard('#dashboard-temperatura-agua-chiller',freqData);
+dashboard('#dashboard-temperatura-motor-b',freqData);
+dashboard('#dashboard-temperatura-quadro',freqData);
+dashboard('#dashboard-temperatura-saida-cablagem',freqData);
+dashboard('#dashboard-temperatura-ponto-movel',freqData);
 
 $(function(){
 	var socket = io.connect('http://localhost:3000');
@@ -744,34 +778,86 @@ $(function(){
     	$('#span-velocidade-fibra-trabalho-valor').text((value).toFixed(2));
     });
 
-    socket.on('GVL.Temp_Camara', function(value) {
-    	$('#span-temperatura-camara-valor').text((value).toFixed(2));
+    function updateBar(value){
     	let color = getColor(value);
     	histograma.update(globalfData.map(function(v){ 
     	return ["AL",(value).toFixed(2)];}),color);
 
     	$('#span-temperatura-camara-valor').css('color',color);
+    }
+
+    socket.on('GVL.Temp_Camara', function(value) {
+    	$('#span-temperatura-camara-valor').text((value).toFixed(2));
+
+    	let color = getColor(value);
+    	histograma.update(globalfData.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-camara-valor').css('color',color);
+
     });
     socket.on('GVL.Temp_Tabuleiro', function(value) {
     	$('#span-temperatura-tabuleiro-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma2.update(globalData_TempTabuleiro.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-tabuleiro-valor').css('color',color);
     });
     socket.on('GVL.Temp_Extrusor', function(value) {
     	$('#span-temperatura-extrusor-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma3.update(globalData_TempExtrusor.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-extrusor-valor').css('color',color);
     });
     socket.on('GVL.Temp_AguaChiller', function(value) {
     	$('#span-temperatura-agua-chiller-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma4.update(globalData_TempAguaChiller.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-agua-chiller-valor').css('color',color);
     });
     socket.on('GVL.Temp_MotorB', function(value) {
     	$('#span-temperatura-motor-b-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma5.update(globalData_TempMotorB.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-motor-b-valor').css('color',color);
     });
     socket.on('GVL.Temp_Quadro', function(value) {
     	$('#span-temperatura-quadro-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma6.update(globalData_TempQuadro.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-quadro-valor').css('color',color);
     });
     socket.on('GVL.Temp_SaidaCablagem', function(value) {
     	$('#span-temperatura-saida-cablagem-valor').text((value).toFixed(2));
+    	
+    	let color = getColor(value);
+    	histograma7.update(globalData_TempSaidaCablagem.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-saida-cablagem-valor').css('color',color);
     });
     socket.on('GVL.Temp_PontoMovel', function(value) {
     	$('#span-temperatura-ponto-movel-valor').text((value).toFixed(2));
+
+    	let color = getColor(value);
+    	histograma8.update(globalData_TempPontoMovel.map(function(v){ 
+    	return ["AL",(value).toFixed(2)];}),color);
+
+    	$('#span-temperatura-ponto-movel-valor').css('color',color);
     });
 
     socket.on('GVL.block_number',function(value){

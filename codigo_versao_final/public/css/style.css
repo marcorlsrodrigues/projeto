@@ -36,14 +36,14 @@ body{
 }
 
 #div-info-velocidade{
-	width:34.5%;
+	width:30%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);	
 	float: left;
 }
 
 #div-info-temperatura{
-	width:45%;
+	width:49.5%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);	
 	float: left;
@@ -772,9 +772,8 @@ a.power-button{
 }
 
 #div-span-temperatura-agua-chiller{
-    float: left;
-    width: 50%;
-    text-align: right; 
+    float: right;
+    width: 84%;
 }
 
 #div-span-temperatura-agua-chiller2{
@@ -1261,4 +1260,25 @@ rect:hover {  fill:green; }
 .legendFreq, .legendPerc{
     align:right;
     width:10px;
+}
+
+.div-span-temps-valor{
+  width:70%;
+  float: left;
+}
+
+.d3-barra{
+  width:9%;
+  float: left;
+  margin-top: -8px;
+}
+
+.div-span-temps-desejada{
+  width:8%;
+  float: left;
+}
+
+#div-span-temps-valor-agua-chiller{
+  text-align: right;
+    width: 75%;
 }

@@ -20,7 +20,7 @@
 		</div>
 		<div>
 			<button id="btn-historico" class="btn-push2 blue">Histórico</button>
-			<button id="btn-historicodelete" class="btn-push2 red">Limpar</button>
+			<button id="btn-historicodelete" class="btn-push2 red" style="font-size: 10px">Limpar</button>
 		</div>
 	</div>
 	<div id="block1">
@@ -124,60 +124,91 @@
 			<div id="div-info-temperatura-conteudo">
 				<div id="div-temperatura-camara">
 					<div id="div-span-temperatura-camara">
-						<div style="width:70%;float: left;">
+						<div class="div-span-temps-valor">
 							<span id="span-temperatura-camara">Câmara:</span>
 							<span id="span-temperatura-camara-valor"></span>
 						</div>
-						<div id='dashboard' style="width:9%;float: left;">
-							
+						<div class="d3-barra" id='dashboard'>
 						</div>
-						<div style="width:8%;float: left;">
+						<div class="div-span-temps-desejada">
 							<span class="span-temperatura-desejada" id="span-temperatura-camara-desejada">80.0</span>
 						</div>
 					</div>
 					<div id="div-span-temperatura-tabuleiro-valor">
-						<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
-						<span id="span-temperatura-tabuleiro-valor"></span>
-						<span class="span-temperatura-desejada" id="span-temperatura-tabuleiro-desejada">80.0</span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-tabuleiro">Tabuleiro:</span>
+							<span id="span-temperatura-tabuleiro-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-tabuleiro'>
+						</div>
+						<div class="div-span-temps-desejada">
+							<span class="span-temperatura-desejada" id="span-temperatura-tabuleiro-desejada">80.0</span>
+						</div>
 					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-extrusor">
 					<div id="div-span-temperatura-extrusor">
-						<span id="span-temperatura-extrusor">Extrusor:</span>
-						<span id="span-temperatura-extrusor-valor"></span>
-						<span class="span-temperatura-desejada" id="span-temperatura-extrusor-desejada">80.0</span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-extrusor">Extrusor:</span>
+							<span id="span-temperatura-extrusor-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-extrusor'>
+						</div>
+						<div class="div-span-temps-desejada">
+							<span class="span-temperatura-desejada" id="span-temperatura-extrusor-desejada">80.0</span>
+						</div>
 					</div>
 					<div id="div-span-temperatura-extrusor2"></div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-agua-chiller">
 					<div id="div-span-temperatura-agua-chiller">
-						<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
-						<span id="span-temperatura-agua-chiller-valor"></span>
+						<div class="div-span-temps-valor" id="div-span-temps-valor-agua-chiller">
+							<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
+							<span id="span-temperatura-agua-chiller-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-agua-chiller'>
+						</div>
 					</div>
 					<div id="div-span-temperatura-agua-chiller2"></div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-motor-b">
 					<div id="div-span-temperatura-motor-b">
-						<span id="span-temperatura-motor-b">Motor B:</span>
-						<span id="span-temperatura-motor-b-valor"></span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-motor-b">Motor B:</span>
+							<span id="span-temperatura-motor-b-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-motor-b'>
+						</div>
 					</div>
 					<div id="div-span-temperatura-quadro">
-						<span id="span-temperatura-quadro">Quadro:</span>
-						<span id="span-temperatura-quadro-valor"></span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-quadro">Quadro:</span>
+							<span id="span-temperatura-quadro-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-quadro'>
+						</div>
 					</div>
 				</div>
 				<hr class="hr1"/>
 				<div id="div-temperatura-saida-cablagem">
 					<div id="div-span-temperatura-saida-cablagem">
-						<span id="span-temperatura-saida-cablagem">Saída Cablagem:</span>
-						<span id="span-temperatura-saida-cablagem-valor"></span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-saida-cablagem">Saída Cablagem:</span>
+							<span id="span-temperatura-saida-cablagem-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-saida-cablagem'>
+						</div>
 					</div>
 					<div id="div-span-temperatura-ponto-movel">
-						<span id="span-temperatura-ponto-movel">Ponto Móvel:</span>
-						<span id="span-temperatura-ponto-movel-valor"></span>
+						<div class="div-span-temps-valor">
+							<span id="span-temperatura-ponto-movel">Ponto Móvel:</span>
+							<span id="span-temperatura-ponto-movel-valor"></span>
+						</div>
+						<div class="d3-barra" id='dashboard-temperatura-ponto-movel'>
+						</div>
 					</div>
 				</div>
 			</div>
