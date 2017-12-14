@@ -59,7 +59,7 @@ function dashboard(id, fData){
                 .append("g").attr("class", "bar");
 
         let calcHeight = (25*fD["0"][1])/80;
-        let calcY = 20.0-calcHeight;
+        let calcY = 28.0-calcHeight;
         let color="white";
 
         color=getColor(fD["0"][1]);
@@ -101,7 +101,7 @@ function dashboard(id, fData){
             //color=getColor(nD["0"][1]);
 
             let calcHeight = (25*nD["0"][1])/80;
-            let calcY = 20.0-calcHeight;
+            let calcY = 28.0-calcHeight;
             
             // transition the height and color of rectangles.
             bars.select("rect").transition().duration(50)
@@ -891,15 +891,123 @@ $(function(){
     });
 
     socket.on('historico_detalhes_min_temp_camara', function(data) {
-    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Mínima: '+data+'</span></div>');
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima da Câmara: '+data+'</span></div>');
+    	$('#span-temp-camara-min').append(data);
     });
 
     socket.on('historico_detalhes_max_temp_camara', function(data) {
-    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Máxima: '+data+'</span></div>');
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima da Câmara: '+data+'</span></div>');
+    	$('#span-temp-camara-max').append(data);
     });
 
     socket.on('historico_detalhes_avg_temp_camara', function(data) {
-    	$('#div-historico-detalhes').append('<div class="div-linha"><span>Temperatura da Câmara Média: '+data+'</span></div>');
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média da Câmara: '+data+'</span></div>');
+    	$('#span-temp-camara-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_tabuleiro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima do Tabuleiro: '+data+'</span></div>');
+    	$('#span-temp-tabuleiro-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_tabuleiro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima do Tabuleiro: '+data+'</span></div>');
+    	$('#span-temp-tabuleiro-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_tabuleiro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média do Tabuleiro: '+data+'</span></div>');
+    	$('#span-temp-tabuleiro-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_quadro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima do Quadro: '+data+'</span></div>');
+    	$('#span-temp-quadro-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_quadro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima do Quadro: '+data+'</span></div>');
+    	$('#span-temp-quadro-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_quadro', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média do Quadro: '+data+'</span></div>');
+    	$('#span-temp-quadro-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_motorB', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima do Motor B: '+data+'</span></div>');
+    	$('#span-temp-motor-b-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_motorB', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima do Motor B: '+data+'</span></div>');
+    	$('#span-temp-motor-b-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_motorB', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média do Motor B: '+data+'</span></div>');
+    	$('#span-temp-motor-b-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_extrusor', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima do Extrusor: '+data+'</span></div>');
+    	$('#span-temp-extrusor-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_extrusor', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima do Extrusor: '+data+'</span></div>');
+    	$('#span-temp-extrusor-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_extrusor', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média do Extrusor: '+data+'</span></div>');
+    	$('#span-temp-extrusor-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_aguaChiller', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima da Água á Entrada do Chiller: '+data+'</span></div>');
+    	$('#span-temp-agua-chiller-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_aguaChiller', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima da Água á Entrada do Chiller: '+data+'</span></div>');
+    	$('#span-temp-agua-chiller-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_aguaChiller', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média da Água á Entrada do Chiller: '+data+'</span></div>');
+    	$('#span-temp-agua-chiller-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_saidaCablagem', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima da Saída da Cablagem: '+data+'</span></div>');
+    	$('#span-temp-saida-cablagem-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_saidaCablagem', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima da Saída da Cablagem: '+data+'</span></div>');
+    	$('#span-temp-saida-cablagem-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_saidaCablagem', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média da Saída da Cablagem: '+data+'</span></div>');
+    	$('#span-temp-saida-cablagem-media').append(data);
+    });
+
+    socket.on('historico_detalhes_min_temp_pontoMovel', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima do Ponto Móvel: '+data+'</span></div>');
+    	$('#span-temp-ponto-movel-min').append(data);
+    });
+
+    socket.on('historico_detalhes_max_temp_pontoMovel', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Máxima do Ponto Móvel: '+data+'</span></div>');
+    	$('#span-temp-ponto-movel-max').append(data);
+    });
+
+    socket.on('historico_detalhes_avg_temp_pontoMovel', function(data) {
+    	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Média do Ponto Móvel: '+data+'</span></div>');
+    	$('#span-temp-ponto-movel-media').append(data);
     });
 
     var input = document.getElementsByClassName('custom-file-input');
@@ -970,6 +1078,15 @@ function machineState(state){
 function btnHistoricoDetalhes_Click(id,filename){
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
 	modalHistoricoDetalhes.style.display = "block";
-	$('#div-historico-detalhes').append('<div class="div-linha"><span>Ficheiro: '+filename+'</span></div>');
+	let htmlTempCamara = '<div class="div-temp-caption">Câmara</div><div id="div-temp-camara-min">Min:<span id="span-temp-camara-min"> </span></div><div id="div-temp-camara-max">Max:<span id="span-temp-camara-max"> </span></div><div id="div-temp-camara-media">Média:<span id="span-temp-camara-media"> </span></div>';
+	let htmlTempTabuleiro = '<div class="div-temp-caption">Tabuleiro</div><div id="div-temp-tabuleiro-min">Min:<span id="span-temp-tabuleiro-min"> </span></div><div id="div-temp-tabuleiro-max">Max:<span id="span-temp-tabuleiro-max"> </span></div><div id="div-temp-tabuleiro-media">Média:<span id="span-temp-tabuleiro-media"> </span></div>';
+	let htmlTempExtrusor = '<div class="div-temp-caption">Extrusor</div><div id="div-temp-extrusor-min">Min:<span id="span-temp-extrusor-min"> </span></div><div id="div-temp-extrusor-max">Max:<span id="span-temp-extrusor-max"> </span></div><div id="div-temp-extrusor-media">Média:<span id="span-temp-extrusor-media"> </span></div>';
+	let htmlTempAguaChiller = '<div class="div-temp-caption">Água á Entrada do Chiller</div><div id="div-temp-agua-chiller-min">Min:<span id="span-temp-agua-chiller-min"> </span></div><div id="div-temp-agua-chiller-max">Max:<span id="span-temp-agua-chiller-max"> </span></div><div id="div-temp-agua-chiller-media">Média:<span id="span-temp-agua-chiller-media"> </span></div>';
+	let htmlTempMotorB = '<div class="div-temp-caption">Motor B</div><div id="div-temp-motor-b-min">Min:<span id="span-temp-motor-b-min"> </span></div><div id="div-temp-motor-b-max">Max:<span id="span-temp-motor-b-max"> </span></div><div id="div-temp-motor-b-media">Média:<span id="span-temp-motor-b-media"> </span></div>';
+	let htmlTempQuadro = '<div class="div-temp-caption">Quadro</div><div id="div-temp-quadro-min">Min:<span id="span-temp-quadro-min"> </span></div><div id="div-temp-quadro-max">Max:<span id="span-temp-quadro-max"> </span></div><div id="div-temp-quadro-media">Média:<span id="span-temp-quadro-media"> </span></div>';
+	let htmlTempSaidaCablagem = '<div class="div-temp-caption">Saída Cablagem</div><div id="div-temp-saida-cablagem-min">Min:<span id="span-temp-saida-cablagem-min"> </span></div><div id="div-temp-saida-cablagem-max">Max:<span id="span-temp-saida-cablagem-max"> </span></div><div id="div-temp-saida-cablagem-media">Média:<span id="span-temp-saida-cablagem-media"> </span></div>';
+	let htmlTempPontoMovel = '<div class="div-temp-caption">Ponto Móvel</div><div id="div-temp-ponto-movel-min">Min:<span id="span-temp-ponto-movel-min"> </span></div><div id="div-temp-ponto-movel-max">Max:<span id="span-temp-ponto-movel-max"> </span></div><div id="div-temp-ponto-movel-media">Média:<span id="span-temp-ponto-movel-media"> </span></div>';
+
+	$('#div-historico-detalhes').append('<div class="div-linha2"><span>Ficheiro: '+filename+'</span></div><div>Temperaturas</div>'+htmlTempCamara+htmlTempTabuleiro+htmlTempExtrusor+htmlTempAguaChiller+htmlTempMotorB+htmlTempQuadro+htmlTempSaidaCablagem+htmlTempPontoMovel);
 	global_socket.emit('historico_detalhes', id);
 }

@@ -1282,3 +1282,68 @@ rect:hover {  fill:green; }
   text-align: right;
     width: 75%;
 }
+
+#dashboard-temperatura-tabuleiro,#dashboard-temperatura-agua-chiller,#dashboard-temperatura-quadro,#dashboard-temperatura-ponto-movel{
+  padding-left: 7px;
+}
+
+.div-linha2{
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+#div-historico-detalhes{
+  width:60%;
+}
+
+#div-temp-camara-max,#div-temp-camara-min,#div-temp-camara-media{
+  float: left;width:30%;
+}
+
+#div-temp-tabuleiro-max,#div-temp-tabuleiro-min,#div-temp-tabuleiro-media{
+  float: left;width:30%;
+}
+
+#div-temp-extrusor-max,#div-temp-extrusor-min,#div-temp-extrusor-media{
+  float: left;width:30%;
+}
+
+#div-temp-agua-chiller-max,#div-temp-agua-chiller-min,#div-temp-agua-chiller-media{
+  float: left;width:30%;
+}
+
+#div-temp-motor-b-max,#div-temp-motor-b-min,#div-temp-motor-b-media{
+  float: left;width:30%;
+}
+
+#div-temp-quadro-max,#div-temp-quadro-min,#div-temp-quadro-media{
+  float: left;width:30%;
+}
+
+#div-temp-saida-cablagem-max,#div-temp-saida-cablagem-min,#div-temp-saida-cablagem-media{
+  float: left;width:30%;
+}
+
+#div-temp-ponto-movel-max,#div-temp-ponto-movel-min,#div-temp-ponto-movel-media{
+  float: left;width:30%;
+}
+
+.div-temp-caption{
+  clear: left;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 7px;
+}
+
+#div-temp-camara-min,#div-temp-tabuleiro-min,#div-temp-extrusor-min,#div-temp-agua-chiller-min,#div-temp-motor-b-min,#div-temp-quadro-min,#div-temp-saida-cablagem-min,#div-temp-ponto-movel-min{
+  padding-left: 10%;
+  width: 35%;
+}
+
+#div-temp-camara-max,#div-temp-tabuleiro-max,#div-temp-extrusor-max,#div-temp-agua-chiller-max,#div-temp-motor-b-max,#div-temp-quadro-max,#div-temp-saida-cablagem-max,#div-temp-ponto-movel-max{
+  width: 25%;
+}

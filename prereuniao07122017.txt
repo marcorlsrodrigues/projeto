@@ -22,3 +22,5 @@ notas:
 - alertas para temperaturas? ficheiro de configuração com valores aceitaveis
 - barras ou manometros nas temperaturas, e cores nas temperaturas?
 - prox reuniao quarta feira 20/12 - 11h-mandar email até 2a feira dia 11/12 a confirmar reuniao
+
+- adicionar gráfico de linhas em tempo real ou sem ser em tempo real sobre temperaturas

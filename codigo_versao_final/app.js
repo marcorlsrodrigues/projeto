@@ -396,11 +396,8 @@ function automatic_reset_false(){
 
 function automatic_register_parameters() {
   if(register_parameters){
-  	console.log(hl_TempCamara.value);
-  	console.log(inserted_id);
-
 	let data = {
-        filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value
+        filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value,temp_tabuleiro:hl_TempTabuleiro.value,temp_extrusor:hl_TempExtrusor.value,temp_aguaChiller:hl_TempAguaChiller.value,temp_motorB:hl_TempMotorB.value,temp_quadro:hl_TempQuadro.value,temp_saidaCablagem:hl_TempSaidaCablagem.value,temp_pontoMovel:hl_TempPontoMovel.value
     };
     
     rdb.table('file_execution').insert(data).run(global_conn, function(err, result) {
@@ -866,13 +863,20 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('historico_detalhes', function (id) {
-    	let min_temp_camara =0.0, max_temp_camara =0.0,avg_temp_camara =0.0;
+    	let min_temp_camara =0.0, max_temp_camara =0.0,avg_temp_camara =0.0,
+    		min_temp_tabuleiro =0.0, max_temp_tabuleiro =0.0,avg_temp_tabuleiro =0.0,
+    		min_temp_quadro =0.0, max_temp_quadro =0.0,avg_temp_quadro =0.0,
+    		min_temp_extrusor =0.0, max_temp_extrusor =0.0,avg_temp_extrusor =0.0,
+    		min_temp_motorb =0.0, max_temp_motorb =0.0,avg_temp_motorb =0.0,
+    		min_temp_saidacablagem =0.0, max_temp_saidacablagem =0.0,avg_temp_saidacablagem =0.0,
+    		min_temp_aguachiller =0.0, max_temp_aguachiller =0.0,avg_temp_aguachiller =0.0,
+    		min_temp_pontomovel =0.0, max_temp_pontomovel =0.0,avg_temp_pontomovel =0.0;
     	
     	rdb.table("file_execution")
     		.filter({file_id: id})
     		.min('temp_camara')
     		.run(conn,function(err,result){
-    			min_temp_camara = result.temp_camara;
+    			min_temp_camara = result.temp_camara.toFixed(2);
     			socket.emit('historico_detalhes_min_temp_camara',min_temp_camara);
     		});
 
@@ -881,7 +885,7 @@ io.sockets.on('connection',function(socket){
     		.filter({file_id: id})
     		.max('temp_camara')
     		.run(conn,function(err,result){
-    			max_temp_camara = result.temp_camara;
+    			max_temp_camara = result.temp_camara.toFixed(2);
     			socket.emit('historico_detalhes_max_temp_camara',max_temp_camara);
     		});
 
@@ -891,6 +895,184 @@ io.sockets.on('connection',function(socket){
     		.run(conn,function(err,result){
     			avg_temp_camara = result.toFixed(2);
     			socket.emit('historico_detalhes_avg_temp_camara',avg_temp_camara);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_tabuleiro')
+    		.run(conn,function(err,result){
+    			min_temp_tabuleiro = result.temp_tabuleiro.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_tabuleiro',min_temp_tabuleiro);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_tabuleiro')
+    		.run(conn,function(err,result){
+    			max_temp_tabuleiro = result.temp_tabuleiro.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_tabuleiro',max_temp_tabuleiro);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_tabuleiro')
+    		.run(conn,function(err,result){
+    			avg_temp_tabuleiro = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_tabuleiro',avg_temp_tabuleiro);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_extrusor')
+    		.run(conn,function(err,result){
+    			min_temp_extrusor = result.temp_extrusor.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_extrusor',min_temp_extrusor);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_extrusor')
+    		.run(conn,function(err,result){
+    			max_temp_extrusor = result.temp_extrusor.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_extrusor',max_temp_extrusor);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_extrusor')
+    		.run(conn,function(err,result){
+    			avg_temp_extrusor = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_extrusor',avg_temp_extrusor);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_aguaChiller')
+    		.run(conn,function(err,result){
+    			min_temp_aguaChiller = result.temp_aguaChiller.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_aguaChiller',min_temp_aguaChiller);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_aguaChiller')
+    		.run(conn,function(err,result){
+    			max_temp_aguaChiller = result.temp_aguaChiller.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_aguaChiller',max_temp_aguaChiller);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_aguaChiller')
+    		.run(conn,function(err,result){
+    			avg_temp_aguaChiller = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_aguaChiller',avg_temp_aguaChiller);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_motorB')
+    		.run(conn,function(err,result){
+    			min_temp_motorB = result.temp_motorB.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_motorB',min_temp_motorB);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_motorB')
+    		.run(conn,function(err,result){
+    			max_temp_motorB = result.temp_motorB.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_motorB',max_temp_motorB);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_motorB')
+    		.run(conn,function(err,result){
+    			avg_temp_motorB = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_motorB',avg_temp_motorB);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_saidaCablagem')
+    		.run(conn,function(err,result){
+    			min_temp_saidaCablagem = result.temp_saidaCablagem.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_saidaCablagem',min_temp_saidaCablagem);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_saidaCablagem')
+    		.run(conn,function(err,result){
+    			max_temp_saidaCablagem = result.temp_saidaCablagem.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_saidaCablagem',max_temp_saidaCablagem);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_saidaCablagem')
+    		.run(conn,function(err,result){
+    			avg_temp_saidaCablagem = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_saidaCablagem',avg_temp_saidaCablagem);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_pontoMovel')
+    		.run(conn,function(err,result){
+    			min_temp_pontoMovel = result.temp_pontoMovel.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_pontoMovel',min_temp_pontoMovel);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_pontoMovel')
+    		.run(conn,function(err,result){
+    			max_temp_pontoMovel = result.temp_pontoMovel.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_pontoMovel',max_temp_pontoMovel);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_pontoMovel')
+    		.run(conn,function(err,result){
+    			avg_temp_pontoMovel = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_pontoMovel',avg_temp_pontoMovel);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.min('temp_quadro')
+    		.run(conn,function(err,result){
+    			min_temp_quadro = result.temp_quadro.toFixed(2);
+    			socket.emit('historico_detalhes_min_temp_quadro',min_temp_quadro);
+    		});
+
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.max('temp_quadro')
+    		.run(conn,function(err,result){
+    			max_temp_quadro = result.temp_quadro.toFixed(2);
+    			socket.emit('historico_detalhes_max_temp_quadro',max_temp_quadro);
+    		});
+
+    	rdb.table("file_execution")
+    		.filter({file_id: id})
+    		.avg('temp_quadro')
+    		.run(conn,function(err,result){
+    			avg_temp_quadro = result.toFixed(2);
+    			socket.emit('historico_detalhes_avg_temp_quadro',avg_temp_quadro);
     		});
     });
     
