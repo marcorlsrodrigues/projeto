@@ -324,12 +324,6 @@ function setValue(){
     });
 }
 
-function setValue2(){
-	console.log('testing...');
-        //result is the myHandle object with the new properties filled in 
-        //All handles will be released automaticly here 
-}
-
 function automatic_pausar_false(){
     hl_AutomaticoPausar.value = '0';
     client.write(hl_AutomaticoPausar, function(err,handle) {
@@ -871,6 +865,15 @@ io.sockets.on('connection',function(socket){
     		min_temp_saidacablagem =0.0, max_temp_saidacablagem =0.0,avg_temp_saidacablagem =0.0,
     		min_temp_aguachiller =0.0, max_temp_aguachiller =0.0,avg_temp_aguachiller =0.0,
     		min_temp_pontomovel =0.0, max_temp_pontomovel =0.0,avg_temp_pontomovel =0.0;
+    	let arrayGrafico = [];
+
+    	rdb.table("file_execution").filter({file_id: id}).orderBy(rdb.asc('date')).run(conn)
+    		.then(cursor => {
+                cursor.each((err, returnedData) => {
+                	arrayGrafico= [returnedData.date.toLocaleString('pt-PT'),returnedData.temp_camara];
+                	socket.emit('historico_detalhes_grafico',arrayGrafico);
+                });
+    		});;
     	
     	rdb.table("file_execution")
     		.filter({file_id: id})

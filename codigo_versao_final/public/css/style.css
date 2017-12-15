@@ -312,9 +312,10 @@ a.power-button{
 }
 
 #div-estado-maquina{
-  width:80%;
-  float: left;
-  padding-top: 10px;
+    width: 57%;
+    float: left;
+    padding-top: 10px;
+    text-align: right;
 }
 
 /* BUTTONS START*/
@@ -1297,6 +1298,12 @@ rect:hover {  fill:green; }
 
 #div-historico-detalhes{
   width:60%;
+  float: left;
+}
+
+#div-historico-detalhes-grafico{
+  width:39%;
+  float: left;
 }
 
 #div-temp-camara-max,#div-temp-camara-min,#div-temp-camara-media{
@@ -1337,6 +1344,7 @@ rect:hover {  fill:green; }
   font-size: 20px;
   font-weight: bold;
   padding-bottom: 7px;
+  padding-top: 20px;
 }
 
 #div-temp-camara-min,#div-temp-tabuleiro-min,#div-temp-extrusor-min,#div-temp-agua-chiller-min,#div-temp-motor-b-min,#div-temp-quadro-min,#div-temp-saida-cablagem-min,#div-temp-ponto-movel-min{
@@ -1346,4 +1354,21 @@ rect:hover {  fill:green; }
 
 #div-temp-camara-max,#div-temp-tabuleiro-max,#div-temp-extrusor-max,#div-temp-agua-chiller-max,#div-temp-motor-b-max,#div-temp-quadro-max,#div-temp-saida-cablagem-max,#div-temp-ponto-movel-max{
   width: 25%;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
 }

@@ -8,6 +8,8 @@ let globalData_TempQuadro;
 let globalData_TempSaidaCablagem;
 let globalData_TempPontoMovel;
 let histograma, histograma2, histograma3, histograma4,histograma5, histograma6, histograma7, histograma8;
+let arrayGrafico = [];
+let graficoDesenhado = false;
 
 function getColor(value){
 	let color="black";
@@ -243,9 +245,12 @@ $(function(){
 	    }
 	    if (event.target == modalHistorico) {
 	        modalHistorico.style.display = "none";
+	        $('#div-historico').empty();
+	        $('#div-historico').append('<div class="div-linha"><div class="div-celula-caption"><span>Ficheiro</span></div><div class="div-celula-caption"><span>Início</span></div><div class="div-celula-caption"><span>Fim</span></div><div class="div-celula-caption"><span>Duração(mins)</span></div><div class="div-celula-caption"><span>Detalhes</span></div></div>');
 	    }
 	    if (event.target == modalHistoricoDetalhes) {
 	        modalHistoricoDetalhes.style.display = "none";
+	        $('#div-historico-detalhes').empty();
 	    }
 	}
 
@@ -887,12 +892,13 @@ $(function(){
     });
 
     socket.on('historico_resp', function(obj) {
-    	$('#div-historico').append('<div class="div-linha"><div class="div-celula"><span>'+obj.filename+'</span></div><div class="div-celula"><span>'+obj.start_date+'</span></div><div class="div-celula"><span>'+obj.stop_date+'</span></div><div class="div-celula"><span>'+obj.duration.toFixed(2)+'</span></div><div class="div-celula"><button id="btn-historicoDetalhes" data-id='+obj.id+' onclick="btnHistoricoDetalhes_Click(\''+obj.id+'\',\''+obj.filename+'\')">Detalhes</button></div></div>');
+    	$('#div-historico').append('<div class="div-linha"><div class="div-celula" style="padding-top:15px"><span>'+obj.filename+'</span></div><div class="div-celula" style="padding-top:15px"><span>'+obj.start_date+'</span></div><div class="div-celula" style="padding-top:15px"><span>'+obj.stop_date+'</span></div><div class="div-celula" style="padding-top:15px"><span>'+obj.duration.toFixed(2)+'</span></div><div class="div-celula" style="text-align: center;"><a id="a-historicoDetalhes" href="#" data-type="a-historicoDetalhes" data-id='+obj.id+' data-filename='+obj.filename+'><img src="../img/info.png" alt="Detalhes" height="30" width="30"/></a></div></div>');
     });
 
     socket.on('historico_detalhes_min_temp_camara', function(data) {
     	//$('#div-historico-detalhes').append('<div class="div-linha2"><span>Temperatura Mínima da Câmara: '+data+'</span></div>');
     	$('#span-temp-camara-min').append(data);
+    	desenhaGraficoDetalhes();
     });
 
     socket.on('historico_detalhes_max_temp_camara', function(data) {
@@ -1010,6 +1016,10 @@ $(function(){
     	$('#span-temp-ponto-movel-media').append(data);
     });
 
+    socket.on('historico_detalhes_grafico', function(data) {
+    	arrayGrafico.push(data);
+    });
+
     var input = document.getElementsByClassName('custom-file-input');
     for (var i = 0, len = input.length; i < len; ++i) {
         var theInput = input[i].getElementsByTagName('input')[0];
@@ -1018,7 +1028,89 @@ $(function(){
             this.title = this.value;
         };
     }
+
+
+    $('#div-historico').on('click', 'a', function () {
+    	let aType = $(this).data('type');
+    	if(aType==='a-historicoDetalhes'){
+    		let id = $(this).data('id')
+    		let filename = $(this).data('filename');
+    		btnHistoricoDetalhes_Click(id,filename);
+    	}
+    });    
+
 });
+
+
+function desenhaGraficoDetalhes(){
+	if(graficoDesenhado){
+		return;
+	}
+	console.log(arrayGrafico);
+	graficoDesenhado=true;
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+	var parseDate = d3.time.format("%Y-%m-%d").parse;
+
+
+	var x = d3.time.scale()
+	    .range([0, width])
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left");
+
+	var line = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(d.close); });
+
+	var svg = d3.select("#div-historico-detalhes-grafico").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	  var data = arrayGrafico.map(function(d) {
+	      return {
+	         date: parseDate(d[0]),
+	         close: d[1]
+	      };
+	      
+	  });
+
+
+	  x.domain(d3.extent(data, function(d) { return d.date; }));
+	  y.domain(d3.extent(data, function(d) { return d.close; }));
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Price ($)");
+
+	  svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .attr("d", line);
+}
 
 
 function abreModoOperacao(evt, cityName) {
@@ -1087,6 +1179,6 @@ function btnHistoricoDetalhes_Click(id,filename){
 	let htmlTempSaidaCablagem = '<div class="div-temp-caption">Saída Cablagem</div><div id="div-temp-saida-cablagem-min">Min:<span id="span-temp-saida-cablagem-min"> </span></div><div id="div-temp-saida-cablagem-max">Max:<span id="span-temp-saida-cablagem-max"> </span></div><div id="div-temp-saida-cablagem-media">Média:<span id="span-temp-saida-cablagem-media"> </span></div>';
 	let htmlTempPontoMovel = '<div class="div-temp-caption">Ponto Móvel</div><div id="div-temp-ponto-movel-min">Min:<span id="span-temp-ponto-movel-min"> </span></div><div id="div-temp-ponto-movel-max">Max:<span id="span-temp-ponto-movel-max"> </span></div><div id="div-temp-ponto-movel-media">Média:<span id="span-temp-ponto-movel-media"> </span></div>';
 
-	$('#div-historico-detalhes').append('<div class="div-linha2"><span>Ficheiro: '+filename+'</span></div><div>Temperaturas</div>'+htmlTempCamara+htmlTempTabuleiro+htmlTempExtrusor+htmlTempAguaChiller+htmlTempMotorB+htmlTempQuadro+htmlTempSaidaCablagem+htmlTempPontoMovel);
+	$('#div-historico-detalhes').append('<div class="div-linha2"><span>Ficheiro: '+filename+' - Temperaturas</span></div>'+htmlTempCamara+htmlTempTabuleiro+htmlTempExtrusor+htmlTempAguaChiller+htmlTempMotorB+htmlTempQuadro+htmlTempSaidaCablagem+htmlTempPontoMovel);
 	global_socket.emit('historico_detalhes', id);
 }
