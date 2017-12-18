@@ -16,8 +16,8 @@
 
 notas: 
 
-- verificar se eixo1 so roda para cá
-- eixo2 tem curso ou pode rodar sempre? 
+- verificar se eixo1 so roda para cá: pode rodar para os 2 lados (embora na prática deve acontecer mais para cá, porque tem mais espaço de impressão
+- eixo2 tem curso ou pode rodar sempre?  - nao tem curso, pode rodar sempre. e quando a impressão vai começar a posição inicial é o 0 (porque é igual começar em qualquer ponto que esteja)
 - avaliar possibilidade de X e Y 
 - alertas para temperaturas? ficheiro de configuração com valores aceitaveis
 - barras ou manometros nas temperaturas, e cores nas temperaturas?

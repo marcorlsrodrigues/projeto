@@ -1046,14 +1046,13 @@ function desenhaGraficoDetalhes(){
 	if(graficoDesenhado){
 		return;
 	}
-	console.log(arrayGrafico);
+	$('#div-historico-detalhes-grafico').empty();
 	graficoDesenhado=true;
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 20, bottom: 130, left: 50},
+    width = 500 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 
-	var parseDate = d3.time.format("%Y-%m-%d").parse;
-
+	var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
 	var x = d3.time.scale()
 	    .range([0, width])
@@ -1063,7 +1062,7 @@ function desenhaGraficoDetalhes(){
 
 	var xAxis = d3.svg.axis()
 	    .scale(x)
-	    .orient("bottom");
+	    .orient("bottom").tickFormat(d3.time.format("%Y-%m-%d %H:%M:%S"));
 
 	var yAxis = d3.svg.axis()
 	    .scale(y)
@@ -1071,30 +1070,36 @@ function desenhaGraficoDetalhes(){
 
 	var line = d3.svg.line()
 	    .x(function(d) { return x(d.date); })
-	    .y(function(d) { return y(d.close); });
+	    .y(function(d) { return y(parseFloat(d.close)); });
 
 	var svg = d3.select("#div-historico-detalhes-grafico").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
-	  .append("g")
+	  	.append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	  var data = arrayGrafico.map(function(d) {
 	      return {
 	         date: parseDate(d[0]),
-	         close: d[1]
+	         close: parseFloat(d[1])
 	      };
-	      
 	  });
 
-
 	  x.domain(d3.extent(data, function(d) { return d.date; }));
-	  y.domain(d3.extent(data, function(d) { return d.close; }));
+	  y.domain([0, 100]);
+	  //y.domain([0, d3.max(data, function(d) { return d.close; })]);
+	  //y.domain(d3.extent(data, function(d) { return d.close; }));
 
 	  svg.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + height + ")")
-	      .call(xAxis);
+	      .call(xAxis)
+	      .selectAll("text")
+          .attr("y", 0)
+		  .attr("x", 9)
+		  .attr("dy", ".35em")
+    	  .attr("transform", "rotate(90)")
+    	  .style("text-anchor", "start");
 
 	  svg.append("g")
 	      .attr("class", "y axis")
@@ -1103,8 +1108,8 @@ function desenhaGraficoDetalhes(){
 	      .attr("transform", "rotate(-90)")
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
-	      .style("text-anchor", "end")
-	      .text("Price ($)");
+	      .style("text-anchor", "start")
+	      .text("Temperatura");
 
 	  svg.append("path")
 	      .datum(data)
@@ -1168,6 +1173,9 @@ function machineState(state){
 
 
 function btnHistoricoDetalhes_Click(id,filename){
+	graficoDesenhado=false;
+	$('#div-historico-detalhes').empty();
+	arrayGrafico = [];
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
 	modalHistoricoDetalhes.style.display = "block";
 	let htmlTempCamara = '<div class="div-temp-caption">Câmara</div><div id="div-temp-camara-min">Min:<span id="span-temp-camara-min"> </span></div><div id="div-temp-camara-max">Max:<span id="span-temp-camara-max"> </span></div><div id="div-temp-camara-media">Média:<span id="span-temp-camara-media"> </span></div>';
