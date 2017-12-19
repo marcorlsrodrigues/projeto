@@ -96,7 +96,7 @@ function dashboard(id, fData){
         hG.update = function(nD, color){
             // update the domain of the y-axis map to reflect change in frequencies.
             //y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
-            console.log(nD["0"][1]);
+            
             // Attach the new data to the bars.
             var bars = hGsvg.selectAll(".bar").data(nD);
 
@@ -1072,6 +1072,34 @@ function desenhaGraficoDetalhes(){
 	    .x(function(d) { return x(d.date); })
 	    .y(function(d) { return y(parseFloat(d.close)); });
 
+	var line2 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_tabuleiro)); });
+
+	var line3 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_extrusor)); });
+
+	var line4 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_aguaChiller)); });
+
+	var line5 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_motorB)); });
+
+	var line6 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_saidaCablagem)); });
+
+	var line7 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_pontoMovel)); });
+
+	var line8 = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(parseFloat(d.temp_quadro)); });
+
 	var svg = d3.select("#div-historico-detalhes-grafico").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
@@ -1081,7 +1109,14 @@ function desenhaGraficoDetalhes(){
 	  var data = arrayGrafico.map(function(d) {
 	      return {
 	         date: parseDate(d[0]),
-	         close: parseFloat(d[1])
+	         close: parseFloat(d[1]),
+	         temp_tabuleiro:parseFloat(d[2]),
+	         temp_extrusor:parseFloat(d[3]),
+	         temp_aguaChiller:parseFloat(d[4]),
+	         temp_motorB:parseFloat(d[5]),
+	         temp_saidaCablagem:parseFloat(d[6]),
+	         temp_pontoMovel:parseFloat(d[7]),
+	         temp_quadro:parseFloat(d[8])
 	      };
 	  });
 
@@ -1098,7 +1133,7 @@ function desenhaGraficoDetalhes(){
           .attr("y", 0)
 		  .attr("x", 9)
 		  .attr("dy", ".35em")
-    	  .attr("transform", "rotate(90)")
+    	  .attr("transform", "rotate(60)")
     	  .style("text-anchor", "start");
 
 	  svg.append("g")
@@ -1114,7 +1149,114 @@ function desenhaGraficoDetalhes(){
 	  svg.append("path")
 	      .datum(data)
 	      .attr("class", "line")
+	      .style("stroke","blue")
 	      .attr("d", line);
+
+	   svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","red")
+	      .attr("d", line2);
+
+	   	svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","green")
+	      .attr("d", line3);
+
+	   	svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","yellow")
+	      .attr("d", line4);
+
+	   	svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","pink")
+	      .attr("d", line5);
+
+	   	svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","violet")
+	      .attr("d", line6);
+
+	    svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","black")
+	      .attr("d", line7);
+
+	   	svg.append("path")
+	      .datum(data)
+	      .attr("class", "line")
+	      .style("stroke","orange")
+	      .attr("d", line8);
+
+	 svg.append("text")
+		.attr("transform", "translate(10,-10)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "blue")
+		.style("font-size", "10px")
+		.text("Câmara");
+
+	svg.append("text")
+		.attr("transform", "translate(40,0)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "red")
+		.style("font-size", "10px")
+		.text("Tabuleiro");
+
+	svg.append("text")
+		.attr("transform", "translate(60,-10)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "green")
+		.style("font-size", "10px")
+		.text("Extrusor");
+
+	svg.append("text")
+		.attr("transform", "translate(90,0)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "yellow")
+		.style("font-size", "10px")
+		.text("Agua Chiller");
+
+	svg.append("text")
+		.attr("transform", "translate(130,-10)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "pink")
+		.style("font-size", "10px")
+		.text("Motor B");
+
+	svg.append("text")
+		.attr("transform", "translate(170,0)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "violet")
+		.style("font-size", "10px")
+		.text("Saida Cablagem");
+
+	svg.append("text")
+		.attr("transform", "translate(220,-10)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "black")
+		.style("font-size", "10px")
+		.text("Ponto Móvel");
+
+	svg.append("text")
+		.attr("transform", "translate(280,0)")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "orange")
+		.style("font-size", "10px")
+		.text("Quadro");
 }
 
 
@@ -1174,7 +1316,7 @@ function machineState(state){
 
 function btnHistoricoDetalhes_Click(id,filename){
 	graficoDesenhado=false;
-	$('#div-historico-detalhes').empty();
+	$('#div-historico-detalhes-grafico').empty();
 	arrayGrafico = [];
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
 	modalHistoricoDetalhes.style.display = "block";

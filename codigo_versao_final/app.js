@@ -870,7 +870,7 @@ io.sockets.on('connection',function(socket){
     	rdb.table("file_execution").filter({file_id: id}).orderBy(rdb.asc('date')).run(conn)
     		.then(cursor => {
                 cursor.each((err, returnedData) => {
-                	arrayGrafico= [returnedData.date.toLocaleString('pt-PT'),returnedData.temp_camara];
+                	arrayGrafico= [returnedData.date.toLocaleString('pt-PT'),returnedData.temp_camara,returnedData.temp_tabuleiro,returnedData.temp_extrusor,returnedData.temp_aguaChiller,returnedData.temp_motorB,returnedData.temp_saidaCablagem,,returnedData.temp_pontoMovel,returnedData.temp_quadro];
                 	socket.emit('historico_detalhes_grafico',arrayGrafico);
                 });
     		});;
