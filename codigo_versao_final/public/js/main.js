@@ -404,11 +404,13 @@ $(function(){
 
 	$('#btn-pausar').click(function(){
 	  socket.emit('automatico_pausar', '1');
+	  socket.emit('machine_state', 'pause');
 	});
 
 	$('#btn-parar').click(function(){
 	  automatico_inicia=false;
 	  socket.emit('automatico_parar', '1');
+	  socket.emit('machine_state', 'on');
 	});
 
 	$('#ficheiro-gcode').on('change',function(event){
@@ -726,6 +728,9 @@ $(function(){
 		}
 	});
 
+	socket.on('GVL.machine_state', function(value) {
+        machineState(value);
+	});
 
 	socket.on('GVL.Poweron', function(power) {
       if(power==1){
@@ -887,6 +892,7 @@ $(function(){
     	if(automatico_inicia==true && value==0){
     		automatico_inicia=false;
     		socket.emit('automatico_parar', '2');
+    		socket.emit('machine_state', 'on');
     	}
     	
     });

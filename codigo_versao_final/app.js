@@ -314,6 +314,18 @@ var hl_OutrosAjusteMesa = {
     propname: 'value'      
 };
 
+var hl_MachineState = {
+    symname: 'GVL.machine_state',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_EnableTracking = {
+    symname: 'GVL.gvl_bEnableTracking',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
 
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
@@ -422,8 +434,16 @@ io.sockets.on('connection',function(socket){
     console.log('Socket connected');
     console.log('Trying to connect Ads');
     client = ads.connect(options, function() {
+    	hl_MachineState.value='on';
+    	client.write(hl_MachineState, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_MachineState, function(err, handle) {
+                console.log(err);
+            });
+        });
         console.log('Ads connected');
 
+        this.notify(hl_MachineState);
     	this.notify(hl_Poweron);
     	this.notify(hl_xActPos);
     	this.notify(hl_yActPos);
@@ -456,6 +476,16 @@ io.sockets.on('connection',function(socket){
         });
     });
 
+    socket.on('machine_state', function (value) {
+        hl_MachineState.value = value;
+        client.write(hl_MachineState, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_MachineState, function(err, handle) {
+                console.log(err);
+            });
+        });
+    });
+
     socket.on('gcode_filename', function (filename) {
     	ficheiroGcode = filename;
         hl_File.value = 'C:\\TwinCAT\\Gcode\\' + filename;
@@ -468,6 +498,22 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('automatico_iniciar', function (value) {
+    	hl_MachineState.value='auto';
+    	client.write(hl_MachineState, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_MachineState, function(err, handle) {
+                console.log(err);
+            });
+        });
+
+        hl_EnableTracking.value='1';
+    	client.write(hl_EnableTracking, function(err) {
+            console.log('err: '+ err);
+            client.read(hl_EnableTracking, function(err, handle) {
+                console.log(err);
+            });
+        });
+
     	hl_FileStart.value=value;
         client.write(hl_FileStart, function(err) {
             console.log('err: '+ err);
@@ -506,7 +552,6 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('automatico_parar', function (value) {
-
     	if(value==='1'){
 			hl_AutomaticoReset.value=value;
 	        client.write(hl_AutomaticoReset, function(err) {
@@ -870,7 +915,7 @@ io.sockets.on('connection',function(socket){
     	rdb.table("file_execution").filter({file_id: id}).orderBy(rdb.asc('date')).run(conn)
     		.then(cursor => {
                 cursor.each((err, returnedData) => {
-                	arrayGrafico= [returnedData.date.toLocaleString('pt-PT'),returnedData.temp_camara,returnedData.temp_tabuleiro,returnedData.temp_extrusor,returnedData.temp_aguaChiller,returnedData.temp_motorB,returnedData.temp_saidaCablagem,,returnedData.temp_pontoMovel,returnedData.temp_quadro];
+                	arrayGrafico= [returnedData.date.toLocaleString('pt-PT'),returnedData.temp_camara,returnedData.temp_tabuleiro,returnedData.temp_extrusor,returnedData.temp_aguaChiller,returnedData.temp_motorB,returnedData.temp_saidaCablagem,returnedData.temp_pontoMovel,returnedData.temp_quadro];
                 	socket.emit('historico_detalhes_grafico',arrayGrafico);
                 });
     		});;
