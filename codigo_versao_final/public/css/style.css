@@ -1372,3 +1372,476 @@ rect:hover {  fill:green; }
 .x.axis path {
   display: none;
 }
+
+#q2Blue {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Blue > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Blue > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Blue > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Blue > input:checked ~ .box,
+/*IE8*/#q2Blue.checked > .box{
+  background: blue;
+  color: #FFF;
+}
+#q2Blue > input:checked ~ .box > .tick,
+/*IE8*/.#q2Blue.checked > .box > .tick {
+  display: block;
+}
+#q2Blue > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+#q2Red  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Red > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Red > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Red > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Red > input:checked ~ .box,
+/*IE8*/#q2Red.checked > .box{
+  background: red;
+  color: #FFF;
+}
+#q2Red > input:checked ~ .box > .tick,
+/*IE8*/.#q2Red.checked > .box > .tick {
+  display: block;
+}
+#q2Red > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+
+#q2Green  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Green > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Green > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Green > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Green > input:checked ~ .box,
+/*IE8*/#q2Green.checked > .box{
+  background: green;
+  color: #FFF;
+}
+#q2Green > input:checked ~ .box > .tick,
+/*IE8*/.#q2Green.checked > .box > .tick {
+  display: block;
+}
+#q2Green > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+
+#q2Brown  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Brown > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Brown > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Brown > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Brown > input:checked ~ .box,
+/*IE8*/#q2Brown.checked > .box{
+  background: brown;
+  color: #FFF;
+}
+#q2Brown > input:checked ~ .box > .tick,
+/*IE8*/.#q2Brown.checked > .box > .tick {
+  display: block;
+}
+#q2Brown > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+
+#q2Pink  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Pink > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Pink > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Pink > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Pink > input:checked ~ .box,
+/*IE8*/#q2Pink.checked > .box{
+  background: pink;
+  color: #FFF;
+}
+#q2Pink > input:checked ~ .box > .tick,
+/*IE8*/.#q2Pink.checked > .box > .tick {
+  display: block;
+}
+#q2Pink > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+
+#q2Violet  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Violet > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Violet > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Violet > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Violet > input:checked ~ .box,
+/*IE8*/#q2Violet.checked > .box{
+  background: violet;
+  color: #FFF;
+}
+#q2Violet > input:checked ~ .box > .tick,
+/*IE8*/.#q2Violet.checked > .box > .tick {
+  display: block;
+}
+#q2Violet > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+#q2Black  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Black > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Black > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Black > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Black > input:checked ~ .box,
+/*IE8*/#q2Black.checked > .box{
+  background: black;
+  color: #FFF;
+}
+#q2Black > input:checked ~ .box > .tick,
+/*IE8*/.#q2Black.checked > .box > .tick {
+  display: block;
+}
+#q2Black > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}
+
+
+
+#q2Orange  {
+  position: relative;
+  display: inline-block;
+}
+
+#q2Orange > input {
+  position: absolute;
+  outline: none;
+  left: 0;
+  top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* DEFAULT STYLES */
+#q2Orange > .box {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 55px;
+    text-align: center;
+    width: 95px;
+   border: 1px solid #62c8d0;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-right: 7px;
+    position: relative;
+   font-weight: bold;
+}
+#q2Orange > .box > .tick {
+  display: none;
+}
+
+/* CHECKED STYLES */
+#q2Orange > input:checked ~ .box,
+/*IE8*/#q2Orange.checked > .box{
+  background: orange;
+  color: #FFF;
+}
+#q2Orange > input:checked ~ .box > .tick,
+/*IE8*/.#q2Orange.checked > .box > .tick {
+  display: block;
+}
+#q2Orange > input:active ~ .box {
+  border-color: #aaa;
+  background-color: #ddd;
+}

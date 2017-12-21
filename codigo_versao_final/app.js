@@ -434,13 +434,6 @@ io.sockets.on('connection',function(socket){
     console.log('Socket connected');
     console.log('Trying to connect Ads');
     client = ads.connect(options, function() {
-    	hl_MachineState.value='on';
-    	client.write(hl_MachineState, function(err) {
-            console.log('err: '+ err);
-            client.read(hl_MachineState, function(err, handle) {
-                console.log(err);
-            });
-        });
         console.log('Ads connected');
 
         this.notify(hl_MachineState);

@@ -182,6 +182,8 @@ $(function(){
 	var socket = io.connect('http://localhost:3000');
 	global_socket = socket;
 
+	socket.emit('machine_state', 'on');
+
 	var modal = document.getElementById('modal-teclado');
 	var modalHistorico = document.getElementById('modal-historico');
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
@@ -1045,6 +1047,28 @@ $(function(){
     	}
     });    
 
+
+    $(".custom-checkbox").click(function() {
+		// GET THE INPUT
+		var activeInput = $(this).children("input");
+		if(activeInput.is(':checked')) {
+			// DESELECT IF ALREADY CHECKED
+			$(activeInput).prop("checked", false);
+		} else {
+			// SELECT IF NOT CHECKED
+			$(activeInput).prop("checked", true);
+		}
+		
+		// IF RADIO REMOVE SELECTION FROM OTHER OPTIONS
+		if(activeInput.is('[type=radio]')){
+			var nonActiveInput = $(this).siblings().children("input");
+			$(nonActiveInput).prop("checked", false);
+		}
+		
+		graficoDesenhado=false;
+		desenhaGraficoDetalhes();
+	});
+
 });
 
 
@@ -1052,6 +1076,35 @@ function desenhaGraficoDetalhes(){
 	if(graficoDesenhado){
 		return;
 	}
+
+	let arrayLines = [];
+
+	if($("#checkbox-camara:checked" ).length > 0){
+		arrayLines.push('checkbox-camara');
+	}
+	if($("#checkbox-tabuleiro:checked" ).length > 0){
+		arrayLines.push('checkbox-tabuleiro');
+	}
+	if($("#checkbox-extrusor:checked" ).length > 0){
+		arrayLines.push('checkbox-extrusor');
+	}
+	if($("#checkbox-agua-chiller:checked" ).length > 0){
+		arrayLines.push('checkbox-agua-chiller');
+	}
+	if($("#checkbox-motor-b:checked" ).length > 0){
+		arrayLines.push('checkbox-motor-b');
+	}
+	if($("#checkbox-ponto-movel:checked" ).length > 0){
+		arrayLines.push('checkbox-ponto-movel');
+	}
+	if($("#checkbox-saida-cablagem:checked" ).length > 0){
+		arrayLines.push('checkbox-saida-cablagem');
+	}
+	if($("#checkbox-quadro:checked" ).length > 0){
+		arrayLines.push('checkbox-quadro');
+	}
+
+
 	$('#div-historico-detalhes-grafico').empty();
 	graficoDesenhado=true;
     var margin = {top: 20, right: 20, bottom: 130, left: 50},
@@ -1152,117 +1205,69 @@ function desenhaGraficoDetalhes(){
 	      .style("text-anchor", "start")
 	      .text("Temperatura");
 
-	  svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","blue")
-	      .attr("d", line);
+		  if(arrayLines.includes('checkbox-camara')){
+		  	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","blue")
+		      .attr("d", line);
+		  }
 
-	   svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","red")
-	      .attr("d", line2);
+		if(arrayLines.includes('checkbox-tabuleiro')){
+		   svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","red")
+		      .attr("d", line2);
+	  	}
 
-	   	svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","green")
-	      .attr("d", line3);
+	  	if(arrayLines.includes('checkbox-extrusor')){
+		   	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","green")
+		      .attr("d", line3);
+	  	}	
 
-	   	svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","yellow")
-	      .attr("d", line4);
+	  	if(arrayLines.includes('checkbox-agua-chiller')){
+		   	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","brown")
+		      .attr("d", line4);
+	  	}
 
-	   	svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","pink")
-	      .attr("d", line5);
+	  	if(arrayLines.includes('checkbox-motor-b')){
+		   	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","pink")
+		      .attr("d", line5);
+	  	}
 
-	   	svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","violet")
-	      .attr("d", line6);
+	  	if(arrayLines.includes('checkbox-quadro')){
+		   	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","violet")
+		      .attr("d", line6);
+	  	}
 
-	    svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","black")
-	      .attr("d", line7);
+	  	if(arrayLines.includes('checkbox-saida-cablagem')){
+		    svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","black")
+		      .attr("d", line7);
+	  	}
 
-	   	svg.append("path")
-	      .datum(data)
-	      .attr("class", "line")
-	      .style("stroke","orange")
-	      .attr("d", line8);
-
-	 svg.append("text")
-		.attr("transform", "translate(10,-10)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "blue")
-		.style("font-size", "10px")
-		.text("Câmara");
-
-	svg.append("text")
-		.attr("transform", "translate(40,0)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "red")
-		.style("font-size", "10px")
-		.text("Tabuleiro");
-
-	svg.append("text")
-		.attr("transform", "translate(60,-10)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "green")
-		.style("font-size", "10px")
-		.text("Extrusor");
-
-	svg.append("text")
-		.attr("transform", "translate(90,0)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "yellow")
-		.style("font-size", "10px")
-		.text("Agua Chiller");
-
-	svg.append("text")
-		.attr("transform", "translate(130,-10)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "pink")
-		.style("font-size", "10px")
-		.text("Motor B");
-
-	svg.append("text")
-		.attr("transform", "translate(170,0)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "violet")
-		.style("font-size", "10px")
-		.text("Saida Cablagem");
-
-	svg.append("text")
-		.attr("transform", "translate(220,-10)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "black")
-		.style("font-size", "10px")
-		.text("Ponto Móvel");
-
-	svg.append("text")
-		.attr("transform", "translate(280,0)")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "orange")
-		.style("font-size", "10px")
-		.text("Quadro");
+	  	if(arrayLines.includes('checkbox-ponto-movel')){
+		   	svg.append("path")
+		      .datum(data)
+		      .attr("class", "line")
+		      .style("stroke","orange")
+		      .attr("d", line8);
+	  	}
 }
 
 
