@@ -25,7 +25,7 @@ const db = Object.assign(config.rethinkdb, {
 var options = {
 	//The IP or hostname of the target machine 
     //host: "192.168.200.113", 
-    host: "192.168.200.20", 
+    host: "192.168.200.71", 
     //The NetId of the target machine 
     //amsNetIdTarget: "10.1.35.204.1.1",
     amsNetIdTarget: "192.168.200.20.1.1",
@@ -33,7 +33,7 @@ var options = {
     //You can choose anything in the form of x.x.x.x.x.x, 
     //but on the target machine this must be added as a route. 
     //amsNetIdSource: "192.168.137.50.1.1",
-    amsNetIdSource: "192.168.200.20.1.2",
+    amsNetIdSource: "192.168.200.71.1.2",
  
     //OPTIONAL: (These are set by default)  
     //The tcp destination port 
