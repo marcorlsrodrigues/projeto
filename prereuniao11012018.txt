@@ -1,0 +1,38 @@
+- partilhado video com as barras nas temperaturas
+- verificar se eixo1 so roda para cá: pode rodar para os 2 lados (embora na prática deve acontecer mais para cá, porque tem mais espaço de impressão
+- eixo2 tem curso ou pode rodar sempre?  - nao tem curso, pode rodar sempre. e quando a impressão vai começar a posição inicial é o 0 (porque é igual começar em qualquer ponto que esteja)
+
+- ja tem: barras ou manometros nas temperaturas, e cores nas temperaturas?
+a fazer:- adicionar gráfico de linhas em tempo real ou sem ser em tempo real sobre temperaturas
+- ja registo as temperaturas durante a execução (de segundo em segundo)
+
+
+- desenvolvimento: 
+	- já executo codigo G
+	- ja executo instruções manuais
+	- altero parâmetros manualmente
+	- estou a inicializar uma base de dados otimizada para aplicações real time: rethinkdb
+		- deverá registar dados de X em X tempo (uma vez por segundo?) e depois dar indicações como valores mínimos, médios e máximos de temperaturas e velocidades
+		- já insere na BD cada execução de ficheiro que faço e respetivo start/pause/stop date e time
+	- estou a aguardar ficheiro de codigo G mais completo (deve estar pronto até fim de Dezembro)
+- data de entrega (28/02/2018)
+
+	- próximos passos:
+		- continuar desenvolvimento da interface
+		- ver app para visualização 3D da peça - julgo que o gcode tem erros e por isso nao consigo gerar a peça em 3D
+		- gerar gráfico com temperaturas
+
+
+notas:
+- acento no água a entrada do chiller é ao contrário
+- permitir configurar temperaturas ideais num ficheiro (?)
+- temperautras -> radial gauge
+- logar interaçãom do utilizador (alteração d parametros, temperaturas, velocidades, etc)
+
+- estrutura:
+ - redese internet falar sobre redes industriais - OK
+- fabrico aditivo: aumentar topico, pôr uma ou duas imagens - OK
+- trabalho relacionado, explicar brevemente que cada rabalho tem a sua relação com o trma da tese
+- falar sobre conclusoeds que retirei do primeiro prototipo (1º semestre)/conclusoes ou resultados do prototipo funcoknal(1 semestre) - OK
+- proposta de solução tava mais preocupado com tecnolgoias a funcionarem - OK
+- analise de requisitos ja estava preocupado com a usabilidade dos users e qs tarefas deles
