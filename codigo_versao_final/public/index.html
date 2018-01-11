@@ -56,24 +56,44 @@
 				</div>
 			</div>
 			<div id="div-axis-b" class="div-axis">
-				<div class="Progress">
+				<!--<div class="Progress">
 				    <span class="Progress-label" id="Progress-id">B: <strong id="strong-b-pos"></strong><strong id="strong-b-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-b-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-b-pos" class="Progress-value">&nbsp;</span>
 				        </div>
 				    </progress>
-				</div>
+				</div>-->
+				<div style="width:10%;float: left;"><span>B:</span></div>
+				<div id="progress" 
+				     data-percentage="59" 
+				     data-track-width="12" 
+				     data-track-colour="555555" 
+				     data-fill-colour="00C0FF" 
+				     data-text-colour="00C0FF" 
+				     data-stroke-colour="FFFFFF" 
+				     data-stroke-spacing="4"> 
+				</div> 
 			</div>
 			<div id="div-axis-c" class="div-axis">
-				<div class="Progress">
+				<!--<div class="Progress">
 				    <span class="Progress-label" id="Progress-id">C: <strong id="strong-c-pos"></strong><strong id="strong-c-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-c-pos">
 				        <div class="Progress-bar" role="presentation">
 				            <span id="span-c-pos" class="Progress-value">&nbsp;</span>
 				        </div>
 				    </progress>
-				</div>
+				</div>-->
+				<div style="width:10%;float: left;"><span>C:</span></div>
+				<div id="progress-c" 
+				     data-percentage="59" 
+				     data-track-width="12" 
+				     data-track-colour="555555" 
+				     data-fill-colour="00C0FF" 
+				     data-text-colour="00C0FF" 
+				     data-stroke-colour="FFFFFF" 
+				     data-stroke-spacing="4"> 
+				</div> 
 			</div>
 		</div>
 		<div id="div-info-velocidade">
@@ -165,7 +185,7 @@
 				<div id="div-temperatura-agua-chiller">
 					<div id="div-span-temperatura-agua-chiller">
 						<div class="div-span-temps-valor" id="div-span-temps-valor-agua-chiller">
-							<span id="span-temperatura-agua-chiller">Água á entrada do Chiller:</span>
+							<span id="span-temperatura-agua-chiller">Água à entrada do Chiller:</span>
 							<span id="span-temperatura-agua-chiller-valor"></span>
 						</div>
 						<div class="d3-barra" id='dashboard-temperatura-agua-chiller'>

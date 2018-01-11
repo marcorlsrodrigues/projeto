@@ -11,6 +11,131 @@ let histograma, histograma2, histograma3, histograma4,histograma5, histograma6, 
 let arrayGrafico = [];
 let graficoDesenhado = false;
 
+
+var wrapper = document.getElementById('progress');
+var start = 0;
+var end = parseFloat(wrapper.dataset.percentage);
+
+var colours = {
+  fill: '#' + wrapper.dataset.fillColour,
+  track: '#' + wrapper.dataset.trackColour,
+  text: '#' + wrapper.dataset.textColour,
+  stroke: '#' + wrapper.dataset.strokeColour,
+}
+
+var radius = 30;
+var border = wrapper.dataset.trackWidth;
+var strokeSpacing = wrapper.dataset.strokeSpacing;
+var endAngle = Math.PI * 2;
+var formatText = d3.format('.0%');
+var boxSize = radius * 2;
+var count = end;
+var progress = start;
+var step = end < start ? -0.01 : 0.01;
+
+//Define the circle
+var circle = d3.svg.arc()
+  .startAngle(0)
+  .innerRadius(radius)
+  .outerRadius(radius - border);
+
+//setup SVG wrapper
+var svg = d3.select(wrapper)
+  .append('svg')
+  .attr('width', boxSize)
+  .attr('height', boxSize);
+
+// ADD Group container
+var g = svg.append('g')
+  .attr('transform', 'translate(' + boxSize / 2 + ',' + boxSize / 2 + ')');
+
+//Setup track
+var track = g.append('g').attr('class', 'radial-progress');
+track.append('path')
+  .attr('class', 'radial-progress__background')
+  .attr('fill', colours.track)
+  .attr('stroke', colours.stroke)
+  .attr('stroke-width', strokeSpacing + 'px')
+  .attr('d', circle.endAngle(endAngle));
+
+//Add colour fill
+var value = track.append('path')
+  .attr('class', 'radial-progress__value')
+  .attr('fill', colours.fill)
+  .attr('stroke', colours.stroke)
+  .attr('stroke-width', strokeSpacing + 'px');
+
+//Add text value
+var numberText = track.append('text')
+  .attr('class', 'radial-progress__text')
+  .attr('fill', colours.text)
+  .attr('text-anchor', 'middle')
+  .attr('dy', '.5rem');
+
+
+
+
+var wrapperC = document.getElementById('progress-c');
+var startC = 0;
+var endC = parseFloat(wrapperC.dataset.percentage);
+
+var coloursC = {
+  fill: '#' + wrapperC.dataset.fillColour,
+  track: '#' + wrapperC.dataset.trackColour,
+  text: '#' + wrapperC.dataset.textColour,
+  stroke: '#' + wrapperC.dataset.strokeColour,
+}
+
+var borderC = wrapperC.dataset.trackWidth;
+var strokeSpacingC = wrapperC.dataset.strokeSpacing;
+var endAngleC = Math.PI * 2;
+var formatTextC = d3.format('.0%');
+var boxSizeC = radius * 2;
+var countC = endC;
+var progressC = startC;
+var stepC = endC < startC ? -0.01 : 0.01;
+
+//Define the circle
+var circleC = d3.svg.arc()
+  .startAngle(0)
+  .innerRadius(radius)
+  .outerRadius(radius - borderC);
+
+//setup SVG wrapper
+var svgC = d3.select(wrapperC)
+  .append('svg')
+  .attr('width', boxSizeC)
+  .attr('height', boxSizeC);
+
+// ADD Group container
+var gC = svgC.append('g')
+  .attr('transform', 'translate(' + boxSizeC / 2 + ',' + boxSizeC / 2 + ')');
+
+//Setup track
+var trackC = gC.append('g').attr('class', 'radial-progress');
+trackC.append('path')
+  .attr('class', 'radial-progress__background')
+  .attr('fill', coloursC.track)
+  .attr('stroke', coloursC.stroke)
+  .attr('stroke-width', strokeSpacingC + 'px')
+  .attr('d', circleC.endAngle(endAngleC));
+
+//Add colour fill
+var valueC = trackC.append('path')
+  .attr('class', 'radial-progress__value')
+  .attr('fill', coloursC.fill)
+  .attr('stroke', coloursC.stroke)
+  .attr('stroke-width', strokeSpacingC + 'px');
+
+//Add text value
+var numberTextC = trackC.append('text')
+  .attr('class', 'radial-progress__text')
+  .attr('fill', coloursC.text)
+  .attr('text-anchor', 'middle')
+  .attr('dy', '.5rem');
+
+
+
 function getColor(value){
 	let color="black";
 
@@ -256,6 +381,17 @@ $(function(){
 	    }
 	}
 
+	update(progress);
+	  if (count > 0) {
+	    //reduce count till it reaches 0
+	    count--;
+	    //increase progress
+	    progress += step;
+	    //Control the speed of the fill
+	    setTimeout(iterate, 10);
+	  }
+
+	
 	$('#btn-teclado-x').on('click',function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
 		$('#input-mdi-gcode').val(inputMdiGcode+'X');
@@ -1343,3 +1479,24 @@ function btnHistoricoDetalhes_Click(id,filename){
 	$('#div-historico-detalhes').append('<div class="div-linha2"><span>Ficheiro: '+filename+' - Temperaturas</span></div>'+htmlTempCamara+htmlTempTabuleiro+htmlTempExtrusor+htmlTempAguaChiller+htmlTempMotorB+htmlTempQuadro+htmlTempSaidaCablagem+htmlTempPontoMovel);
 	global_socket.emit('historico_detalhes', id);
 }
+
+
+function iterate(){
+	update(progress);
+	
+	  if (count > 0) {
+	    //reduce count till it reaches 0
+	    count--;
+	    //increase progress
+	    progress += step;
+	    //Control the speed of the fill
+	    setTimeout(iterate, 10);
+	  }
+}
+
+function update(progress) {
+  //update position of endAngle
+  value.attr('d', circle.endAngle(endAngle * progress));
+  //update text value
+  numberText.text(formatText(progress));
+} 
