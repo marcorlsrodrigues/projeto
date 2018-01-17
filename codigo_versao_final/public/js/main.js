@@ -12,7 +12,7 @@ let arrayGrafico = [];
 let graficoDesenhado = false;
 
 
-var wrapper = document.getElementById('progress');
+/*var wrapper = document.getElementById('progress');
 var start = 0;
 var end = parseFloat(wrapper.dataset.percentage);
 
@@ -71,70 +71,7 @@ var numberText = track.append('text')
   .attr('fill', colours.text)
   .attr('text-anchor', 'middle')
   .attr('dy', '.5rem');
-
-
-
-
-var wrapperC = document.getElementById('progress-c');
-var startC = 0;
-var endC = parseFloat(wrapperC.dataset.percentage);
-
-var coloursC = {
-  fill: '#' + wrapperC.dataset.fillColour,
-  track: '#' + wrapperC.dataset.trackColour,
-  text: '#' + wrapperC.dataset.textColour,
-  stroke: '#' + wrapperC.dataset.strokeColour,
-}
-
-var borderC = wrapperC.dataset.trackWidth;
-var strokeSpacingC = wrapperC.dataset.strokeSpacing;
-var endAngleC = Math.PI * 2;
-var formatTextC = d3.format('.0%');
-var boxSizeC = radius * 2;
-var countC = endC;
-var progressC = startC;
-var stepC = endC < startC ? -0.01 : 0.01;
-
-//Define the circle
-var circleC = d3.svg.arc()
-  .startAngle(0)
-  .innerRadius(radius)
-  .outerRadius(radius - borderC);
-
-//setup SVG wrapper
-var svgC = d3.select(wrapperC)
-  .append('svg')
-  .attr('width', boxSizeC)
-  .attr('height', boxSizeC);
-
-// ADD Group container
-var gC = svgC.append('g')
-  .attr('transform', 'translate(' + boxSizeC / 2 + ',' + boxSizeC / 2 + ')');
-
-//Setup track
-var trackC = gC.append('g').attr('class', 'radial-progress');
-trackC.append('path')
-  .attr('class', 'radial-progress__background')
-  .attr('fill', coloursC.track)
-  .attr('stroke', coloursC.stroke)
-  .attr('stroke-width', strokeSpacingC + 'px')
-  .attr('d', circleC.endAngle(endAngleC));
-
-//Add colour fill
-var valueC = trackC.append('path')
-  .attr('class', 'radial-progress__value')
-  .attr('fill', coloursC.fill)
-  .attr('stroke', coloursC.stroke)
-  .attr('stroke-width', strokeSpacingC + 'px');
-
-//Add text value
-var numberTextC = trackC.append('text')
-  .attr('class', 'radial-progress__text')
-  .attr('fill', coloursC.text)
-  .attr('text-anchor', 'middle')
-  .attr('dy', '.5rem');
-
-
+*/
 
 function getColor(value){
 	let color="black";
@@ -381,6 +318,7 @@ $(function(){
 	    }
 	}
 
+	/*
 	update(progress);
 	  if (count > 0) {
 	    //reduce count till it reaches 0
@@ -389,7 +327,7 @@ $(function(){
 	    progress += step;
 	    //Control the speed of the fill
 	    setTimeout(iterate, 10);
-	  }
+	  }*/
 
 	
 	$('#btn-teclado-x').on('click',function(){
@@ -1205,8 +1143,62 @@ $(function(){
 		desenhaGraficoDetalhes();
 	});
 
+	//var div3 = $("div#div3");
+    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40}, {x:0, y:80}, {x:-40, y:40}, {x:0, y:0}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
+    //tn2 = TweenMax.to([div3], 1.2, {bezier:{curviness:2, values:[{x:40, y:40},{x:0, y:80}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
+    //tn2.play(0);
+
+    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40}, {x:0, y:80}, {x:-40, y:40}, {x:0, y:0}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
+    //tn2.play(0);
+
+    /*var c2 = document.getElementById("myCanvas2");
+	var ctx2 = c2.getContext("2d");
+	ctx2.beginPath();
+	ctx2.arc(60, 40, 40, 0, Math.PI*2, true);
+	ctx2.strokeStyle = '#000';
+	ctx2.stroke();
+
+	ctx2.beginPath();
+	ctx2.arc(60, 40, 40, 0, Math.PI*2, true);
+	ctx2.strokeStyle = '#000';
+	ctx2.stroke();*/
+
+	/*ctx2.beginPath();
+	ctx2.moveTo(110,10);
+	ctx2.arc(60, 1, 5, 0, Math.PI*2, true);
+	ctx2.fillStyle = '#000';
+	ctx2.fill();
+
+	ctx2.beginPath();
+	ctx2.moveTo(210,110);
+	ctx2.arc(210, 110, 5, 0, Math.PI*2, true);
+	ctx2.fillStyle = '#000';
+	ctx2.fill();
+
+	ctx2.beginPath();
+	ctx2.moveTo(110,210);
+	ctx2.arc(110, 210, 5, 0, Math.PI*2, true);
+	ctx2.fillStyle = '#000';
+	ctx2.fill();
+
+	ctx2.beginPath();
+	ctx2.moveTo(10,110);
+	ctx2.arc(10, 110, 5, 0, Math.PI*2, true);
+	ctx2.fillStyle = '#000';
+	ctx2.fill();*/
+
+
+	window.setInterval(function(){
+  		    // Code for Safari
+		    document.getElementById("posicao-mesa").style.WebkitTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+		    // Code for IE9
+		    document.getElementById("posicao-mesa").style.msTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+		    // Standard syntax
+		    document.getElementById("posicao-mesa").style.transform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+	}, 2000);
 });
 
+document.addEventListener('DOMContentLoaded', main);
 
 function desenhaGraficoDetalhes(){
 	if(graficoDesenhado){
@@ -1500,3 +1492,228 @@ function update(progress) {
   //update text value
   numberText.text(formatText(progress));
 } 
+
+
+
+
+
+function main() {
+  var app = document.getElementById('app-container');
+  var circleContainer = document.getElementById('circle-container');
+  var circle = document.getElementById('circle2');
+  var options = document.getElementById('app-options');
+  var centre = getCentre(circle);
+  var lines = [];
+  let pointValues = 0;
+  let angle = 0;
+
+  init();
+
+  function init() {
+    //app.addEventListener('mousedown', start);
+
+    initLines();
+
+    //initOptions();
+    window.setInterval(function(){
+    		pointValues = pointValues + 90;
+    		angle = angle + 0.5;
+  		    updateAngle(pointValues,20,angle);
+	}, 2000);
+  }
+
+  function initLines() {
+    var hypotenuse = {
+      name: 'hypotenuse',
+
+      update: function update(theta) {
+        this.el.style.transform = 'rotateZ(-' + theta + 'rad)';
+      }
+    };
+
+    addLine(hypotenuse);
+    /*
+    var sine = {
+      name: 'sine',
+
+      update: function update(theta) {
+        var sine = Math.sin(theta);
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'translateX(' + cosine * 100 + 'px) rotateZ(-90deg) scaleX(' + sine + ')';
+      }
+    };
+
+    addLine(sine);
+
+    var cosine = {
+      name: 'cosine',
+
+      update: function update(theta) {
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'scaleX(' + cosine + ')';
+      }
+    };
+
+    addLine(cosine);
+
+    var tangent = {
+      name: 'tangent',
+
+      update: function update(theta) {
+        var sine = Math.sin(theta);
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'translateX(' + cosine * 100 + 'px) translateY(-' + sine * 100 + 'px) rotateZ(90deg) rotateZ(-' + theta + 'rad) scaleX(' + Math.tan(theta) + ')';
+      }
+    };
+
+    addLine(tangent);
+
+    var cotangent = {
+      name: 'cotangent',
+
+      update: function update(theta) {
+        var sine = Math.sin(theta);
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'translateX(' + cosine * 100 + 'px) translateY(-' + sine * 100 + 'px) rotateZ(-90deg) rotateZ(-' + theta + 'rad) scaleX(' + Math.tan(Math.PI / 2 - theta) + ')';
+      }
+    };
+
+    addLine(cotangent);
+
+    var secant = {
+      name: 'secant',
+
+      update: function update(theta) {
+        var sine = Math.sin(theta);
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'scaleX(' + 1 / Math.cos(theta) + ')';
+      }
+    };
+
+    addLine(secant);
+
+    var cosecant = {
+      name: 'cosecant',
+
+      update: function update(theta) {
+        var sine = Math.sin(theta);
+        var cosine = Math.cos(theta);
+
+        this.el.style.transform = 'rotateZ(-90deg) scaleX(' + 1 / Math.sin(theta) + ')';
+      }
+    };
+
+    addLine(cosecant);*/
+  }
+
+  function initOptions() {
+    options.addEventListener('change', function (e) {
+      app.classList.toggle(e.target.id, e.target.checked);
+    });
+  }
+
+  function start(e) {
+    app.addEventListener('mousemove', track);
+    app.addEventListener('mouseup', stop);
+    app.addEventListener('mouseout', stop);
+  }
+
+  function updateAngle(x,y,angle){
+  	var coordinates = {
+      x: x,
+      y: (y) * -1 // reverse direction of co-ordinates
+    };
+
+    var polarCoordinates = toPolar(coordinates,angle);
+    if (polarCoordinates.theta != null) {
+      updateTheta(polarCoordinates.theta);
+    }
+  }
+
+  function track(e) {
+    var coordinates = {
+      x: e.pageX - centre.x,
+      y: (e.pageY - centre.y) * -1 // reverse direction of co-ordinates
+    };
+
+    var polarCoordinates = toPolar(coordinates,angle);
+
+    if (polarCoordinates.theta != null) {
+      updateTheta(polarCoordinates.theta);
+    }
+
+    e.preventDefault();
+  }
+
+  function stop(e) {
+    // only break if we lift the mouse, or if we move out of the container
+    if (e.type !== 'mouseup' && e.target !== app) {
+      return;
+    }
+
+    app.removeEventListener('mousemove', track);
+    app.removeEventListener('mouseup', stop);
+    app.removeEventListener('mouseout', stop);
+  }
+
+  function updateTheta(newTheta) {
+    window.requestAnimationFrame(function () {
+      lines.forEach(function (line) {
+        return line.update(newTheta);
+      });
+    });
+  }
+
+  function addLine(line) {
+    line.el = document.createElement('div');
+    line.el.className = 'line line--' + line.name;
+    line.el.id = 'line--' + line.name;
+    circleContainer.appendChild(line.el);
+    lines.push(line);
+  }
+}
+
+function getCentre(el) {
+  var rect = el.getBoundingClientRect();
+
+  return {
+    x: rect.left + rect.width / 2 + window.scrollX,
+    y: rect.top + rect.height / 2 + window.scrollY
+  };
+}
+
+function toPolar(coordinates,angle) {
+  return {
+    r: Math.sqrt(Math.pow(coordinates.x, 2) + Math.pow(coordinates.y, 2)),
+    //theta: findAngle(coordinates)
+    theta: angle
+  };
+}
+
+function findAngle(_ref) {
+  var x = _ref.x,
+      y = _ref.y;
+
+  var atan = Math.atan(Math.abs(y / x));
+
+  if (x > 0 && y >= 0) {
+    // top right quadrant
+    return atan;
+  } else if (x <= 0 && y > 0) {
+    // top left quadrant
+    return Math.PI - atan;
+  } else if (x < 0 && y <= 0) {
+    // bottom left quadrant
+    return Math.PI + atan;
+  } else if (x >= 0 && y < 0) {
+    // bottom right quadrant
+    return 2 * Math.PI - atan;
+  } else {
+    // origin, do nothing
+  }
+}

@@ -1845,3 +1845,143 @@ rect:hover {  fill:green; }
   border-color: #aaa;
   background-color: #ddd;
 }
+
+.main{
+  width:40px;
+  height:40px;
+  border:1px solid black;
+  top:0; bottom:0; left:0;right:0;
+  margin:auto;
+  border-radius:50%; 
+}
+
+.circle{
+  width:10px;
+  height:10px;
+  background:red;
+  border-radius:50%;  
+  top:0; bottom:0; left:0;right:0;
+  overflow:hidden;
+  margin-top: 15px;
+  margin-left: 14px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  transform:rotate(0deg)
+          translate(-20px)
+          rotate(0deg);
+}
+
+
+
+
+.app-container {
+  position: relative;
+  min-width: 300px;
+  width: 100%;
+}
+
+.circle-container {
+  position: relative;
+  width: 200px;
+}
+
+.circle2 {
+  width: 100px;
+  height: 100px;
+  border: 1px solid grey;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.point {
+  width: 100px;
+  height: 1px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 1000;
+  transform-origin: left;
+}
+
+.point::after {
+  content: "";
+  display: block;
+  background: red;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  transform: translateX(100px) translateX(-50%) translateY(-50%);
+}
+
+.line {
+  display: none;
+  width: 80px;
+  height: 2px;
+  position: absolute;
+  top: 40px;
+  left: 25px;
+  transform-origin: left;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.line--hypotenuse {
+  display: block;
+  background: blue;
+}
+
+.line--sine {
+  background: rebeccapurple;
+  z-index: 1;
+}
+
+.show-sine .line--sine {
+  display: block;
+}
+
+.line--cosine {
+  background: green;
+  z-index: 1;
+}
+
+.show-cosine .line--cosine {
+  display: block;
+}
+
+.line--tangent {
+  background: turquoise;
+}
+
+.show-tangent .line--tangent {
+  display: block;
+}
+
+.line--cotangent {
+  background: sienna;
+}
+
+.show-cotangent .line--cotangent {
+  display: block;
+}
+
+.line--secant {
+  background: springgreen;
+}
+
+.show-secant .line--secant {
+  display: block;
+}
+
+.line--cosecant {
+  background: salmon
+}
+
+.show-cosecant .line--cosecant {
+  display: block;
+}

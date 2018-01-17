@@ -8,6 +8,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 </head>
 <body>
 	<div id="div-machine-state" class="topbar">
@@ -55,7 +56,7 @@
 				    </progress>
 				</div>
 			</div>
-			<div id="div-axis-b" class="div-axis">
+			<div id="div-axis-b" style="width: 37%;float: left;">
 				<!--<div class="Progress">
 				    <span class="Progress-label" id="Progress-id">B: <strong id="strong-b-pos"></strong><strong id="strong-b-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-b-pos">
@@ -65,17 +66,31 @@
 				    </progress>
 				</div>-->
 				<div style="width:10%;float: left;"><span>B:</span></div>
-				<div id="progress" 
-				     data-percentage="59" 
+
+				<div class="app-container" id="app-container">
+				  <div class="circle-container" id="circle-container">
+				    <div class="circle2" id="circle2"></div>
+				  </div>
+				</div>
+				<ul class="app-options" id="app-options">
+				  
+				</ul>
+				<!--<div id="progress" 
+				     data-percentage="77" 
 				     data-track-width="12" 
 				     data-track-colour="555555" 
 				     data-fill-colour="00C0FF" 
 				     data-text-colour="00C0FF" 
 				     data-stroke-colour="FFFFFF" 
 				     data-stroke-spacing="4"> 
-				</div> 
+				</div>-->
 			</div>
-			<div id="div-axis-c" class="div-axis">
+			<div id="div-axis-c" style="width: 55%;float: left;">
+				<span id="Progress-id">C: </span>
+				<!--<div>
+					<canvas id="myCanvas2" width="120" height="85" style="background:#fff; margin-left: 30px;"></canvas>
+				</div>
+				<div class="div3" id="div3"></div>-->
 				<!--<div class="Progress">
 				    <span class="Progress-label" id="Progress-id">C: <strong id="strong-c-pos"></strong><strong id="strong-c-pos-unit"> ºC</strong></span>
 				    <progress max="1000" value="0" class="Progress-main" aria-labelledby="Progress-id" id="progress-c-pos">
@@ -84,16 +99,9 @@
 				        </div>
 				    </progress>
 				</div>-->
-				<div style="width:10%;float: left;"><span>C:</span></div>
-				<div id="progress-c" 
-				     data-percentage="59" 
-				     data-track-width="12" 
-				     data-track-colour="555555" 
-				     data-fill-colour="00C0FF" 
-				     data-text-colour="00C0FF" 
-				     data-stroke-colour="FFFFFF" 
-				     data-stroke-spacing="4"> 
-				</div> 
+				<div class="main">
+				  <div class="circle" id="posicao-mesa"></div>
+				</div>
 			</div>
 		</div>
 		<div id="div-info-velocidade">
