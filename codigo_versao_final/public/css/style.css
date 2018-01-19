@@ -1848,8 +1848,8 @@ rect:hover {  fill:green; }
 
 
 .main{
-  width:40px;
-  height:40px;
+  width: 80px;
+  height: 80px;
   border:1px solid black;
   top:0; bottom:0; left:0;right:0;
   margin:auto;
@@ -1863,14 +1863,14 @@ rect:hover {  fill:green; }
   border-radius:50%;  
   top:0; bottom:0; left:0;right:0;
   overflow:hidden;
-  margin-top: 15px;
-  margin-left: 14px;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
+  margin-top: 35px;
+  margin-left: 45px;
+  -webkit-transition: all 2.5s ease-in-out;
+  -moz-transition: all 2.5s ease-in-out;
+  -o-transition: all 2.5s ease-in-out;
+  transition: all 2.5s ease-in-out;
   transform:rotate(0deg)
-          translate(-20px)
+          translate(-50px)
           rotate(0deg);
 }
 
@@ -1889,8 +1889,8 @@ rect:hover {  fill:green; }
 }
 
 .circle2 {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border: 1px solid grey;
   border-radius: 100%;
   position: absolute;
@@ -1920,7 +1920,7 @@ rect:hover {  fill:green; }
 
 .line {
   display: none;
-  width: 80px;
+  width: 60px;
   height: 2px;
   position: absolute;
   top: 40px;
@@ -1985,4 +1985,72 @@ rect:hover {  fill:green; }
 
 .show-cosecant .line--cosecant {
   display: block;
+}
+
+
+.line2 {
+  display: none;
+  width: 40px;
+  height: 2px;
+  position: absolute;
+  top: 40px;
+  left: 100px;
+  transform-origin: left;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.line2--hypotenuse {
+  display: block;
+  background: blue;
+}
+
+
+.app-containerC {
+  position: relative;
+  min-width: 300px;
+  width: 100%;
+}
+
+.circle-containerC {
+  position: relative;
+  width: 200px;
+}
+
+.circleC {
+  width: 80px;
+  height: 80px;
+  border: 1px solid grey;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 60px;
+}
+
+
+.pointC {
+  width: 40px;
+  height: 1px;
+  position: absolute;
+  top: 40px;
+  left: 100px;
+  z-index: 1000;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  transform-origin: left;
+}
+
+.pointC::after {
+  content: "";
+  display: block;
+  background: red;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  transform: translateX(40px) translateX(-50%) translateY(-50%);
 }

@@ -1181,18 +1181,10 @@ $(function(){
 	ctx2.arc(10, 110, 5, 0, Math.PI*2, true);
 	ctx2.fillStyle = '#000';
 	ctx2.fill();*/
-
-	window.setInterval(function(){
-		// Code for Safari
-	    document.getElementById("posicao-mesa").style.WebkitTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
-	    // Code for IE9
-	    document.getElementById("posicao-mesa").style.msTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
-	    // Standard syntax
-	    document.getElementById("posicao-mesa").style.transform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
-	}, 2000);
 });
 
 document.addEventListener('DOMContentLoaded', main);
+document.addEventListener('DOMContentLoaded', main2);
 
 
 function desenhaGraficoDetalhes(){
@@ -1656,6 +1648,7 @@ function main() {
 
   function updateTheta(newTheta) {
     window.requestAnimationFrame(function () {
+      //point.style.transform = 'rotateZ(-' + newTheta + 'rad)';
       lines.forEach(function (line) {
         return line.update(newTheta);
       });
@@ -1666,6 +1659,151 @@ function main() {
     line.el = document.createElement('div');
     line.el.className = 'line line--' + line.name;
     line.el.id = 'line--' + line.name;
+    circleContainer.appendChild(line.el);
+    lines.push(line);
+  }
+}
+
+function getCentre(el) {
+  var rect = el.getBoundingClientRect();
+
+  return {
+    x: rect.left + rect.width / 2 + window.scrollX,
+    y: rect.top + rect.height / 2 + window.scrollY
+  };
+}
+
+function toPolar(coordinates,angle) {
+  return {
+    r: Math.sqrt(Math.pow(coordinates.x, 2) + Math.pow(coordinates.y, 2)),
+    //theta: findAngle(coordinates)
+    theta: angle
+  };
+}
+
+function findAngle(_ref) {
+  var x = _ref.x,
+      y = _ref.y;
+
+  var atan = Math.atan(Math.abs(y / x));
+
+  if (x > 0 && y >= 0) {
+    // top right quadrant
+    return atan;
+  } else if (x <= 0 && y > 0) {
+    // top left quadrant
+    return Math.PI - atan;
+  } else if (x < 0 && y <= 0) {
+    // bottom left quadrant
+    return Math.PI + atan;
+  } else if (x >= 0 && y < 0) {
+    // bottom right quadrant
+    return 2 * Math.PI - atan;
+  } else {
+    // origin, do nothing
+  }
+}
+
+
+
+
+
+
+
+
+function main2() {
+  var app = document.getElementById('app-containerC');
+  var circleContainer = document.getElementById('circle-containerC');
+  var circle = document.getElementById('circleC');
+  var centre = getCentre(circle);
+  var lines = [];
+  let pointValues = 0;
+  let angle = 0;
+  var point = document.getElementById('pointC');
+
+  init();
+
+  function init() {
+    //app.addEventListener('mousedown', start);
+
+    initLines();
+
+    window.setInterval(function(){
+    		pointValues = pointValues;
+    		angle = angle + 0.5;
+  		    updateAngle(pointValues,0,angle);
+	}, 2000);
+  }
+
+  function initLines() {
+    var hypotenuse = {
+      name: 'hypotenuse',
+
+      update: function update(theta) {
+        this.el.style.transform = 'rotateZ(-' + theta + 'rad)';
+      }
+    };
+
+    addLine(hypotenuse);
+  }
+
+  function start(e) {
+    app.addEventListener('mousemove', track);
+    app.addEventListener('mouseup', stop);
+    app.addEventListener('mouseout', stop);
+  }
+
+  function updateAngle(x,y,angle){
+  	var coordinates = {
+      x: x,
+      y: (y) * -1 // reverse direction of co-ordinates
+    };
+
+    var polarCoordinates = toPolar(coordinates,angle);
+    if (polarCoordinates.theta != null) {
+      updateTheta(polarCoordinates.theta);
+    }
+  }
+
+  function track(e) {
+    var coordinates = {
+      x: e.pageX - centre.x,
+      y: (e.pageY - centre.y) * -1 // reverse direction of co-ordinates
+    };
+
+    var polarCoordinates = toPolar(coordinates,angle);
+
+    if (polarCoordinates.theta != null) {
+      updateTheta(polarCoordinates.theta);
+    }
+
+    e.preventDefault();
+  }
+
+  function stop(e) {
+    // only break if we lift the mouse, or if we move out of the container
+    if (e.type !== 'mouseup' && e.target !== app) {
+      return;
+    }
+
+    app.removeEventListener('mousemove', track);
+    app.removeEventListener('mouseup', stop);
+    app.removeEventListener('mouseout', stop);
+  }
+
+  function updateTheta(newTheta) {
+    window.requestAnimationFrame(function () {
+      point.style.transform = 'rotateZ(-' + newTheta + 'rad)';
+      lines.forEach(function (line) {
+        return line.update(newTheta);
+      });
+    });
+  }
+
+  function addLine(line) {
+    line.el = document.createElement('div');
+    line.el.className = 'line2 line2--' + line.name;
+    line.el.id = 'line2--' + line.name;
     circleContainer.appendChild(line.el);
     lines.push(line);
   }
