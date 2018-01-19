@@ -11,8 +11,8 @@ let histograma, histograma2, histograma3, histograma4,histograma5, histograma6, 
 let arrayGrafico = [];
 let graficoDesenhado = false;
 
-
-/*var wrapper = document.getElementById('progress');
+/*
+var wrapper = document.getElementById('progress');
 var start = 0;
 var end = parseFloat(wrapper.dataset.percentage);
 
@@ -70,8 +70,8 @@ var numberText = track.append('text')
   .attr('class', 'radial-progress__text')
   .attr('fill', colours.text)
   .attr('text-anchor', 'middle')
-  .attr('dy', '.5rem');
-*/
+  .attr('dy', '.5rem');*/
+
 
 function getColor(value){
 	let color="black";
@@ -318,8 +318,7 @@ $(function(){
 	    }
 	}
 
-	/*
-	update(progress);
+	/*update(progress);
 	  if (count > 0) {
 	    //reduce count till it reaches 0
 	    count--;
@@ -818,31 +817,35 @@ $(function(){
       }
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition', function(actCmdPosition) {
+    socket.on('GVL.Teste', function(value) {
+        console.log(value);
+    });
+
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].current_position_acs', function(actCmdPosition) {
         $('#span-x-pos').width(actCmdPosition);
     	$('#progress-x-pos').val(actCmdPosition);
     	$('#strong-x-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[1].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].current_position_acs', function(actCmdPosition) {
         $('#span-z-pos').width(actCmdPosition);
     	$('#progress-z-pos').val(actCmdPosition);
     	$('#strong-z-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[1].current_position_acs', function(actCmdPosition) {
         $('#span-y-pos').width(actCmdPosition);
     	$('#progress-y-pos').val(actCmdPosition);
     	$('#strong-y-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].current_position_acs', function(actCmdPosition) {
         $('#span-b-pos').width(actCmdPosition);
     	$('#progress-b-pos').val(actCmdPosition);
     	$('#strong-b-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].current_position_acs', function(actCmdPosition) {
         $('#span-c-pos').width(actCmdPosition);
     	$('#progress-c-pos').val(actCmdPosition);
     	$('#strong-c-pos').text((actCmdPosition).toFixed(2));
@@ -872,40 +875,40 @@ $(function(){
     	$('#span-temperatura-camara-valor').css('color',color);
     }
 
-    socket.on('GVL.Temp_Camara', function(value) {
-    	$('#span-temperatura-camara-valor').text((value).toFixed(2));
+    socket.on('GVL.Temp_Camara_in', function(value) {
+    	$('#span-temperatura-camara-valor').text((value/100).toFixed(2));
 
-    	let color = getColor(value);
+    	let color = getColor(value/100);
     	histograma.update(globalfData.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/100).toFixed(2)];}),color);
 
     	$('#span-temperatura-camara-valor').css('color',color);
 
     });
     socket.on('GVL.Temp_Tabuleiro', function(value) {
-    	$('#span-temperatura-tabuleiro-valor').text((value).toFixed(2));
+    	$('#span-temperatura-tabuleiro-valor').text((value/100).toFixed(2));
     	
-    	let color = getColor(value);
+    	let color = getColor(value/100);
     	histograma2.update(globalData_TempTabuleiro.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/100).toFixed(2)];}),color);
 
     	$('#span-temperatura-tabuleiro-valor').css('color',color);
     });
-    socket.on('GVL.Temp_Extrusor', function(value) {
-    	$('#span-temperatura-extrusor-valor').text((value).toFixed(2));
+    socket.on('GVL.Temp_Extrusor_1', function(value) {
+    	$('#span-temperatura-extrusor-valor').text((value/10).toFixed(2));
     	
-    	let color = getColor(value);
+    	let color = getColor(value/10);
     	histograma3.update(globalData_TempExtrusor.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/10).toFixed(2)];}),color);
 
     	$('#span-temperatura-extrusor-valor').css('color',color);
     });
-    socket.on('GVL.Temp_AguaChiller', function(value) {
-    	$('#span-temperatura-agua-chiller-valor').text((value).toFixed(2));
+    socket.on('GVL.Temp_Chiller', function(value) {
+    	$('#span-temperatura-agua-chiller-valor').text((value/100).toFixed(2));
     	
-    	let color = getColor(value);
+    	let color = getColor(value/100);
     	histograma4.update(globalData_TempAguaChiller.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/100).toFixed(2)];}),color);
 
     	$('#span-temperatura-agua-chiller-valor').css('color',color);
     });
@@ -919,20 +922,20 @@ $(function(){
     	$('#span-temperatura-motor-b-valor').css('color',color);
     });
     socket.on('GVL.Temp_Quadro', function(value) {
-    	$('#span-temperatura-quadro-valor').text((value).toFixed(2));
+    	$('#span-temperatura-quadro-valor').text((value/100).toFixed(2));
     	
-    	let color = getColor(value);
+    	let color = getColor(value/100);
     	histograma6.update(globalData_TempQuadro.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/100).toFixed(2)];}),color);
 
     	$('#span-temperatura-quadro-valor').css('color',color);
     });
-    socket.on('GVL.Temp_SaidaCablagem', function(value) {
-    	$('#span-temperatura-saida-cablagem-valor').text((value).toFixed(2));
+    socket.on('GVL.Temp_Cabos', function(value) {
+    	$('#span-temperatura-saida-cablagem-valor').text((value/100).toFixed(2));
     	
-    	let color = getColor(value);
+    	let color = getColor(value/100);
     	histograma7.update(globalData_TempSaidaCablagem.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/100).toFixed(2)];}),color);
 
     	$('#span-temperatura-saida-cablagem-valor').css('color',color);
     });
@@ -1143,15 +1146,12 @@ $(function(){
 		desenhaGraficoDetalhes();
 	});
 
-	//var div3 = $("div#div3");
+	//var div3 = $("div#div3"),
     //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40}, {x:0, y:80}, {x:-40, y:40}, {x:0, y:0}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
-    //tn2 = TweenMax.to([div3], 1.2, {bezier:{curviness:2, values:[{x:40, y:40},{x:0, y:80}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
-    //tn2.play(0);
+    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40},{x:0, y:80}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
+    /*tn2.play(0);
 
-    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40}, {x:0, y:80}, {x:-40, y:40}, {x:0, y:0}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
-    //tn2.play(0);
-
-    /*var c2 = document.getElementById("myCanvas2");
+    var c2 = document.getElementById("myCanvas2");
 	var ctx2 = c2.getContext("2d");
 	ctx2.beginPath();
 	ctx2.arc(60, 40, 40, 0, Math.PI*2, true);
@@ -1159,11 +1159,6 @@ $(function(){
 	ctx2.stroke();
 
 	ctx2.beginPath();
-	ctx2.arc(60, 40, 40, 0, Math.PI*2, true);
-	ctx2.strokeStyle = '#000';
-	ctx2.stroke();*/
-
-	/*ctx2.beginPath();
 	ctx2.moveTo(110,10);
 	ctx2.arc(60, 1, 5, 0, Math.PI*2, true);
 	ctx2.fillStyle = '#000';
@@ -1187,18 +1182,18 @@ $(function(){
 	ctx2.fillStyle = '#000';
 	ctx2.fill();*/
 
-
 	window.setInterval(function(){
-  		    // Code for Safari
-		    document.getElementById("posicao-mesa").style.WebkitTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
-		    // Code for IE9
-		    document.getElementById("posicao-mesa").style.msTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
-		    // Standard syntax
-		    document.getElementById("posicao-mesa").style.transform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+		// Code for Safari
+	    document.getElementById("posicao-mesa").style.WebkitTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+	    // Code for IE9
+	    document.getElementById("posicao-mesa").style.msTransform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
+	    // Standard syntax
+	    document.getElementById("posicao-mesa").style.transform = "rotate(180deg) translate(-20px) rotate(180deg)"; 
 	}, 2000);
 });
 
 document.addEventListener('DOMContentLoaded', main);
+
 
 function desenhaGraficoDetalhes(){
 	if(graficoDesenhado){
@@ -1492,8 +1487,6 @@ function update(progress) {
   //update text value
   numberText.text(formatText(progress));
 } 
-
-
 
 
 

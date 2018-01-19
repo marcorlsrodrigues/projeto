@@ -25,15 +25,15 @@ const db = Object.assign(config.rethinkdb, {
 var options = {
 	//The IP or hostname of the target machine 
     //host: "192.168.200.113", 
-    host: "192.168.200.71", 
+    host: "192.168.202.218", 
     //The NetId of the target machine 
     //amsNetIdTarget: "10.1.35.204.1.1",
-    amsNetIdTarget: "192.168.200.20.1.1",
+    amsNetIdTarget: "192.168.200.135.1.1",
     //The NetId of the source machine. 
     //You can choose anything in the form of x.x.x.x.x.x, 
     //but on the target machine this must be added as a route. 
     //amsNetIdSource: "192.168.137.50.1.1",
-    amsNetIdSource: "192.168.200.71.1.2",
+    amsNetIdSource: "192.168.200.135.1.2",
  
     //OPTIONAL: (These are set by default)  
     //The tcp destination port 
@@ -44,6 +44,12 @@ var options = {
     amsPortTarget: 851 
 }
 
+var hl_Teste = {
+    symname: 'GVL.Teste',  
+    bytelength: ads.STRING,  
+    propname: 'value'
+}
+
 var hl_Poweron = {
     symname: 'GVL.Poweron',  
     bytelength: ads.BOOL,  
@@ -51,37 +57,37 @@ var hl_Poweron = {
 };
 
 var hl_CncHmiData = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].current_position_acs',  
     bytelength: ads.STRING,  
     propname: 'value'
 }
 
 var hl_xActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].current_position_acs',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_yActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[1].current_position_acs',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_zActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[1].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[2].current_position_acs',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_bActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[3].current_position_acs',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_cActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[4].current_position_acs',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
@@ -117,26 +123,44 @@ var hl_VelFibraTrabalho = {
 };
 
 var hl_TempCamara = {
-    symname: 'GVL.Temp_Camara',  
-    bytelength: ads.LREAL,  
+    symname: 'GVL.Temp_Camara_in',  
+    bytelength: ads.INT,  
+    propname: 'value'      
+};
+
+var hl_TempCamaraSet = {
+    symname: 'Global_Variables.Temp_Camara_set',  
+    bytelength: ads.DINT,  
     propname: 'value'      
 };
 
 var hl_TempTabuleiro = {
     symname: 'GVL.Temp_Tabuleiro',  
-    bytelength: ads.LREAL,  
+    bytelength: ads.INT,  
+    propname: 'value'      
+};
+
+var hl_TempTabuleiroSet = {
+    symname: 'Global_Variables.Temp_Tabuleiro_set',  
+    bytelength: ads.DINT,  
     propname: 'value'      
 };
 
 var hl_TempExtrusor = {
-    symname: 'GVL.Temp_Extrusor',  
-    bytelength: ads.LREAL,  
+    symname: 'GVL.Temp_Extrusor_1',  
+    bytelength: ads.INT,  
+    propname: 'value'      
+};
+
+var hl_TempExtrusorSet = {
+    symname: 'Global_Variables.Temp_Extrusor_1_set',  
+    bytelength: ads.DINT,  
     propname: 'value'      
 };
 
 var hl_TempAguaChiller = {
-    symname: 'GVL.Temp_AguaChiller',  
-    bytelength: ads.LREAL,  
+    symname: 'GVL.Temp_Chiller',  
+    bytelength: ads.INT,  
     propname: 'value'      
 };
 
@@ -148,13 +172,13 @@ var hl_TempMotorB = {
 
 var hl_TempQuadro = {
     symname: 'GVL.Temp_Quadro',  
-    bytelength: ads.LREAL,  
+    bytelength: ads.Temp_Quadro,  
     propname: 'value'      
 };
 
 var hl_TempSaidaCablagem = {
-    symname: 'GVL.Temp_SaidaCablagem',  
-    bytelength: ads.LREAL,  
+    symname: 'GVL.Temp_Cabos',  
+    bytelength: ads.INT,  
     propname: 'value'      
 };
 
@@ -436,28 +460,34 @@ io.sockets.on('connection',function(socket){
     client = ads.connect(options, function() {
         console.log('Ads connected');
 
-        this.notify(hl_MachineState);
-    	this.notify(hl_Poweron);
+        
+        //this.notify(hl_MachineState);
+    	//this.notify(hl_Poweron);
+        this.notify(hl_Teste);
+
     	this.notify(hl_xActPos);
-    	this.notify(hl_yActPos);
-    	this.notify(hl_zActPos);
+    	//this.notify(hl_yActPos);
+        this.notify(hl_TempCamara);
+    	/*this.notify(hl_zActPos);
     	this.notify(hl_bActPos);
     	this.notify(hl_cActPos);
-    	this.notify(hl_VelAvanco);
-    	this.notify(hl_VelExtrusaoPolimero);
+        this.notify(hl_VelExtrusaoPolimero);*/
+    	/*this.notify(hl_VelAvanco);
 		this.notify(hl_VelExtrusaoFibra);
 		this.notify(hl_VelPolimeroTrabalho);
-		this.notify(hl_VelFibraTrabalho);
-		this.notify(hl_TempCamara);
+		this.notify(hl_VelFibraTrabalho);*/
+		
 		this.notify(hl_TempTabuleiro);
 		this.notify(hl_TempExtrusor);
 		this.notify(hl_TempAguaChiller);
-		this.notify(hl_TempMotorB);
-		this.notify(hl_TempQuadro);
+        this.notify(hl_TempQuadro);
+		/*this.notify(hl_TempMotorB);
+		
 		this.notify(hl_TempSaidaCablagem);
 		this.notify(hl_TempPontoMovel);
-		this.notify(hl_BlockNumber);
+		this.notify(hl_BlockNumber);*/
     });
+
 
     socket.on('power', function (power) {
         hl_Poweron.value = power;
@@ -644,7 +674,7 @@ io.sockets.on('connection',function(socket){
     });
 
     socket.on('temperatura_camara', function (value) {
-    	let  atual_temp = hl_TempCamara.value;
+    	let  atual_temp = hl_TempCamaraSet.value;
 
     	if(value[1]==='negativo'){
     		atual_temp = atual_temp - value[0];
@@ -652,17 +682,17 @@ io.sockets.on('connection',function(socket){
 			atual_temp = atual_temp + value[0];    		
     	}
     	
-    	hl_TempCamara.value = atual_temp;
-	    client.write(hl_TempCamara, function(err,handle) {
+    	hl_TempCamaraSet.value = atual_temp;
+	    client.write(hl_TempCamaraSet, function(err,handle) {
 	        console.log('err: '+ err);
-	        client.read(hl_TempCamara, function(err, handle) {
+	        client.read(hl_TempCamaraSet, function(err, handle) {
 	            console.log(err);
 	        });
 	    });
     });
 
     socket.on('temperatura_tabuleiro', function (value) {
-    	let  atual_temp = hl_TempTabuleiro.value;
+    	let  atual_temp = hl_TempTabuleiroSet.value;
 
     	if(value[1]==='negativo'){
     		atual_temp = atual_temp - value[0];
@@ -670,17 +700,17 @@ io.sockets.on('connection',function(socket){
 			atual_temp = atual_temp + value[0];    		
     	}
     	
-    	hl_TempTabuleiro.value = atual_temp;
-	    client.write(hl_TempTabuleiro, function(err,handle) {
+    	hl_TempTabuleiroSet.value = atual_temp;
+	    client.write(hl_TempTabuleiroSet, function(err,handle) {
 	        console.log('err: '+ err);
-	        client.read(hl_TempTabuleiro, function(err, handle) {
+	        client.read(hl_TempTabuleiroSet, function(err, handle) {
 	            console.log(err);
 	        });
 	    });
     });
 
     socket.on('temperatura_extrusor', function (value) {
-    	let  atual_temp = hl_TempExtrusor.value;
+    	let  atual_temp = hl_TempExtrusorSet.value;
 
     	if(value[1]==='negativo'){
     		atual_temp = atual_temp - value[0];
@@ -688,10 +718,10 @@ io.sockets.on('connection',function(socket){
 			atual_temp = atual_temp + value[0];    		
     	}
     	
-    	hl_TempExtrusor.value = atual_temp;
-	    client.write(hl_TempExtrusor, function(err,handle) {
+    	hl_TempExtrusorSet.value = atual_temp;
+	    client.write(hl_TempExtrusorSet, function(err,handle) {
 	        console.log('err: '+ err);
-	        client.read(hl_TempExtrusor, function(err, handle) {
+	        client.read(hl_TempExtrusorSet, function(err, handle) {
 	            console.log(err);
 	        });
 	    });
