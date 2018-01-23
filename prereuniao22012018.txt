@@ -10,9 +10,23 @@ notas:
 de desenvolvimento de automação pois a maquina nao está finalizada nem vai estar em 1 mês
 O meu objetivo seria obter informação dos eixos e pôr a máquina a correr um programa de código G através da HMI
 
+--- notas durante reuniao ---
+
+- reuniao cerca de 1h (total da prova)
+- apresentar em 15min 
+- normalmente pouco estado da arte na apresentação
+- posso incluir video de 2/3minutos (nao e obrigatorio)
+- depois da apresentação ha discussao entre convidado e candidato
+- entregaveis estão nas regras dos mestrados do ipvc - em 2016: 3 exemplares em papel
+- mandar email ao miguel cruz para perguntar entregaveis: papel ainda necessario?
+- data de entrega: prof Miguel Cruz
+- retirar sub bullets da tecnologias web
+ - browser e o agente http que faz o render do html
+- projeto mozilla para inspiração tecnologias web
+- ver eixo B : aumentar linha azul e por mais a meio da cinzenta? Mudar labels para baixo?
+- prox reuniao para 6h15 terça feira dia 6/12
 
 ----OLD------
-- partilhado video com as barras nas temperaturas
 - verificar se eixo1 so roda para cá: pode rodar para os 2 lados (embora na prática deve acontecer mais para cá, porque tem mais espaço de impressão
 - eixo2 tem curso ou pode rodar sempre?  - nao tem curso, pode rodar sempre. e quando a impressão vai começar a posição inicial é o 0 (porque é igual começar em qualquer ponto que esteja)
 
@@ -22,13 +36,11 @@ a fazer:- adicionar gráfico de linhas em tempo real ou sem ser em tempo real sob
 
 
 notas:
-- acento no água a entrada do chiller é ao contrário
 - permitir configurar temperaturas ideais num ficheiro (?)
 - temperautras -> radial gauge
 - logar interaçãom do utilizador (alteração d parametros, temperaturas, velocidades, etc)
 
 - estrutura:
- - redese internet falar sobre redes industriais
 - fabrico aditivo: aumentar topico, pôr uma ou duas imagens
 - trabalho relacionado, explicar brevemente que cada rabalho tem a sua relação com o trma da tese
 - falar sobre conclusoeds que retirei do primeiro prototipo (1º semestre)
