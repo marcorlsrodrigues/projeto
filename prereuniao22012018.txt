@@ -1,0 +1,36 @@
+duvidas:
+- como é a apresentação/defesa da tese? slides? video? ou apenas falar?
+- o que é preciso entregar?
+- na estrutura da tese -> Em "Tecnologias Web" os subcapitulos desaparecem? Para ja retirei a parte dos browsers
+- partilhei video com os eixos B e C (design). Os X, Y e Z vao ficar assim
+
+notas: 
+- neste momento estou a ligar a solução que implementei á maquina onde já consigo obter as temperaturas, mas estou dependente 
+de desenvolvimento de automação pois a maquina nao está finalizada nem vai estar em 1 mês
+O meu objetivo seria obter informação dos eixos e pôr a máquina a correr um programa de código G através da HMI
+
+
+----OLD------
+- partilhado video com as barras nas temperaturas
+- verificar se eixo1 so roda para cá: pode rodar para os 2 lados (embora na prática deve acontecer mais para cá, porque tem mais espaço de impressão
+- eixo2 tem curso ou pode rodar sempre?  - nao tem curso, pode rodar sempre. e quando a impressão vai começar a posição inicial é o 0 (porque é igual começar em qualquer ponto que esteja)
+
+- ja tem: barras ou manometros nas temperaturas, e cores nas temperaturas?
+a fazer:- adicionar gráfico de linhas em tempo real ou sem ser em tempo real sobre temperaturas
+- ja registo as temperaturas durante a execução (de segundo em segundo)
+
+
+notas:
+- acento no água a entrada do chiller é ao contrário
+- permitir configurar temperaturas ideais num ficheiro (?)
+- temperautras -> radial gauge
+- logar interaçãom do utilizador (alteração d parametros, temperaturas, velocidades, etc)
+
+- estrutura:
+ - redese internet falar sobre redes industriais
+- fabrico aditivo: aumentar topico, pôr uma ou duas imagens
+- trabalho relacionado, explicar brevemente que cada rabalho tem a sua relação com o trma da tese
+- falar sobre conclusoeds que retirei do primeiro prototipo (1º semestre)
+- conclusoes ou resultados do prototipo funcoknal(1 semestre)
+- proposta de solução tava mais preocupado com tecnolgoias a funcionarem
+- analise de requisitos ja estava preocupado com a usabilidade dos users e qs tarefas deles
