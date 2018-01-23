@@ -1,6 +1,7 @@
 duvidas:
 - como é a apresentação/defesa da tese? slides? video? ou apenas falar?
 - o que é preciso entregar?
+- posso ter dificuldades em preencher Resultados Obtidos devido á não operacionalidade a 100% da maquina
 - na estrutura da tese -> Em "Tecnologias Web" os subcapitulos desaparecem? Para ja retirei a parte dos browsers
 - partilhei video com os eixos B e C (design). Os X, Y e Z vao ficar assim
 
