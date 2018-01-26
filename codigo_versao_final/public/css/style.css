@@ -1920,16 +1920,17 @@ rect:hover {  fill:green; }
 
 .line {
   display: none;
-  width: 60px;
+  width: 80px;
   height: 2px;
   position: absolute;
   top: 40px;
-  left: 25px;
+  left: 3px;
   transform-origin: left;
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
+  transform-origin: center center 0px;
 }
 
 .line--hypotenuse {

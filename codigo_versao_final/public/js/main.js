@@ -10,6 +10,14 @@ let globalData_TempPontoMovel;
 let histograma, histograma2, histograma3, histograma4,histograma5, histograma6, histograma7, histograma8;
 let arrayGrafico = [];
 let graficoDesenhado = false;
+let anguloB = 0.0;
+let anguloC = 0.0;
+var linesB = [];
+var linesC = [];
+let pointValuesB = 0;
+let pointValuesC = 0;
+var pointC = document.getElementById('pointC');
+
 
 /*
 var wrapper = document.getElementById('progress');
@@ -821,34 +829,34 @@ $(function(){
         console.log(value);
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].current_position_acs', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition', function(actCmdPosition) {
         $('#span-x-pos').width(actCmdPosition);
     	$('#progress-x-pos').val(actCmdPosition);
     	$('#strong-x-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].current_position_acs', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
         $('#span-z-pos').width(actCmdPosition);
     	$('#progress-z-pos').val(actCmdPosition);
     	$('#strong-z-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[1].current_position_acs', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
         $('#span-y-pos').width(actCmdPosition);
     	$('#progress-y-pos').val(actCmdPosition);
     	$('#strong-y-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].current_position_acs', function(actCmdPosition) {
-        $('#span-b-pos').width(actCmdPosition);
-    	$('#progress-b-pos').val(actCmdPosition);
-    	$('#strong-b-pos').text((actCmdPosition).toFixed(2));
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition', function(actCmdPosition) {
+    	angleB=actCmdPosition;
+    	pointValuesB = pointValuesB + 90;
+    	updateAngleB(pointValuesB,20,angleB);
+    	$('#span-b-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[4].current_position_acs', function(actCmdPosition) {
-        $('#span-c-pos').width(actCmdPosition);
-    	$('#progress-c-pos').val(actCmdPosition);
-    	$('#strong-c-pos').text((actCmdPosition).toFixed(2));
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[5].actCmdPosition', function(actCmdPosition) {
+		updateAngleC(pointValuesC,0,actCmdPosition);
+		$('#span-c-pos').text((actCmdPosition).toFixed(2));
     });
 
     socket.on('GVL.Vel_Avanco', function(value) {
@@ -1145,42 +1153,6 @@ $(function(){
 		graficoDesenhado=false;
 		desenhaGraficoDetalhes();
 	});
-
-	//var div3 = $("div#div3"),
-    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40}, {x:0, y:80}, {x:-40, y:40}, {x:0, y:0}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
-    //tn2 = TweenMax.to([div3], 2, {bezier:{curviness:1.5, values:[{x:40, y:40},{x:0, y:80}]}/*bezier end*/, ease:Linear.easeNone, paused:true});
-    /*tn2.play(0);
-
-    var c2 = document.getElementById("myCanvas2");
-	var ctx2 = c2.getContext("2d");
-	ctx2.beginPath();
-	ctx2.arc(60, 40, 40, 0, Math.PI*2, true);
-	ctx2.strokeStyle = '#000';
-	ctx2.stroke();
-
-	ctx2.beginPath();
-	ctx2.moveTo(110,10);
-	ctx2.arc(60, 1, 5, 0, Math.PI*2, true);
-	ctx2.fillStyle = '#000';
-	ctx2.fill();
-
-	ctx2.beginPath();
-	ctx2.moveTo(210,110);
-	ctx2.arc(210, 110, 5, 0, Math.PI*2, true);
-	ctx2.fillStyle = '#000';
-	ctx2.fill();
-
-	ctx2.beginPath();
-	ctx2.moveTo(110,210);
-	ctx2.arc(110, 210, 5, 0, Math.PI*2, true);
-	ctx2.fillStyle = '#000';
-	ctx2.fill();
-
-	ctx2.beginPath();
-	ctx2.moveTo(10,110);
-	ctx2.arc(10, 110, 5, 0, Math.PI*2, true);
-	ctx2.fillStyle = '#000';
-	ctx2.fill();*/
 });
 
 document.addEventListener('DOMContentLoaded', main);
@@ -1500,11 +1472,10 @@ function main() {
     initLines();
 
     //initOptions();
-    window.setInterval(function(){
-    		pointValues = pointValues + 90;
-    		angle = angle + 0.5;
-  		    updateAngle(pointValues,20,angle);
-	}, 2000);
+    pointValuesB=pointValues;
+	pointValues = pointValues + 90;
+	angle = angle + 0.5;
+	updateAngle(pointValues,20,angle);
   }
 
   function initLines() {
@@ -1512,7 +1483,7 @@ function main() {
       name: 'hypotenuse',
 
       update: function update(theta) {
-        this.el.style.transform = 'rotateZ(-' + theta + 'rad)';
+        this.el.style.transform = 'rotateZ(-' + theta + 'deg)';
       }
     };
 
@@ -1608,17 +1579,7 @@ function main() {
     app.addEventListener('mouseout', stop);
   }
 
-  function updateAngle(x,y,angle){
-  	var coordinates = {
-      x: x,
-      y: (y) * -1 // reverse direction of co-ordinates
-    };
-
-    var polarCoordinates = toPolar(coordinates,angle);
-    if (polarCoordinates.theta != null) {
-      updateTheta(polarCoordinates.theta);
-    }
-  }
+  
 
   function track(e) {
     var coordinates = {
@@ -1646,21 +1607,14 @@ function main() {
     app.removeEventListener('mouseout', stop);
   }
 
-  function updateTheta(newTheta) {
-    window.requestAnimationFrame(function () {
-      //point.style.transform = 'rotateZ(-' + newTheta + 'rad)';
-      lines.forEach(function (line) {
-        return line.update(newTheta);
-      });
-    });
-  }
+  
 
   function addLine(line) {
     line.el = document.createElement('div');
     line.el.className = 'line line--' + line.name;
     line.el.id = 'line--' + line.name;
     circleContainer.appendChild(line.el);
-    lines.push(line);
+    linesB.push(line);
   }
 }
 
@@ -1705,8 +1659,27 @@ function findAngle(_ref) {
 }
 
 
+function updateAngleB(x,y,angle){
 
+  	var coordinates = {
+      x: x,
+      y: (y) * -1 // reverse direction of co-ordinates
+    };
 
+    var polarCoordinates = toPolar(coordinates,angle);
+    if (polarCoordinates.theta != null) {
+      updateThetaB(polarCoordinates.theta);
+    }
+}
+
+function updateThetaB(newTheta) {
+    window.requestAnimationFrame(function () {
+      //point.style.transform = 'rotateZ(-' + newTheta + 'rad)';
+      linesB.forEach(function (line) {
+        return line.update(newTheta);
+      });
+    });
+  }
 
 
 
@@ -1728,11 +1701,10 @@ function main2() {
 
     initLines();
 
-    window.setInterval(function(){
-    		pointValues = pointValues;
-    		angle = angle + 0.5;
-  		    updateAngle(pointValues,0,angle);
-	}, 2000);
+    pointValuesC=pointValues;
+	pointValues = pointValues;
+	angle = angle + 0.5;
+	updateAngle(pointValues,0,angle);
   }
 
   function initLines() {
@@ -1740,7 +1712,7 @@ function main2() {
       name: 'hypotenuse',
 
       update: function update(theta) {
-        this.el.style.transform = 'rotateZ(-' + theta + 'rad)';
+        this.el.style.transform = 'rotateZ(-' + theta + 'deg)';
       }
     };
 
@@ -1753,17 +1725,7 @@ function main2() {
     app.addEventListener('mouseout', stop);
   }
 
-  function updateAngle(x,y,angle){
-  	var coordinates = {
-      x: x,
-      y: (y) * -1 // reverse direction of co-ordinates
-    };
 
-    var polarCoordinates = toPolar(coordinates,angle);
-    if (polarCoordinates.theta != null) {
-      updateTheta(polarCoordinates.theta);
-    }
-  }
 
   function track(e) {
     var coordinates = {
@@ -1791,21 +1753,14 @@ function main2() {
     app.removeEventListener('mouseout', stop);
   }
 
-  function updateTheta(newTheta) {
-    window.requestAnimationFrame(function () {
-      point.style.transform = 'rotateZ(-' + newTheta + 'rad)';
-      lines.forEach(function (line) {
-        return line.update(newTheta);
-      });
-    });
-  }
+  
 
   function addLine(line) {
     line.el = document.createElement('div');
     line.el.className = 'line2 line2--' + line.name;
     line.el.id = 'line2--' + line.name;
     circleContainer.appendChild(line.el);
-    lines.push(line);
+    linesC.push(line);
   }
 }
 
@@ -1848,3 +1803,26 @@ function findAngle(_ref) {
     // origin, do nothing
   }
 }
+
+
+
+function updateThetaC(newTheta) {
+    window.requestAnimationFrame(function () {
+      pointC.style.transform = 'rotateZ(-' + newTheta + 'deg)';
+      linesC.forEach(function (line) {
+        return line.update(newTheta);
+      });
+    });
+}
+
+  function updateAngleC(x,y,angle){
+  	var coordinates = {
+      x: x,
+      y: (y) * -1 // reverse direction of co-ordinates
+    };
+
+    var polarCoordinates = toPolar(coordinates,angle);
+    if (polarCoordinates.theta != null) {
+      updateThetaC(polarCoordinates.theta);
+    }
+  }

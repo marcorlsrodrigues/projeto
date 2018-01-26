@@ -63,31 +63,31 @@ var hl_CncHmiData = {
 }
 
 var hl_xActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].current_position_acs',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_yActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[1].current_position_acs',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_zActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[2].current_position_acs',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_bActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[3].current_position_acs',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[4].actCmdPosition',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
 
 var hl_cActPos = {
-	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[4].current_position_acs',  
+	symname: 'CncHmiData.PlcHmiData.Channel[0].Axis[5].actCmdPosition',  
     bytelength: ads.LREAL,  
     propname: 'value'
 }
@@ -460,18 +460,15 @@ io.sockets.on('connection',function(socket){
     client = ads.connect(options, function() {
         console.log('Ads connected');
 
-        
         //this.notify(hl_MachineState);
     	//this.notify(hl_Poweron);
-        this.notify(hl_Teste);
-
     	this.notify(hl_xActPos);
-    	//this.notify(hl_yActPos);
+    	this.notify(hl_yActPos);
         this.notify(hl_TempCamara);
-    	/*this.notify(hl_zActPos);
+    	this.notify(hl_zActPos);
     	this.notify(hl_bActPos);
     	this.notify(hl_cActPos);
-        this.notify(hl_VelExtrusaoPolimero);*/
+        /*this.notify(hl_VelExtrusaoPolimero);*/
     	/*this.notify(hl_VelAvanco);
 		this.notify(hl_VelExtrusaoFibra);
 		this.notify(hl_VelPolimeroTrabalho);
@@ -511,7 +508,7 @@ io.sockets.on('connection',function(socket){
 
     socket.on('gcode_filename', function (filename) {
     	ficheiroGcode = filename;
-        hl_File.value = 'C:\\TwinCAT\\Gcode\\' + filename;
+        hl_File.value = 'C:\\Users\\User\\Desktop\\Gcodes\\' + filename;
         client.write(hl_File, function(err) {
             console.log('err: '+ err);
             client.read(hl_File, function(err, handle) {
