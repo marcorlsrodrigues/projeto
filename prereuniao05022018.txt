@@ -1,0 +1,35 @@
+duvidas:
+- escrita da tese:
+	- termos en inglês a italico? Nomes de empresas ou tecnologias?
+	- Falar um pouco (1/2 paginas) sobre fabrico aditivo no INEGI? Com fotos.
+	- pedir leitura rápida para obter feedback
+	- parágrafo(s) a explicar o porquê da escolha das tecnolkogias? (node, rethinkdb, etc..)?
+	- mencionar que inicialmente a solução foi desenvolvida em simulador devido ao equipamento estar ainda em construção e só agora estar a trabalhar com a HMI no mesmo?
+- ponto de situação da hmi:
+	- já executo codigo G e estou a trabalho nos movimentos manuais dos eixos.
+	- Eixo B está de acordo com os ajustes gráficos falados na ultima reunião (linha azul mais centrada)
+- desenvolvimento está mais lento que no caso do protótipo porque neste a máquina estava montada e a solução de automação a funcionar. Estava numa fase mais avançada que esta. Ex: já não gerava erros de automação, quase e nesta versão ainda há muitos.
+
+
+
+--- old ----
+notas: 
+- neste momento estou a ligar a solução que implementei á maquina onde já consigo obter as temperaturas, mas estou dependente 
+de desenvolvimento de automação pois a maquina nao está finalizada nem vai estar em 1 mês
+O meu objetivo seria obter informação dos eixos e pôr a máquina a correr um programa de código G através da HMI
+
+--- notas durante reuniao ---
+
+- reuniao cerca de 1h (total da prova)
+- apresentar em 15min 
+- normalmente pouco estado da arte na apresentação
+- posso incluir video de 2/3minutos (nao e obrigatorio)
+- depois da apresentação ha discussao entre convidado e candidato
+- entregaveis estão nas regras dos mestrados do ipvc - em 2016: 3 exemplares em papel
+- mandar email ao miguel cruz para perguntar entregaveis: papel ainda necessario?
+- data de entrega: prof Miguel Cruz
+- retirar sub bullets da tecnologias web
+ - browser e o agente http que faz o render do html
+- projeto mozilla para inspiração tecnologias web
+- ver eixo B : aumentar linha azul e por mais a meio da cinzenta? Mudar labels para baixo?
+- prox reuniao para 6h15 terça feira dia 6/12

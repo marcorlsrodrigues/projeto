@@ -1,8 +1,0 @@
-duvidas:
--- vou ter uma plataforma qe vai estudar uma implementação
-
--- tim berners lee (citar o artigo onde descreve o que ele propos como sendo a web)
-
--- referenciar as imagens na legenda com autor,ano ou adaptado de, -- OK
-
-avisar 2/3 dias antes do draft
