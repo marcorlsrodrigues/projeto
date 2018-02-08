@@ -19,8 +19,8 @@ duvidas:
 / fotografias da maquina
 / pequena descricao de cada maquina, o que fazem
 / sugestoes dos users na tese tb e com reflexao critica sobre as mesmas
-/ estilo do texto> formatar paragrafos para dar linha em branco no final de cada um
-/ aumentar espa;amento para 1.25
+/ estilo do texto> formatar paragrafos para dar linha em branco no final de cada um - OK (validar)
+/ aumentar espa;amento para 1.25 - OK
 / termos em ingles em italico e se poossivel traduzir a 1a vez que foi usado
 / paragrafos a justificar op;oes tomadas em tecnologias no capitulo de arquitetura
 / descrever na arquitetura o que cada coisa est]a a fazer em termos tecnologicos
