@@ -18,14 +18,14 @@ duvidas:
 / colocar imagens das mockups - OK
 / fotografias da maquina
 / pequena descricao de cada maquina, o que fazem
-/ sugestoes dos users na tese tb e com reflexao critica sobre as mesmas
+/ sugestoes dos users na tese tb e com reflexao critica sobre as mesmas - OK
 / estilo do texto> formatar paragrafos para dar linha em branco no final de cada um - OK (validar)
 / aumentar espa;amento para 1.25 - OK
-/ termos em ingles em italico e se poossivel traduzir a 1a vez que foi usado
-/ paragrafos a justificar op;oes tomadas em tecnologias no capitulo de arquitetura
-/ descrever na arquitetura o que cada coisa est]a a fazer em termos tecnologicos
+/ termos em ingles em italico e se poossivel traduzir a 1a vez que o termo for usado
+/ paragrafos a justificar op;oes tomadas em tecnologias no capitulo de arquitetura - OK
+/ descrever na arquitetura o que cada coisa est]a a fazer em termos tecnologicos - OK
 / descrever a parte de automa;ao, o codigo G, o beckhoff, o twincat
-/ puxar tabela 5 para o texto
+/ puxar tabela 5 para o texto - OK
 / valorizar e fazer evidencia dos resultados> por fotos das maquinas final com o tablet a vista, deixar evidente que o sistema esta a funcionar na maquina real e que nao e so uma interface
 ///fazer vers\ao com todos os updates e depois sim, pedir feedback
 
