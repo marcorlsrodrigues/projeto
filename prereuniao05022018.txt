@@ -16,8 +16,8 @@ duvidas:
 / arranjar CV do JP ou falar com ele e enviar para o professor - OK
 / aumentar solu;\ao desenvolvida e reduzir estado da arte
 / colocar imagens das mockups - OK
-/ fotografias da maquina
-/ pequena descricao de cada maquina, o que fazem
+/ fotografias da maquina - da maquina do protótipo:OK da maquina final, nos próximos dias porque vai haver nova impressão
+/ pequena descricao de cada maquina, o que fazem - OK
 / sugestoes dos users na tese tb e com reflexao critica sobre as mesmas - OK
 / estilo do texto> formatar paragrafos para dar linha em branco no final de cada um - OK (validar)
 / aumentar espa;amento para 1.25 - OK
