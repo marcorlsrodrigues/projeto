@@ -1,0 +1,63 @@
+notas pre reuniao:
+- tese:
+	- adicionados parágrafos sobre maquinas usadas para o protótipo e a final (falta apenas fotos da final)
+	- adicionado parágrafo sobre escolha de tecnologias
+	- formatação ajustada: espaçamento a 1.25 e espaço após paragrafo
+	- adicionado parágrafos e imagens sobre maquete estática e maquete interativa
+	- adicionado parágrafo sobre sugestões dadas pelos utilizadores assim como a tabela resultante do 2º questionario
+- proximos passos: sistema desenvolvido, assim que possivel resultados e conclusoes
+- ja imprimimos uma peça, ideia para obter resultados pode ser utilizar a HMI para imprimir uma peça e monitorizar a impressão
+- ponto de situação da hmi:
+	/ problema com o touchscreen que abre um quadrado tipo zoom quando fico a pressionar
+	- a finalizar visualização 3D da peça
+
+
+
+
+notas durante reuniao:
+- reencaminhar email do miguel cruz - OK
+/ trabalhar sistema desenvolvido 
+/ 5 pegar nos traalhos relacionados , nos objetivos, e um a um dizer como foram atingidos, ser algo repetitivo, enfase 
+/ puxar lista de requisitos para 4.1 - OK
+/ estender  o prazo para obter resultados através de uma impressão com a HMI
+
+/prox reuniao> 17h30 de 22/02
+
+
+--- old -----
+// notas durante reuniao>
+/ arranjar CV do JP ou falar com ele e enviar para o professor - OK
+/ aumentar solu;\ao desenvolvida e reduzir estado da arte
+/ colocar imagens das mockups - OK
+/ fotografias da maquina - da maquina do protótipo:OK da maquina final, nos próximos dias porque vai haver nova impressão
+/ pequena descricao de cada maquina, o que fazem - OK
+/ sugestoes dos users na tese tb e com reflexao critica sobre as mesmas - OK
+/ estilo do texto> formatar paragrafos para dar linha em branco no final de cada um - OK (validar)
+/ aumentar espa;amento para 1.25 - OK
+/ termos em ingles em italico e se poossivel traduzir a 1a vez que o termo for usado - OK
+/ paragrafos a justificar op;oes tomadas em tecnologias no capitulo de arquitetura - OK
+/ descrever na arquitetura o que cada coisa est]a a fazer em termos tecnologicos - OK
+/ descrever a parte de automa;ao, o codigo G, o beckhoff, o twincat
+/ puxar tabela 5 para o texto - OK
+/ valorizar e fazer evidencia dos resultados> por fotos das maquinas final com o tablet a vista, deixar evidente que o sistema esta a funcionar na maquina real e que nao e so uma interface
+///fazer vers\ao com todos os updates e depois sim, pedir feedback
+
+// proxima reuniao> 15/02 11h
+
+
+
+--- notas durante reuniao ---
+
+- reuniao cerca de 1h (total da prova)
+- apresentar em 15min 
+- normalmente pouco estado da arte na apresentação
+- posso incluir video de 2/3minutos (nao e obrigatorio)
+- depois da apresentação ha discussao entre convidado e candidato
+- entregaveis estão nas regras dos mestrados do ipvc - em 2016: 3 exemplares em papel
+- mandar email ao miguel cruz para perguntar entregaveis: papel ainda necessario?
+- data de entrega: prof Miguel Cruz
+- retirar sub bullets da tecnologias web
+ - browser e o agente http que faz o render do html
+- projeto mozilla para inspiração tecnologias web
+- ver eixo B : aumentar linha azul e por mais a meio da cinzenta? Mudar labels para baixo?
+- prox reuniao para 6h15 terça feira dia 6/12
