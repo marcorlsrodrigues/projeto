@@ -3,6 +3,12 @@ html{
   font-family: sans-serif;
 }
 
+html {
+      -webkit-touch-callout: none; /* Disables long-touch menu */
+      -webkit-user-select: none; /* Disable text selection (for Webkit) */
+      user-select: none; /* Disable text selection (standard syntax) */
+}
+
 body{
   margin-top:0;
   margin-right: 0;
@@ -29,7 +35,7 @@ body{
 }
 
 #div-axis{
-	width:20%;
+	width:27%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);
 	float: left;
@@ -43,7 +49,7 @@ body{
 }
 
 #div-info-temperatura{
-	width:49.5%;
+	width:42.5%;
 	height:100%;
 	border: 1px solid rgba(99, 99, 99, 0.54);	
 	float: left;
@@ -262,10 +268,31 @@ button.active-style {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    z-index: 10;
+    top: 2%;
+    right: 2%;
+    position: absolute;
 }
 
 .close:hover,
 .close:focus {
+    color:red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close3D {
+    color:red;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 11500;
+    right: 2%;
+    top: 1%;
+    position: absolute;
+}
+
+.close3D:hover,
+.close3D:focus {
     color:red;
     text-decoration: none;
     cursor: pointer;
@@ -817,6 +844,8 @@ a.power-button{
 
 #div-linhas-gcode{
   padding-top: 15px;
+    float: left;
+    width: 40%;
 }
 
 .div-linha-gcode{
@@ -824,7 +853,7 @@ a.power-button{
 }
 
 .input-linha-gcode{
-  width: 50%;
+  width: 90%;
   border-radius: 1px;
   border-top: 0;
   border-left: 0;
@@ -2038,7 +2067,7 @@ rect:hover {  fill:green; }
   position: absolute;
   top: 40px;
   left: 100px;
-  z-index: 1000;
+  z-index: 1;
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
@@ -2054,4 +2083,12 @@ rect:hover {  fill:green; }
   height: 12px;
   border-radius: 100%;
   transform: translateX(40px) translateX(-50%) translateY(-50%);
+}
+
+#btn-ver3d{
+  margin-top: 25px;
+}
+
+.editBlock{
+  display: none;
 }

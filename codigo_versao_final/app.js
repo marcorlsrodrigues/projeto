@@ -350,6 +350,31 @@ var hl_EnableTracking = {
     propname: 'value'      
 };
 
+var hl_plcAxisEnable = {
+    symname: 'GVL.gvl_hl_plcAxisEnable',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_operationMode = {
+    symname: 'GVL.gvl_operationMode',  
+    bytelength: ads.STRING,  
+    propname: 'value'      
+};
+
+var hl_manualMode = {
+    symname: 'GVL.gvl_manualMode',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+var hl_automaticMode = {
+    symname: 'GVL.gvl_automaticMode',  
+    bytelength: ads.BOOL,  
+    propname: 'value'      
+};
+
+
 
 function setValue(){
 	client.read(hl_Poweron, function(err, handle) {
@@ -426,6 +451,7 @@ function automatic_reset_false(){
 
 function automatic_register_parameters() {
   if(register_parameters){
+    
 	let data = {
         filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value,temp_tabuleiro:hl_TempTabuleiro.value,temp_extrusor:hl_TempExtrusor.value,temp_aguaChiller:hl_TempAguaChiller.value,temp_motorB:hl_TempMotorB.value,temp_quadro:hl_TempQuadro.value,temp_saidaCablagem:hl_TempSaidaCablagem.value,temp_pontoMovel:hl_TempPontoMovel.value
     };
@@ -433,6 +459,7 @@ function automatic_register_parameters() {
     rdb.table('file_execution').insert(data).run(global_conn, function(err, result) {
 	    if (err) throw err;
 	});
+
 
   	setTimeout(automatic_register_parameters, 1000);
   }
@@ -460,8 +487,8 @@ io.sockets.on('connection',function(socket){
     client = ads.connect(options, function() {
         console.log('Ads connected');
 
-        //this.notify(hl_MachineState);
-    	//this.notify(hl_Poweron);
+        this.notify(hl_MachineState);
+    	this.notify(hl_Poweron);
     	this.notify(hl_xActPos);
     	this.notify(hl_yActPos);
         this.notify(hl_TempCamara);
@@ -633,6 +660,34 @@ io.sockets.on('connection',function(socket){
 	            });
         	});
 		}else{
+            hl_EnableTracking.value='1';
+            client.write(hl_EnableTracking, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_EnableTracking, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            hl_automaticMode.value='0';
+            client.write(hl_automaticMode, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_automaticMode, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            
+            
+            hl_manualMode.value='1';
+            client.write(hl_manualMode, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_manualMode, function(err, handle) {
+                    console.log(err);
+                });
+            });
+
+            
+
 			hl_PlcManualModeSelectedAxis.value=value[0];
 	        client.write(hl_PlcManualModeSelectedAxis, function(err) {
 	            console.log('err: '+ err);

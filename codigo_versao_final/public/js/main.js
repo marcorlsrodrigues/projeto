@@ -164,6 +164,7 @@ function dashboard(id, fData){
         
         // create function to update the bars. This will be used by pie-chart.
         hG.update = function(nD, color){
+
             // update the domain of the y-axis map to reflect change in frequencies.
             //y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
             
@@ -174,20 +175,20 @@ function dashboard(id, fData){
 
             let calcHeight = (25*nD["0"][1])/80;
             let calcY = 28.0-calcHeight;
-            
+
             // transition the height and color of rectangles.
-            bars.select("rect").transition().duration(50)
+            bars.select("rect").transition().duration(50).attr("y", calcY+"px").attr("height", calcHeight+"px").attr("fill", color);
                 //.attr("y", function(d) {return y(d[1]); })
-                .attr("y", calcY+"px")
+                
                 //.attr("height", function(d) { return hGDim.h - y(d[1]); })
-                .attr("height", calcHeight+"px")
-                .attr("fill", color);
+
 
             // transition the frequency labels location and change value.
             /*bars.select("text").transition().duration(500)
                 .text(function(d){ return d3.format(",")(d[1])})
                 .attr("y", function(d) {return y(d[1])-5; });            */
-        }        
+        }
+       
         return hG;
     }
 
@@ -257,16 +258,19 @@ $(function(){
 	var modal = document.getElementById('modal-teclado');
 	var modalHistorico = document.getElementById('modal-historico');
 	var modalHistoricoDetalhes = document.getElementById('modal-historico-detalhes');
+	var modal3d = document.getElementById('modal-3d');
 
 	// Get the button that opens the modal
 	var btn = document.getElementById("img-teclado");
 	var btnHistorico = document.getElementById("btn-historico");
+	var btn3d = document.getElementById("btn-ver3d");
 	//var btnHistoricoDetalhes = document.getElementById("btn-historico-detalhes");
 
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("modal-teclado-close");
 	var spanHistorico = document.getElementById("modal-historico-close");
 	var spanHistoricoDetalhes = document.getElementById("modal-historico-detalhes-close");
+	var span3d = document.getElementById("modal-3d-close");
 	var autoBlockNumber = 0, automatico_inicia = false;
 
 	let machState='off';
@@ -281,6 +285,9 @@ $(function(){
 	btnHistorico.onclick = function() {
 	    modalHistorico.style.display = "block";
 	    socket.emit('historico', '1');
+	}
+	btn3d.onclick = function() {
+	    modal3d.style.display = "block";
 	}
 	/*btnHistoricoDetalhes.onclick = function() {
 	    modalHistoricoDetalhes.style.display = "block";
@@ -308,6 +315,10 @@ $(function(){
 	spanHistoricoDetalhes.onclick = function() {
 	    modalHistoricoDetalhes.style.display = "none";
 	    $('#div-historico-detalhes').empty();
+	}
+
+	span3d.onclick = function() {
+	    modal3d.style.display = "none";
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -365,21 +376,17 @@ $(function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
 		$('#input-mdi-gcode').val(inputMdiGcode+'C');
 	});
-	$('#btn-teclado-e').on('click',function(){
+	$('#btn-teclado-a').on('click',function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
-		$('#input-mdi-gcode').val(inputMdiGcode+'E');
+		$('#input-mdi-gcode').val(inputMdiGcode+'A');
 	});
 	$('#btn-teclado-f').on('click',function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
 		$('#input-mdi-gcode').val(inputMdiGcode+'F');
 	});
-	$('#btn-teclado-s').on('click',function(){
+	$('#btn-teclado-igual').on('click',function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
-		$('#input-mdi-gcode').val(inputMdiGcode+'S');
-	});
-	$('#btn-teclado-t').on('click',function(){
-		let inputMdiGcode = $('#input-mdi-gcode').val();
-		$('#input-mdi-gcode').val(inputMdiGcode+'T');
+		$('#input-mdi-gcode').val(inputMdiGcode+'=');
 	});
 	$('#btn-teclado-espaco').on('click',function(){
 		let inputMdiGcode = $('#input-mdi-gcode').val();
@@ -554,17 +561,22 @@ $(function(){
 		socket.emit('homing_geral', '1');
 	});
 
-	$('#btn-mover-eixo-manual').mousedown(function(){
-		let eixo = '', valor = 0, sinal = '';
+	function touchend(event) {
+ 		manualModeData = ['',0,''];		
+		socket.emit('move_eixo_manual', manualModeData);
+	}
+
+	function touchstart(event) {
+ 		let eixo = '', valor = 0, sinal = '';
 
 		if($('#btn-x-manual').hasClass('lightblue')){
 			eixo='1';
 		}else if($('#btn-y-manual').hasClass('lightblue')){
-			eixo='3';
-		}else if($('#btn-z-manual').hasClass('lightblue')){
 			eixo='2';
+		}else if($('#btn-z-manual').hasClass('lightblue')){
+			eixo='3';
 		}else if($('#btn-b-manual').hasClass('lightblue')){
-			eixo='4';
+			eixo='6';
 		}else if($('#btn-c-manual').hasClass('lightblue')){
 			eixo='7';
 		}else if($('#btn-ext-manual').hasClass('lightblue')){
@@ -575,29 +587,77 @@ $(function(){
 			valor=0.1;
 			sinal = 'negativo';
 		}else if($('#btn-menosum-manual').hasClass('lightblue')){
-			valor=1;
+			valor=10;
 			sinal = 'negativo';
 		}else if($('#btn-menosdez-manual').hasClass('lightblue')){
-			valor=10;
+			valor=100;
 			sinal = 'negativo';
 		}else if($('#btn-maiszeroum-manual').hasClass('lightblue')){
 			valor=0;
 			sinal = 'positivo';
 		}else if($('#btn-maisum-manual').hasClass('lightblue')){
-			valor=1;
+			valor=10;
 			sinal = 'positivo';
 		}else if($('#btn-maisdez-manual').hasClass('lightblue')){
-			valor=10;
+			valor=100;
 			sinal = 'positivo';
 		}
 
 		manualModeData = [eixo,valor,sinal];
 		socket.emit('move_eixo_manual', manualModeData);
+	}
+
+	var touchzone = document.getElementById("btn-mover-eixo-manual");
+	touchzone.addEventListener("touchstart", touchstart, false);
+	touchzone.addEventListener("touchend", touchend, false);
+
+
+
+	$('#btn-mover-eixo-manual').mousedown(function(){
+		/*
+		let eixo = '', valor = 0, sinal = '';
+
+		if($('#btn-x-manual').hasClass('lightblue')){
+			eixo='1';
+		}else if($('#btn-y-manual').hasClass('lightblue')){
+			eixo='2';
+		}else if($('#btn-z-manual').hasClass('lightblue')){
+			eixo='3';
+		}else if($('#btn-b-manual').hasClass('lightblue')){
+			eixo='6';
+		}else if($('#btn-c-manual').hasClass('lightblue')){
+			eixo='7';
+		}else if($('#btn-ext-manual').hasClass('lightblue')){
+			eixo='9';
+		}
+
+		if($('#btn-menoszeroum-manual').hasClass('lightblue')){
+			valor=0.1;
+			sinal = 'negativo';
+		}else if($('#btn-menosum-manual').hasClass('lightblue')){
+			valor=10;
+			sinal = 'negativo';
+		}else if($('#btn-menosdez-manual').hasClass('lightblue')){
+			valor=100;
+			sinal = 'negativo';
+		}else if($('#btn-maiszeroum-manual').hasClass('lightblue')){
+			valor=0;
+			sinal = 'positivo';
+		}else if($('#btn-maisum-manual').hasClass('lightblue')){
+			valor=10;
+			sinal = 'positivo';
+		}else if($('#btn-maisdez-manual').hasClass('lightblue')){
+			valor=100;
+			sinal = 'positivo';
+		}
+
+		manualModeData = [eixo,valor,sinal];
+		socket.emit('move_eixo_manual', manualModeData);*/
 	});
 
 	$('#btn-mover-eixo-manual').mouseup(function(){
-		manualModeData = ['',0,''];		
-		socket.emit('move_eixo_manual', manualModeData);
+		/*manualModeData = ['',0,''];		
+		socket.emit('move_eixo_manual', manualModeData);*/
 	});
 
 	$('#aquecimento-temperatura-camara--10').on('click',function(){
@@ -830,18 +890,21 @@ $(function(){
     });
 
     socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[0].actCmdPosition', function(actCmdPosition) {
+    	if(actCmdPosition<0){
+    		actCmdPosition = actCmdPosition*(-1);
+    	}
         $('#span-x-pos').width(actCmdPosition);
     	$('#progress-x-pos').val(actCmdPosition);
     	$('#strong-x-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
         $('#span-z-pos').width(actCmdPosition);
     	$('#progress-z-pos').val(actCmdPosition);
     	$('#strong-z-pos').text((actCmdPosition).toFixed(2));
     });
 
-    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
+    socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
         $('#span-y-pos').width(actCmdPosition);
     	$('#progress-y-pos').val(actCmdPosition);
     	$('#strong-y-pos').text((actCmdPosition).toFixed(2));
@@ -855,7 +918,8 @@ $(function(){
     });
 
     socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[5].actCmdPosition', function(actCmdPosition) {
-		updateAngleC(pointValuesC,0,actCmdPosition);
+    	pointValuesC=pointValuesC + 90;
+		updateAngleC(pointValuesC,30,actCmdPosition,pointC);
 		$('#span-c-pos').text((actCmdPosition).toFixed(2));
     });
 
@@ -889,7 +953,7 @@ $(function(){
     	let color = getColor(value/100);
     	histograma.update(globalfData.map(function(v){ 
     	return ["AL",(value/100).toFixed(2)];}),color);
-
+    	
     	$('#span-temperatura-camara-valor').css('color',color);
 
     });
@@ -1475,7 +1539,7 @@ function main() {
     pointValuesB=pointValues;
 	pointValues = pointValues + 90;
 	angle = angle + 0.5;
-	updateAngle(pointValues,20,angle);
+	updateAngleB(pointValues,20,angle);
   }
 
   function initLines() {
@@ -1692,7 +1756,7 @@ function main2() {
   var lines = [];
   let pointValues = 0;
   let angle = 0;
-  var point = document.getElementById('pointC');
+  var pointC = document.getElementById('pointC');
 
   init();
 
@@ -1704,7 +1768,7 @@ function main2() {
     pointValuesC=pointValues;
 	pointValues = pointValues;
 	angle = angle + 0.5;
-	updateAngle(pointValues,0,angle);
+	updateAngleC(pointValues,0,angle,pointC);
   }
 
   function initLines() {
@@ -1806,16 +1870,17 @@ function findAngle(_ref) {
 
 
 
-function updateThetaC(newTheta) {
+function updateThetaC(newTheta,pointC) {
+	let pointC2 = document.getElementById('pointC');
     window.requestAnimationFrame(function () {
-      pointC.style.transform = 'rotateZ(-' + newTheta + 'deg)';
+      pointC2.style.transform = 'rotateZ(-' + newTheta + 'deg)';
       linesC.forEach(function (line) {
         return line.update(newTheta);
       });
     });
 }
 
-  function updateAngleC(x,y,angle){
+  function updateAngleC(x,y,angle,pointC){
   	var coordinates = {
       x: x,
       y: (y) * -1 // reverse direction of co-ordinates
@@ -1823,6 +1888,6 @@ function updateThetaC(newTheta) {
 
     var polarCoordinates = toPolar(coordinates,angle);
     if (polarCoordinates.theta != null) {
-      updateThetaC(polarCoordinates.theta);
+      updateThetaC(polarCoordinates.theta,pointC);
     }
   }

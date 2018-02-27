@@ -2,15 +2,69 @@
 <html>
 <head>
 	<title>HMI</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+	
+    <link rel="stylesheet" href="webapp/twoDView.css" type="text/css">
+    <link rel="stylesheet" href="webapp/threeDView.css" type="text/css">
+     <style>
+        .editBlock {
+            position: relative;
+            float: left;
+            width: 39%;
+            height: 400px;
+            padding: 1px;
+            margin: 0;
+        }
+
+        .editBlock pre {
+            width: 100%;
+            height: 350px;
+            margin: 0;
+        }
+
+        .viewContainer {
+            width: 100%;
+        }
+
+        #loader {
+            display: inline-block;
+            background-size: 100% 100%;
+            background-image: url(webapp/images/spinner.svg);
+            width: 20px;
+            height: 20px;
+        }
+
+        .boundsTable {
+            border-collapse: collapse;
+        }
+
+        .boundsTable td {
+            border: dashed gray 1px;
+            padding: 3px;
+        }
+
+        .ThreeDView {
+            border: solid gray 1px;
+            background: #000;
+            height: 800px;
+            position: relative;
+        }
+
+        .TwoDView {
+            border: solid gray 1px;
+            background: #000;
+            height: 300px;
+            display: none;
+        }
+    </style>
 </head>
-<body>
+<body >
 	<div id="div-machine-state" class="topbar">
 		<!--<div id="div-power-button">
 	    	<a id="power-button" class="power-button"><i class="fa fa-power-off"></i></a>
@@ -287,6 +341,9 @@
 		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-4" id="linha-gcode-4" readonly></div>
 		  		<div class="div-linha-gcode"><input class="input-linha-gcode" type="text" name="linha-gcode-5" id="linha-gcode-5" readonly></div>
 		  	</div>
+		  	<div>
+		  		<button id="btn-ver3d" class="btn-push2">Ver 3D</button>
+		  	</div>
 		  </div>
 		</div>
 
@@ -540,43 +597,47 @@
 	    </div>
 	    <div id="div-botoes-teclado">
 	    	<div class="div-botoes-teclado-linha">
-		    		<button class="btn-push3 blue teclado-btns" id="btn-teclado-g">G</button>
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-x">X</button>
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-y">Y</button>
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-z">Z</button>
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-b">B</button>
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-c">C</button>
+		    		
+			    		
+	    	</div>
+			<div class="div-botoes-teclado-linha">
+				<button class="btn-push3 blue teclado-btns" id="btn-teclado-g">G</button>
 			    	<button class="btn-push3 blue teclado-btns" id="btn-teclado-m">M</button>
 			    	<button class="btn-push3 white teclado-btns" id="btn-teclado-empty"></button>
 			    	<button class="btn-push3 teclado-btns" id="btn-teclado-f">F</button>
-			    	<button class="btn-push3 teclado-btns" id="btn-teclado-x">X</button>	
-	    	</div>
-			<div class="div-botoes-teclado-linha">
 				<button class="btn-push3 teclado-btns" id="btn-teclado-1">1</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-2">2</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-3">3</button>	
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-p">P</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-y">Y</button>
+		    	
 			</div>	    	
 	    	<div class="div-botoes-teclado-linha">
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-4">4</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-5">5</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-6">6</button>	
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-s">S</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-z">Z</button>
+		    	
 	    	</div>
 	    	<div class="div-botoes-teclado-linha">
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-7">7</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-8">8</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-9">9</button>	
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-t">T</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-e">E</button>
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-igual">=</button>
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-a">A</button>
 	    	</div>
 	    	<div class="div-botoes-teclado-linha">
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-menos">-</button>	
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-0">0</button>
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-point">.</button>
-	    		<button class="btn-push3 teclado-btns" id="btn-teclado-b">B</button>
-	    		<button class="btn-push3 teclado-btns" id="btn-teclado-c">C</button>
+
 	    	</div>
 	    	<div class="div-botoes-teclado-linha">
-	    		<button class="btn-push3" id="btn-teclado-espaco">Espaço</button>
-	    		<button class="btn-push3" id="btn-teclado-apaga-ultimo">Apaga Último</button>
+	    		<button class="btn-push3" id="btn-teclado-espaco" style="padding: 10px 20px">									<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9z"/></svg></button>
+	    		<button style="padding: 10px 20px" class="btn-push3" id="btn-teclado-apaga-ultimo"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg></button>
 	    	</div>
 	    </div>
 	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
@@ -641,6 +702,149 @@
 	    </div>
 	  </div>
 	</div>
+
+	<div id="modal-3d" class="modal">
+		<div id="app">
+			<span id="modal-3d-close" class="close3D">&times;</span>
+    	</div>	
+	</div>
+
+    
+    <script id="demoCode" type="application/gcode">
+
+</script>
 <script type="text/javascript" src="js/main.js"></script>
+	<script src="webapp/libs/require.js"></script>
+    <script src="webapp/config.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: 'webapp'
+        });
+    </script>
+<script>
+    require(['Ember', 'cnc/ui/graphicView', 'cnc/cam/cam', 'cnc/util', 'cnc/ui/gcodeEditor', 'cnc/gcode/gcodeSimulation', 'templates'],
+            function (Ember, GraphicView, cam, util, gcodeEditor, gcodeSimulation) {
+                var demoCode = $('#demoCode').text();
+
+                Ember.Handlebars.helper('num', function (value) {
+                    return new Handlebars.SafeString(Handlebars.Utils.escapeExpression(util.formatCoord(value)));
+                });
+                Ember.TEMPLATES['application'] = Ember.TEMPLATES['camApp'];
+
+                window.Simulator = Ember.Application.create({
+                    rootElement: '#app'
+                });
+
+                Simulator.GcodeEditorComponent = gcodeEditor.GcodeEditorComponent;
+                Simulator.GraphicView = GraphicView;
+
+                Simulator.ApplicationController = Ember.ObjectController.extend({
+                    init: function () {
+                        this._super();
+                        var _this = this;
+                        $(window).on('dragover', function (event) {
+                            event.preventDefault();
+                            event.dataTransfer.dropEffect = 'move';
+                        });
+
+                        $(window).on('drop', function (evt) {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            var files = evt.dataTransfer.files;
+                            var file = files[0];
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                _this.set('code', e.target.result);
+                                _this.launchSimulation();
+
+                              $('.image-upload-wrap').hide();
+                              $('.file-upload-image').attr('src', e.target.result);
+                              $('.file-upload-content').show();
+                              $('.image-title').html(file.name);
+                            };
+                            reader.readAsText(file);
+                        });
+
+                        $('#ficheiro-gcode').on('change',function(event){
+                            var file = this.files[0];
+                            
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                _this.set('code', e.target.result);
+                                _this.launchSimulation();
+                            };
+                            reader.readAsText(file);
+                        });
+                        this.launchSimulation();
+                    },
+                    actions: {
+                        simulate: function () {
+                            this.launchSimulation();
+                        },
+                        loadBigSample: function () {
+                            this.set('computing', true);
+                            var _this = this;
+                            require(['text!samples/aztec_calendar.ngc'], function (text) {
+                                _this.set('code', text);
+                                _this.launchSimulation();
+                            });
+                        }
+                    },
+                    launchSimulation: function () {
+                        var _this = this;
+
+                        function handleResult(result) {
+                            _this.flushFragmentFile();
+                            var errors = [];
+                            for (var i = 0; i < result.errors.length; i++) {
+                                var error = result.errors[i];
+                                errors.push({row: error.lineNo, text: error.message, type: "error"});
+                            }
+                            _this.set('errors', errors);
+                            _this.set('bbox', {min: result.min, max: result.max});
+                            _this.set('totalTime', result.totalTime);
+                            _this.set('lineSegmentMap', result.lineSegmentMap);
+                            _this.set('computing', false);
+                            console.timeEnd('simulation');
+                        }
+
+                        console.time('simulation');
+                        this.set('computing', true);
+                        _this.set('lineSegmentMap', []);
+                        this.get('simulatedPath').clear();
+                        gcodeSimulation.parseInWorker(this.get('code'), new util.Point(0, 0, 0),
+                                Ember.run.bind(_this, handleResult),
+                                Ember.run.bind(_this, function (fragment) {
+                                    _this.get('fragmentFile').pushObject(fragment);
+                                    Ember.run.throttle(_this, _this.flushFragmentFile, 2500);
+                                }));
+                    },
+                    flushFragmentFile: function () {
+                        this.get('simulatedPath').pushObjects(this.get('fragmentFile'));
+                        this.get('fragmentFile').clear();
+                    },
+                    formattedTotalTime: function () {
+                        var totalTime = this.get('totalTime');
+                        var humanized = util.humanizeDuration(totalTime);
+                        return {humanized: humanized, detailed: Math.round(totalTime) + 's'};
+                    }.property('totalTime'),
+                    currentHighLight: function () {
+                        return this.get('lineSegmentMap')[this.get('currentRow')];
+                    }.property('currentRow', 'lineSegmentMap').readOnly(),
+                    code: demoCode,
+                    errors: [],
+                    bbox: {},
+                    totalTime: 0,
+                    lineSegmentMap: [],
+                    currentRow: null,
+                    simulatedPath: [],
+                    computing: false,
+                    fragmentFile: [],
+                    canSelectLanguage: false,
+                    usingGcode: true,
+                    decorations: []
+                });
+            });
+</script>
 </body>
 </html>

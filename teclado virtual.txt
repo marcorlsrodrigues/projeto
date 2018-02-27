@@ -1,0 +1,8 @@
+- E para A (extrusor) - OK
+- F: Velocidade de interpolação
+- P: para definir parâmetros á escolha do utilizador (exemplo P1=50 e a meio do código pode ter algures um X50 + P1)
+- S: retirar - OK
+- T: trocar por igual - OK
+- M: funções definidas pelo utilizador
+- G: funções pré-definidas pelo CNC (ex: G01 interpolação linear...)
+
