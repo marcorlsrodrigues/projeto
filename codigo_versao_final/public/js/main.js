@@ -976,11 +976,11 @@ $(function(){
     	$('#span-temperatura-extrusor-valor').css('color',color);
     });
     socket.on('GVL.Temp_Chiller', function(value) {
-    	$('#span-temperatura-agua-chiller-valor').text((value/100).toFixed(2));
+    	$('#span-temperatura-agua-chiller-valor').text((value/10).toFixed(2));
     	
-    	let color = getColor(value/100);
+    	let color = getColor(value/10);
     	histograma4.update(globalData_TempAguaChiller.map(function(v){ 
-    	return ["AL",(value/100).toFixed(2)];}),color);
+    	return ["AL",(value/10).toFixed(2)];}),color);
 
     	$('#span-temperatura-agua-chiller-valor').css('color',color);
     });
@@ -994,29 +994,29 @@ $(function(){
     	$('#span-temperatura-motor-b-valor').css('color',color);
     });
     socket.on('GVL.Temp_Quadro', function(value) {
-    	$('#span-temperatura-quadro-valor').text((value/100).toFixed(2));
+    	$('#span-temperatura-quadro-valor').text((value/10).toFixed(2));
     	
-    	let color = getColor(value/100);
+    	let color = getColor(value/10);
     	histograma6.update(globalData_TempQuadro.map(function(v){ 
-    	return ["AL",(value/100).toFixed(2)];}),color);
+    	return ["AL",(value/10).toFixed(2)];}),color);
 
     	$('#span-temperatura-quadro-valor').css('color',color);
     });
     socket.on('GVL.Temp_Cabos', function(value) {
-    	$('#span-temperatura-saida-cablagem-valor').text((value/100).toFixed(2));
+    	$('#span-temperatura-saida-cablagem-valor').text((value/10).toFixed(2));
     	
-    	let color = getColor(value/100);
+    	let color = getColor(value/10);
     	histograma7.update(globalData_TempSaidaCablagem.map(function(v){ 
-    	return ["AL",(value/100).toFixed(2)];}),color);
+    	return ["AL",(value/10).toFixed(2)];}),color);
 
     	$('#span-temperatura-saida-cablagem-valor').css('color',color);
     });
-    socket.on('GVL.Temp_PontoMovel', function(value) {
-    	$('#span-temperatura-ponto-movel-valor').text((value).toFixed(2));
+    socket.on('GVL.Temp_8', function(value) {
+    	$('#span-temperatura-ponto-movel-valor').text((value/10).toFixed(2));
 
-    	let color = getColor(value);
+    	let color = getColor(value/10);
     	histograma8.update(globalData_TempPontoMovel.map(function(v){ 
-    	return ["AL",(value).toFixed(2)];}),color);
+    	return ["AL",(value/10).toFixed(2)];}),color);
 
     	$('#span-temperatura-ponto-movel-valor').css('color',color);
     });

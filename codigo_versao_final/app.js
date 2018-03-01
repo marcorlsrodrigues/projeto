@@ -183,8 +183,8 @@ var hl_TempSaidaCablagem = {
 };
 
 var hl_TempPontoMovel = {
-    symname: 'GVL.Temp_PontoMovel',  
-    bytelength: ads.LREAL,  
+    symname: 'GVL.Temp_8',  
+    bytelength: ads.INT,  
     propname: 'value'      
 };
 
@@ -487,8 +487,8 @@ io.sockets.on('connection',function(socket){
     client = ads.connect(options, function() {
         console.log('Ads connected');
 
-        this.notify(hl_MachineState);
-    	this.notify(hl_Poweron);
+        //this.notify(hl_MachineState);
+    	//this.notify(hl_Poweron);
     	this.notify(hl_xActPos);
     	this.notify(hl_yActPos);
         this.notify(hl_TempCamara);
@@ -505,11 +505,11 @@ io.sockets.on('connection',function(socket){
 		this.notify(hl_TempExtrusor);
 		this.notify(hl_TempAguaChiller);
         this.notify(hl_TempQuadro);
-		/*this.notify(hl_TempMotorB);
+		this.notify(hl_TempMotorB);
 		
 		this.notify(hl_TempSaidaCablagem);
 		this.notify(hl_TempPontoMovel);
-		this.notify(hl_BlockNumber);*/
+		//this.notify(hl_BlockNumber);
     });
 
 
