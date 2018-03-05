@@ -2,7 +2,7 @@
 - alterar teclado virtual para dispôr de forma mais "amiavel": XYZ na horizontal em cima, B e C, agruoar por funcionalidade
 - botoes do teclado virtual terem cores diferentes (por grupo?)
 - atulalizar printscreens com  imagens da HMI no touchscreen
-- validar disponibilização com do teclado com utilizadores
+- validar disponibilização com do teclado com utilizadores - OK
 - pôr uma descrição dos comandos GCODE - OK
 - imagens do tablet e de utilização
 - documentar teste com HMI na maquina HMI: passar SUS de novo, repetir questionario para resultados obtidos
