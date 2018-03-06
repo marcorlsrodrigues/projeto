@@ -189,7 +189,7 @@ var hl_TempPontoMovel = {
 };
 
 var hl_BlockNumber = {
-    symname: 'GVL.block_number',  
+    symname: 'GVL.gvl_blockcount',  
     bytelength: ads.DINT,  
     propname: 'value'      
 };
@@ -339,7 +339,7 @@ var hl_OutrosAjusteMesa = {
 };
 
 var hl_MachineState = {
-    symname: 'GVL.machine_state',  
+    symname: 'GVL.gvl_machine_state',  
     bytelength: ads.STRING,  
     propname: 'value'      
 };
@@ -461,7 +461,7 @@ function automatic_register_parameters() {
 	});
 
 
-  	setTimeout(automatic_register_parameters, 1000);
+  	setTimeout(automatic_register_parameters, 30000);
   }
 }
 
@@ -509,7 +509,7 @@ io.sockets.on('connection',function(socket){
 		
 		this.notify(hl_TempSaidaCablagem);
 		this.notify(hl_TempPontoMovel);
-		//this.notify(hl_BlockNumber);
+		this.notify(hl_BlockNumber);
     });
 
 

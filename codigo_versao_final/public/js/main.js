@@ -899,12 +899,18 @@ $(function(){
     });
 
     socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[3].actCmdPosition', function(actCmdPosition) {
+    	if(actCmdPosition<0){
+    		actCmdPosition = actCmdPosition*(-1);
+    	}
         $('#span-z-pos').width(actCmdPosition);
     	$('#progress-z-pos').val(actCmdPosition);
     	$('#strong-z-pos').text((actCmdPosition).toFixed(2));
     });
 
     socket.on('CncHmiData.PlcHmiData.Channel[0].Axis[2].actCmdPosition', function(actCmdPosition) {
+    	if(actCmdPosition<0){
+    		actCmdPosition = actCmdPosition*(-1);
+    	}
         $('#span-y-pos').width(actCmdPosition);
     	$('#progress-y-pos').val(actCmdPosition);
     	$('#strong-y-pos').text((actCmdPosition).toFixed(2));
@@ -1174,6 +1180,8 @@ $(function(){
     });
 
     socket.on('historico_detalhes_grafico', function(data) {
+    	console.log('historico_detalhes_grafico');
+    	console.log(data);
     	arrayGrafico.push(data);
     });
 
