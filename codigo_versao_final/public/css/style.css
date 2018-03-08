@@ -1948,7 +1948,6 @@ rect:hover {  fill:green; }
 }
 
 .line {
-  display: none;
   width: 80px;
   height: 2px;
   position: absolute;

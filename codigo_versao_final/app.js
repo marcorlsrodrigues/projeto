@@ -453,7 +453,7 @@ function automatic_register_parameters() {
   if(register_parameters){
     
 	let data = {
-        filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value,temp_tabuleiro:hl_TempTabuleiro.value,temp_extrusor:hl_TempExtrusor.value,temp_aguaChiller:hl_TempAguaChiller.value,temp_motorB:hl_TempMotorB.value,temp_quadro:hl_TempQuadro.value,temp_saidaCablagem:hl_TempSaidaCablagem.value,temp_pontoMovel:hl_TempPontoMovel.value
+        filename:ficheiroGcode, date:new Date(), file_id:inserted_id ,temp_camara:hl_TempCamara.value/100,temp_tabuleiro:hl_TempTabuleiro.value/100,temp_extrusor:hl_TempExtrusor.value/10,temp_aguaChiller:hl_TempAguaChiller.value/10,temp_motorB:hl_TempMotorB.value,temp_quadro:hl_TempQuadro.value/10,temp_saidaCablagem:hl_TempSaidaCablagem.value/10,temp_pontoMovel:hl_TempPontoMovel.value/10
     };
     
     rdb.table('file_execution').insert(data).run(global_conn, function(err, result) {
@@ -568,6 +568,17 @@ io.sockets.on('connection',function(socket){
                 console.log(err);
             });
         });
+
+        /*setTimeout(function(){
+            hl_FileStart.value=value;
+            client.write(hl_FileStart, function(err) {
+                console.log('err: '+ err);
+                client.read(hl_FileStart, function(err, handle) {
+                    console.log(err);
+                });
+        })},1000);*/
+
+
         let data = {
             filename:ficheiroGcode, start_date:new Date(), pause_date:null,stop_date:null
         };
@@ -986,7 +997,8 @@ io.sockets.on('connection',function(socket){
     		min_temp_aguachiller =0.0, max_temp_aguachiller =0.0,avg_temp_aguachiller =0.0,
     		min_temp_pontomovel =0.0, max_temp_pontomovel =0.0,avg_temp_pontomovel =0.0;
     	let arrayGrafico = [];
-
+        console.log('detalhes1');
+        console.log('id:'+id);
     	rdb.table("file_execution").filter({file_id: id}).orderBy(rdb.asc('date')).run(conn)
     		.then(cursor => {
                 cursor.each((err, returnedData) => {
@@ -994,6 +1006,7 @@ io.sockets.on('connection',function(socket){
                 	socket.emit('historico_detalhes_grafico',arrayGrafico);
                 });
     		});;
+        console.log('detalhes2');
     	
     	rdb.table("file_execution")
     		.filter({file_id: id})
@@ -1008,6 +1021,8 @@ io.sockets.on('connection',function(socket){
     		.filter({file_id: id})
     		.max('temp_camara')
     		.run(conn,function(err,result){
+                console.log('temp_camara:');
+                console.log(result);
     			max_temp_camara = result.temp_camara.toFixed(2);
     			socket.emit('historico_detalhes_max_temp_camara',max_temp_camara);
     		});

@@ -17,6 +17,7 @@ var linesC = [];
 let pointValuesB = 0;
 let pointValuesC = 0;
 var pointC = document.getElementById('pointC');
+var global_filename='';
 
 
 /*
@@ -273,7 +274,7 @@ $(function(){
 	var span3d = document.getElementById("modal-3d-close");
 	var autoBlockNumber = 0, automatico_inicia = false;
 
-	let machState='off';
+	let machState='on';
 	let ficheiroGcode=[];
 	let manualModeData = [], temperaturaCamara = [], temperaturaTabuleiro = [], temperaturaExtrusor = [],
 		velocidadeAvanco=[], velocidadeExtrPolimero = [],velocidadeExtrFibra=[], file_executions_table = [];
@@ -489,6 +490,7 @@ $(function(){
 	});
 
 	$('#btn-iniciar').click(function(){	  
+	  socket.emit('machine_state', 'auto');
 	  socket.emit('automatico_iniciar', '1');
 	});
 
@@ -1027,7 +1029,7 @@ $(function(){
     	$('#span-temperatura-ponto-movel-valor').css('color',color);
     });
 
-    socket.on('GVL.block_number',function(value){
+    socket.on('GVL.gvl_blockcount',function(value){
     	let block = 0;
     	autoBlockNumber = value;
     	if(value > 0){
@@ -1044,6 +1046,15 @@ $(function(){
     		$('#linha-gcode-3').val('');
     		$('#linha-gcode-4').val('');
     		$('#linha-gcode-5').val('');
+    	}
+
+    	if(ficheiroGcode[block] != '' && ficheiroGcode[block] != undefined && block > 0){
+    		let strLinha1 = ficheiroGcode[block];
+    		if(strLinha1.indexOf('M30') >= 0){
+	    		socket.emit('automatico_parar', '1');
+		  		socket.emit('machine_state', 'on');
+		  		automatico_inicia=false;
+    		}
     	}
 
     	if(automatico_inicia==true && value==0){
@@ -1267,13 +1278,13 @@ function desenhaGraficoDetalhes(){
 	$('#div-historico-detalhes-grafico').empty();
 	graficoDesenhado=true;
     var margin = {top: 20, right: 20, bottom: 130, left: 50},
-    width = 500 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+    width = 480 - margin.left - margin.right,
+    height = 580 - margin.top - margin.bottom;
 
 	var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
 	var x = d3.time.scale()
-	    .range([0, width])
+	    .range([0, width]);
 
 	var y = d3.scale.linear()
 	    .range([height, 0]);
@@ -1339,7 +1350,7 @@ function desenhaGraficoDetalhes(){
 	  });
 
 	  x.domain(d3.extent(data, function(d) { return d.date; }));
-	  y.domain([0, 100]);
+	  y.domain([0, 50]);
 	  //y.domain([0, d3.max(data, function(d) { return d.close; })]);
 	  //y.domain(d3.extent(data, function(d) { return d.close; }));
 

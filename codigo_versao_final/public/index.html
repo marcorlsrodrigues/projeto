@@ -7,6 +7,7 @@
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/moment.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 	
@@ -64,7 +65,7 @@
         }
     </style>
 </head>
-<body >
+<body oncontextmenu="return false;">
 	<div id="div-machine-state" class="topbar">
 		<!--<div id="div-power-button">
 	    	<a id="power-button" class="power-button"><i class="fa fa-power-off"></i></a>
@@ -607,31 +608,37 @@
 	    	</div>
 			<div class="div-botoes-teclado-linha">
 				<button class="btn-push3 blue teclado-btns" id="btn-teclado-g">G</button>
-		    	<button class="btn-push3 blue teclado-btns" id="btn-teclado-m">M</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-f">F</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-p">P</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-a">A</button>
-			</div>	    	
-	    	<div class="div-botoes-teclado-linha">
-	    		<button class="btn-push3 teclado-btns" id="btn-teclado-1">1</button>
+			    	<button class="btn-push3 blue teclado-btns" id="btn-teclado-m">M</button>
+			    	<button class="btn-push3 white teclado-btns" id="btn-teclado-empty"></button>
+			    	<button class="btn-push3 teclado-btns" id="btn-teclado-f">F</button>
+				<button class="btn-push3 teclado-btns" id="btn-teclado-1">1</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-2">2</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-3">3</button>	
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-p">P</button>
+		    	
+			</div>	    	
+	    	<div class="div-botoes-teclado-linha">
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-4">4</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-5">5</button>
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-6">6</button>	
+		    	
 	    	</div>
 	    	<div class="div-botoes-teclado-linha">
-	    		<button class="btn-push3 teclado-btns" id="btn-teclado-6">6</button>	
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-7">7</button>
 		    	<button class="btn-push3 teclado-btns" id="btn-teclado-8">8</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-9">9</button>
-		    	<button class="btn-push3 teclado-btns" id="btn-teclado-0">0</button>	
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-9">9</button>	
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-igual">=</button>
+		    	<button class="btn-push3 teclado-btns" id="btn-teclado-a">A</button>
 	    	</div>
 	    	<div class="div-botoes-teclado-linha">
-	    		<button class="btn-push3" id="btn-teclado-espaco" style="padding-top: 11px;padding-left: 24px;padding-right: 24px;"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9z"/></svg></button>
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-menos">-</button>	
+	    		<button class="btn-push3 teclado-btns" id="btn-teclado-0">0</button>
 	    		<button class="btn-push3 teclado-btns" id="btn-teclado-point">.</button>
-	    		<button class="btn-push3 teclado-btns" id="btn-teclado-igual">=</button>
-	    		<button style="padding-top: 11px;padding-left: 24px;padding-right: 24px;" class="btn-push3" id="btn-teclado-apaga-ultimo"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg></button>
+
+	    	</div>
+	    	<div class="div-botoes-teclado-linha">
+	    		<button class="btn-push3" id="btn-teclado-espaco" style="padding: 10px 20px">									<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9z"/></svg></button>
+	    		<button style="padding: 10px 20px" class="btn-push3" id="btn-teclado-apaga-ultimo"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg></button>
 	    	</div>
 	    </div>
 	    <div><table id="table-mdi-gcode"><tbody></tbody></table></div>
