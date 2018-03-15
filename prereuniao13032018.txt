@@ -1,7 +1,0 @@
-/ simular impress\oes com ficheiros de codigo G com os outros utilizadorese correr os SUS
-/ real;ar requisitos que nao foram possiveis devido a falta de instrumewnta;ao
-/ tirar figura abaixo e colocar referencia ]a figura / cross reference -> deixar para o final da tese
-/ referenciar todas as figuras
-/ nas conclusoes escrever algo que va para alem da tese, algo mais profunda qual a verdadeira importancia, subir o nivel da abordagem, q	ue passos se podem dar a partir daqui, problemas encontrados e coimo resolver, por onde se poldia avan;ar esse trabalho
-
-prox reuniao 22/03 17h30
