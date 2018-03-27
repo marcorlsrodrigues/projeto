@@ -1,0 +1,15 @@
+/resumo> focar mais nos resultados,apresentar mais os resultados, focar mais do tipo foi identificado um problema de fabrico aditivo para o qual se pensou numa solu;\ao hmi, sao apresentados os requisitose e feita uma proposta de arquitetrua de solu;ao, foi validado junto dos utilizadores e obtive resultados satisfatorios, podemos colocar conclusoes importantes e fazer real;ar os principais contributos, uma proposta, arquitetura, metodologia, e uma solu;ao que foi utilizada num contexto real e dizer que ha algumas coisas a melhorar
+/ quaLIFICAR com base nos valores a usabilidade com os artigos, fazer referencia em ambas as vezes que aparece o SUS mas apenas na primeira vez explicar o que ]e
+/ referenciar link de artigo nielsen da utilidade de testes de 5 utilizadores?> rsposta> primeiro eram os que existiam e depois o que se sabe e qeu com 5 utilizadores ja dao algumas garantias
+/ combinar na 2a ou 3a para ter ideia de quando posso ter feedback
+
+
+
+/////////////////OLD
+/ simular impress\oes com ficheiros de codigo G com os outros utilizadorese correr os SUS
+/ real;ar requisitos que nao foram possiveis devido a falta de instrumewnta;ao
+/ tirar figura abaixo e colocar referencia ]a figura / cross reference
+/ referenciar todas as figuras
+/ nas conclusoes escrever algo que va para alem da tese, algo mais profunda qual a verdadeira importancia, subir o nivel da abordagem, q	ue passos se podem dar a partir daqui, problemas encontrados e coimo resolver, por onde se poldia avan;ar esse trabalho
+
+prox reuniao 22/03 17h30
