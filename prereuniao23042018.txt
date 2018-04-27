@@ -1,5 +1,5 @@
 - cloud computing colocar mais coisas para equilibrar. esta muito resumido (acrescentar 2 paragrafos, um com as principais caracteristicas (virtualizacao...) e outra a falar nas plataforma as a service, infrastrucutre as a svice, etc) --> ver livro na pasta partilhada (1º capitulo) - OK
-- utlizar artigo para efinicao de realidade aumentada. definicao mais proxima do azuma e falar que é ma representação digital por cima do mundo real
+- utlizar artigo para efinicao de realidade aumentada. definicao mais proxima do azuma e falar que é ma representação digital por cima do mundo real - OK
 - tabela 1 acertr linhas em altura, alterar para bermudez et all - OK
 
 proxima reuniao 6a feira - 17h30

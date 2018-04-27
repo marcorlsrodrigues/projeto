@@ -1,8 +1,0 @@
-- definir conceitos chave de forma natural durante introdução
-- estado da arte - estudos comparativos : identificar caracteristicas relevantes, com espécie de tabela
-
-- quais os resultados esperados e como serão medidos, qual a metodologia a usar
-
-- Desenvolver, recolher resultados e concluir
-
-- citação APA
