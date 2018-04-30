@@ -2,7 +2,7 @@
 - fazer nov secao 3.2 Dexcriçao de equipamentos onde tem os equipamentos e o gcode - OK
 - no 3.1 deixar o primeiro paragrafo - OK
 - fazer intorduçao no 4 - OK
-- manter figuras coerentes entre elas (12.5 cmNA FIGURA 52)
+- manter figuras coerentes entre elas (12.5 cmNA FIGURA 52) - OK
 
 - proxima reuniao: 13-04 - 11h-12h30
 
