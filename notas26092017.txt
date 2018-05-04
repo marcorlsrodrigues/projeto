@@ -1,9 +1,0 @@
-- pode haver ajustes
-- planeamento ?
-- proposta de desenvolvimento transformado em abordagem desenvoldida?
-- conclusoes e trabalho futuro (2 paginas) - focar aspetos que se identifique de que forma se atingiu objetivos
-e quais os contributos, ou seja foi criada a ferramenta no contexto em que foi desenvolvido
-- identificar coisas que gostava de ter feito e nao deu tempo ou nao foi possivel
-- descrever situações de testes por onde este traalho podia continuar de forma a valida-lo ainda mais (trab futuro)
-- ar: tablet fixo? mais facil do que livre
--marcar reuniao para daqui a 3 semanas ?
